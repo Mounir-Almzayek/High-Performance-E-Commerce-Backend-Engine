@@ -1,0 +1,18 @@
+# --- Core ---
+Django==5.0.6
+djangorestframework==3.15.1
+psycopg[binary]==3.1.19
+django-environ==0.11.2
+
+# --- Cache / Async ---
+redis==5.0.4
+django-redis==5.4.0
+celery[redis]==5.4.0
+flower==2.0.1
+
+# --- Server ---
+gunicorn==22.0.0
+
+# --- AOP / Observability ---
+django-silk==5.1.0
+structlog==24.1.0
