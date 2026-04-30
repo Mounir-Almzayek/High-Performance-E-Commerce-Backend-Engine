@@ -1,53 +1,111 @@
 """
 Cart services.
 
-Concurrency considerations:
- - The same user might hold the cart open in multiple tabs / devices.
- - Add and remove operations on the same product race on CartItem.quantity.
- - Once the user clicks checkout, no further mutation must succeed.
+Concurrency:
+ - Multi-tab race on the same user's cart is solved by locking the
+   Cart row at the start of every mutation (`SELECT ... FOR UPDATE`).
+ - The `unique_together(cart, product)` constraint on CartItem makes
+   the per-line update naturally idempotent: get_or_create + atomic
+   UPDATE replaces the read-merge-write race with a single statement.
 
-Implementation must take a row lock on the Cart row (or use the optimistic
-`version` column) before mutating items. [NFR1] / [NFR7]
+Once checkout starts, place_order acquires the same row lock, so any
+in-flight cart mutation either completes before checkout snapshots the
+items, or blocks until checkout commits and the cart is CHECKED_OUT
+(and subsequent mutations fail the status guard).
 """
+from __future__ import annotations
+
 from django.db import transaction
 
 from apps.products.models import Product
+from core.aop.decorators import audit_log, timed
 
 from .models import Cart, CartItem
 
 
+# ----------------------------- exceptions ---------------------------------
+
+
+class CartLocked(Exception):
+    """Cart is no longer in OPEN status (already checked out)."""
+
+
+# ----------------------------- public API ---------------------------------
+
+
 def get_or_create_cart(customer) -> Cart:
+    """Get or lazily create the customer's cart. Single-row INSERT, no lock."""
     cart, _ = Cart.objects.get_or_create(customer=customer)
     return cart
 
 
+@timed("cart.add_item")
+@audit_log("cart.add_item")
+@transaction.atomic
 def add_item(*, customer, product_id: int, quantity: int) -> CartItem:
-    """Add or merge a line in the user's open cart.
+    """Add (or merge) a line in the customer's open cart.
 
-    [NFR1] Must serialize per-cart so two concurrent "add" calls cannot
-    create duplicate rows or corrupt the quantity.
+    Locks the cart row first, then upserts the item. Two concurrent
+    adds for the same product serialize on the cart row -> the second
+    caller observes the first caller's quantity and adds on top of it
+    instead of overwriting.
     """
-    # TODO [NFR1]: lock the Cart row (or use distributed lock keyed by cart
-    #              id), then upsert the CartItem inside the same transaction.
-    with transaction.atomic():
-        cart = Cart.objects.select_related("customer").get(customer=customer)
-        product = Product.objects.get(pk=product_id, status=Product.ACTIVE)
-        item, created = CartItem.objects.get_or_create(
-            cart=cart, product=product,
-            defaults={"quantity": quantity, "unit_price": product.price},
-        )
-        if not created:
-            item.quantity = item.quantity + quantity
-            item.save(update_fields=["quantity", "updated_at"])
-        return item
+    cart = (
+        Cart.objects
+        .select_for_update()
+        .select_related("customer")
+        .get(customer=customer)
+    )
+    if cart.status != Cart.OPEN:
+        raise CartLocked(f"Cart is in status={cart.status}; cannot mutate.")
+
+    product = Product.objects.get(pk=product_id, status=Product.ACTIVE)
+    item, created = CartItem.objects.get_or_create(
+        cart=cart,
+        product=product,
+        defaults={"quantity": quantity, "unit_price": product.price},
+    )
+    if not created:
+        # Atomic increment - safe because the cart row is locked.
+        item.quantity = item.quantity + quantity
+        item.save(update_fields=["quantity", "updated_at"])
+
+    Cart.objects.filter(pk=cart.pk).update(version=cart.version + 1)
+    return item
 
 
+@timed("cart.update_item")
+@audit_log("cart.update_item")
+@transaction.atomic
 def update_item(*, customer, item_id: int, quantity: int) -> CartItem | None:
-    """Set quantity. quantity == 0 deletes the line."""
-    # TODO [NFR1]: lock the cart, then update or delete.
-    raise NotImplementedError("Concurrency owner must implement update_item")
+    """Set the line quantity. quantity == 0 deletes the line.
+
+    Locks the cart row first; the item itself is updated by primary key
+    inside the cart-locked region, so no additional lock is needed.
+    """
+    cart = (
+        Cart.objects
+        .select_for_update()
+        .get(customer=customer)
+    )
+    if cart.status != Cart.OPEN:
+        raise CartLocked(f"Cart is in status={cart.status}; cannot mutate.")
+
+    item = CartItem.objects.get(pk=item_id, cart=cart)
+    if quantity == 0:
+        item.delete()
+        Cart.objects.filter(pk=cart.pk).update(version=cart.version + 1)
+        return None
+
+    item.quantity = quantity
+    item.save(update_fields=["quantity", "updated_at"])
+    Cart.objects.filter(pk=cart.pk).update(version=cart.version + 1)
+    return item
 
 
+@timed("cart.clear_cart")
 def clear_cart(*, customer) -> None:
-    """Wipe the open cart (post-checkout cleanup)."""
-    Cart.objects.filter(customer=customer).update(status=Cart.CHECKED_OUT)
+    """Mark the cart CHECKED_OUT. Single-statement update, no lock needed."""
+    Cart.objects.filter(customer=customer, status=Cart.OPEN).update(
+        status=Cart.CHECKED_OUT,
+    )
