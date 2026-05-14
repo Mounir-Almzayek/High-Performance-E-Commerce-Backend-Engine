@@ -101,7 +101,11 @@ def process_in_parallel(
     results: list[dict] = []
 
     # Use bounded executor from NFR2 to respect resource caps
-    with bounded_executor(max_workers=max_workers) as executor:
+    with bounded_executor(
+        max_workers=max_workers,
+        resource="batch",
+        thread_name_prefix="nfr4_batch_worker",
+    ) as executor:
         # Submit all chunks as futures
         futures = {
             executor.submit(handler, chunk): i

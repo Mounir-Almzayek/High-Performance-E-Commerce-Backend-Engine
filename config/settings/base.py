@@ -143,9 +143,28 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # -- Project-specific tunables tied to NFRs ----------------------------------
-# [NFR2] Inner-process concurrency cap used by core.resources.pool. Outer cap
-#        is GUNICORN_WORKERS (set in entrypoint.sh).
+# [NFR2] Outer caps are owned by Gunicorn/Celery, but exposed here so the
+#        diagnostics endpoint can report the live capacity budget.
+GUNICORN_WORKERS = env.int("GUNICORN_WORKERS", default=4)
+GUNICORN_THREADS = env.int("GUNICORN_THREADS", default=2)
+GUNICORN_WORKER_CLASS = env("GUNICORN_WORKER_CLASS", default="sync")
+GUNICORN_TIMEOUT = env.int("GUNICORN_TIMEOUT", default=30)
+CELERY_CONCURRENCY = env.int("CELERY_CONCURRENCY", default=4)
+
+# [NFR2] Inner-process concurrency caps used by core.resources.pool.
 INTERNAL_POOL_MAX_CONCURRENCY = env.int("INTERNAL_POOL_MAX_CONCURRENCY", default=16)
+RESOURCE_CHECKOUT_MAX_CONCURRENCY = env.int("RESOURCE_CHECKOUT_MAX_CONCURRENCY", default=8)
+RESOURCE_PAYMENT_MAX_CONCURRENCY = env.int("RESOURCE_PAYMENT_MAX_CONCURRENCY", default=8)
+RESOURCE_BATCH_MAX_CONCURRENCY = env.int("RESOURCE_BATCH_MAX_CONCURRENCY", default=4)
+RESOURCE_ACQUIRE_TIMEOUT_SECONDS = float(
+    env("RESOURCE_ACQUIRE_TIMEOUT_SECONDS", default="1.0")
+)
+RESOURCE_LIMITS = {
+    "internal_pool": INTERNAL_POOL_MAX_CONCURRENCY,
+    "checkout": RESOURCE_CHECKOUT_MAX_CONCURRENCY,
+    "payment": RESOURCE_PAYMENT_MAX_CONCURRENCY,
+    "batch": RESOURCE_BATCH_MAX_CONCURRENCY,
+}
 
 # Identifier injected by docker-compose so logs can reveal which instance
 # served a given request (used by NFR5 / NFR10 reports).

@@ -31,6 +31,7 @@ from apps.cart.models import Cart, CartItem
 from apps.inventory import services as inventory_services
 from apps.users.models import Address, Customer
 from core.aop.decorators import audit_log, timed
+from core.resources.pool import capacity_limited
 
 from .models import Order, OrderItem
 
@@ -62,6 +63,7 @@ def _calculate_totals(items: list[CartItem]) -> tuple[Decimal, Decimal, Decimal,
 
 @timed("orders.place_order")
 @audit_log("orders.place_order")
+@capacity_limited("checkout")
 @transaction.atomic
 def place_order(
     *,

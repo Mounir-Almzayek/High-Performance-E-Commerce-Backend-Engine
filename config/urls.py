@@ -1,7 +1,10 @@
 from django.contrib import admin
 from django.urls import include, path
 
+from core.diagnostics.views import PoolDiagnosticsView
+
 api_v1 = [
+    path("_diag/pool/", PoolDiagnosticsView.as_view(), name="diag-pool"),
     path("users/",     include("apps.users.urls")),
     path("products/",  include("apps.products.urls")),
     path("cart/",      include("apps.cart.urls")),

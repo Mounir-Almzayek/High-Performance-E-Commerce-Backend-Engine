@@ -36,6 +36,7 @@ from django.utils import timezone
 from apps.inventory import services as inventory_services
 from apps.orders.models import Order, OrderItem
 from core.aop.decorators import audit_log, timed
+from core.resources.pool import capacity_limited
 
 from .models import PaymentIntent, WebhookEvent
 
@@ -70,6 +71,7 @@ def create_intent(*, order_id: int, amount, currency: str = "USD") -> PaymentInt
 
 @timed("payments.capture_payment")
 @audit_log("payments.capture_payment")
+@capacity_limited("payment")
 @transaction.atomic
 def capture_payment(*, intent_id: int, external_id: str) -> PaymentIntent:
     """Move a PaymentIntent from INIT/AUTHORIZED to CAPTURED.
@@ -150,6 +152,7 @@ def capture_payment(*, intent_id: int, external_id: str) -> PaymentIntent:
 
 @timed("payments.refund_payment")
 @audit_log("payments.refund_payment")
+@capacity_limited("payment")
 @transaction.atomic
 def refund_payment(*, intent_id: int, reason: str = "") -> PaymentIntent:
     """Refund a captured payment. Releases inventory back to stock."""
@@ -189,6 +192,7 @@ def refund_payment(*, intent_id: int, reason: str = "") -> PaymentIntent:
 
 @timed("payments.process_webhook")
 @audit_log("payments.process_webhook")
+@capacity_limited("payment")
 def process_webhook(signature: str, payload: dict[str, Any]) -> bool:
     """Idempotently process an inbound gateway webhook.
 

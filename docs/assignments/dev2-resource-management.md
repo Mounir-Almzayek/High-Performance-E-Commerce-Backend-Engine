@@ -31,11 +31,15 @@ request).
   `INTERNAL_POOL_MAX_CONCURRENCY`.
 - `acquire_slot(resource, timeout)` returns False quickly under
   saturation (no unbounded queueing).
+- `resource_slot(...)` / `@capacity_limited(...)` map overload to HTTP
+  503 before checkout or payment work enters a DB transaction.
 - The diagnostic endpoint shows live counters per resource.
 - The NFR2 report compares two `GUNICORN_WORKERS` settings on the same
   load and demonstrates the trade-off.
-- A health rule is documented: `pg_max_connections >= GUNICORN_WORKERS *
-  INSTANCES * (1 + CELERY_CONCURRENCY)`.
+- A health rule is documented: web upper bound =
+  `INSTANCES * GUNICORN_WORKERS * GUNICORN_THREADS`; Celery upper bound =
+  `CELERY_WORKER_REPLICAS * CELERY_CONCURRENCY`; internal executor
+  threads fit inside the remaining database budget.
 
 ## Tips
 

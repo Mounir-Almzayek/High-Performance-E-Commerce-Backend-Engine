@@ -44,19 +44,31 @@ pool. The bounded executor caps fan-out at
 `settings.INTERNAL_POOL_MAX_CONCURRENCY` (env var
 `INTERNAL_POOL_MAX_CONCURRENCY`).
 
+Resource-specific caps are also env-driven:
+
+| Variable | Default | Purpose |
+|---|---:|---|
+| `RESOURCE_CHECKOUT_MAX_CONCURRENCY` | 8 | Max concurrent checkout/order-placement flows per process |
+| `RESOURCE_PAYMENT_MAX_CONCURRENCY` | 8 | Max concurrent payment/webhook flows per process |
+| `RESOURCE_BATCH_MAX_CONCURRENCY` | 4 | Max concurrent batch chunk workers per process |
+| `RESOURCE_ACQUIRE_TIMEOUT_SECONDS` | 1.0 | How long to wait for capacity before returning 503 |
+
 ## Failing fast vs. queueing
 
 `acquire_slot(resource, timeout=...)` returns `False` quickly under
-overload instead of queueing forever. This is the difference between a
-service that **degrades** (some requests fail with 503 they can retry)
-and a service that **collapses** (every request piles up behind the
-slow path until memory blows up).
+overload instead of queueing forever. `resource_slot(...)` and
+`@capacity_limited(...)` build on that primitive and raise a 503-safe
+`CapacityExceeded` exception when a request cannot be admitted. This is
+the difference between a service that **degrades** (some requests fail
+with 503 they can retry) and a service that **collapses** (every request
+piles up behind the slow path until memory blows up).
 
 Decision the NFR2 owner must defend in the demo:
 
-> What is the maximum DB connections we are willing to consume per
-> instance? `pg_max_connections >= GUNICORN_WORKERS * INSTANCES * CONN_MAX_AGE`
-> must hold.
+> What is the maximum DB connections we are willing to consume? Web upper
+> bound = `INSTANCES * GUNICORN_WORKERS * GUNICORN_THREADS`; Celery upper
+> bound = `CELERY_WORKER_REPLICAS * CELERY_CONCURRENCY`; internal executor
+> threads must fit inside the remaining database budget.
 
 ## Why these specific tools
 
