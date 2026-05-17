@@ -189,3 +189,32 @@ The async queue solution is best because it keeps checkout fast, keeps
 side effects reliable, and treats retries as a normal distributed-system
 behavior. The user waits only for the order to be committed; Celery
 handles everything that can safely happen afterward.
+
+---
+
+## 10. JMeter and Flower Evidence
+
+JMeter plan:
+
+```text
+tools/jmeter/async-payment-capture.jmx
+```
+
+Required screenshots:
+
+![Async checkout before](assets/async-checkout-before.png)
+
+![Async checkout after](assets/async-checkout-after.png)
+
+![Flower retry evidence](assets/async-flower-retry.png)
+
+Expected interpretation:
+
+- Before queueing invoice/email work: the request waits for slow side
+  effects.
+- After queueing: the HTTP request returns after the database commit,
+  while Celery/Flower shows invoice and notification work running in the
+  background.
+- Failure demo: killing or failing a worker does not create an infinite
+  loop or duplicate invoice/email state, because retries are bounded and
+  tasks are idempotent.

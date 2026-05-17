@@ -241,8 +241,10 @@ Required:
   - screenshot of results
 - Scripts are acceptable for some tests, but this does not replace the
   explicit JMX + screenshot requirement if requested.
+- JMeter plans now live under `tools/jmeter/`; screenshots should go
+  under `docs/reports/assets/`.
 
-Status: **not ready for JMeter deliverable**.
+Status: **JMX structure ready; real result screenshots still missing**.
 
 ---
 
@@ -296,16 +298,15 @@ Status: **basic tools exist, resource monitoring gap remains**.
 
 Current state:
 
-- No `.jmx` file found.
+- JMeter plans exist under `tools/jmeter/`.
 - No result screenshots found.
 
 Required:
 
-- Add a JMeter test plan under something like `tools/jmeter/`.
 - Add screenshots under something like `docs/reports/assets/`.
 - Reference both from the relevant report.
 
-Status: **missing**.
+Status: **JMX files ready; screenshots still missing**.
 
 ---
 
@@ -314,7 +315,8 @@ Status: **missing**.
 Current state:
 
 - Reports exist for NFR1-NFR4.
-- Reports are text-only.
+- Reports now reference the expected image files under
+  `docs/reports/assets/`.
 
 Required:
 

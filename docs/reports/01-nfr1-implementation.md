@@ -377,3 +377,26 @@ A quick race demo via Postman: import `tools/postman/`, log in as
 twice in two parallel tabs; the second one returns
 `NotEnoughStock` (or oversells if you remove the FOR UPDATE — DO NOT
 do this in production).
+
+---
+
+## 11. JMeter Evidence
+
+JMeter plan:
+
+```text
+tools/jmeter/race-condition-checkout.jmx
+```
+
+Required screenshots:
+
+![Race before JMeter](assets/race-before-jmeter.png)
+
+![Race after JMeter](assets/race-after-jmeter.png)
+
+Expected interpretation:
+
+- Before the fix: more successful checkouts than available stock, or an
+  inconsistent final stock/order state.
+- After the fix: only valid requests succeed; the rest fail cleanly, and
+  stock is never oversold.

@@ -212,3 +212,37 @@ The resource-management solution is best because it is explicit,
 bounded, observable, and aligned with the system's true bottleneck. It
 does not try to make the backend infinitely parallel; it makes the
 backend predictably parallel, which is the correct goal for NFR2.
+
+---
+
+## 9. JMeter and Monitoring Evidence
+
+JMeter plan:
+
+```text
+tools/jmeter/resource-management-products.jmx
+```
+
+Run it at least twice with the same workload:
+
+| Run | Suggested settings | What to capture |
+|---|---|---|
+| Low capacity | `GUNICORN_WORKERS=1`, `GUNICORN_THREADS=1` | Slower p95/p99, lower CPU utilization, possible queueing |
+| Balanced capacity | `GUNICORN_WORKERS=4`, `GUNICORN_THREADS=2` | Better latency without runaway CPU/RAM/connections |
+
+JMeter screenshots:
+
+![Resource low workers JMeter](assets/resource-low-workers-jmeter.png)
+
+![Resource balanced workers JMeter](assets/resource-balanced-workers-jmeter.png)
+
+Monitoring screenshots:
+
+![Resource monitoring before](assets/resource-monitoring-before.png)
+
+![Resource monitoring after](assets/resource-monitoring-after.png)
+
+The important thing to explain in the demo is not "more threads is always
+better". The point is that the chosen configuration uses available CPU
+and DB capacity without letting requests, threads, or connections grow
+without control.
