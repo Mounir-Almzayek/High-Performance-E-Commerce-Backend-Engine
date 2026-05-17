@@ -12,6 +12,8 @@ Tasks are split by responsibility:
 from celery.schedules import crontab
 
 from config.celery import app
+from . import notifications
+from . import invoicing
 
 app.conf.beat_schedule = {
     "daily-sales-batch": {

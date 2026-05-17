@@ -42,6 +42,7 @@ class Order(models.Model):
         max_digits=12, decimal_places=2, default=0)
     total = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     currency = models.CharField(max_length=3, default="USD")
+    invoice_url = models.URLField(null=True, blank=True)
 
     shipping_address = models.ForeignKey(
         Address, on_delete=models.PROTECT, related_name="+", null=True
@@ -102,3 +103,38 @@ class DailySalesReport(models.Model):
 
     def __str__(self) -> str:
         return f"DailySalesReport<{self.date}: {self.total_orders} orders, ${self.total_revenue}>"
+    
+
+class OrderEmailDispatch(models.Model):
+    """
+    Prevent duplicate confirmation emails with proper state tracking.
+    """
+
+    PENDING = "pending"
+    SENT = "sent"
+    FAILED = "failed"
+
+    STATUS_CHOICES = [
+        (PENDING, "Pending"),
+        (SENT, "Sent"),
+        (FAILED, "Failed"),
+    ]
+
+    order = models.OneToOneField(
+        "orders.Order",
+        on_delete=models.CASCADE,
+        related_name="email_dispatch",
+    )
+
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default=PENDING
+    )
+
+    sent_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "order_email_dispatches"
