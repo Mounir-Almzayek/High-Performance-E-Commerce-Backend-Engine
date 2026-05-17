@@ -1,0 +1,34 @@
+{
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 1,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 190.0,
+    "medianResTime" : 190.0,
+    "minResTime" : 190.0,
+    "maxResTime" : 190.0,
+    "pct1ResTime" : 190.0,
+    "pct2ResTime" : 190.0,
+    "pct3ResTime" : 190.0,
+    "throughput" : 5.263157894736842,
+    "receivedKBytesPerSec" : 3.4231085526315788,
+    "sentKBytesPerSec" : 1.5111019736842104
+  },
+  "POST payment capture" : {
+    "transaction" : "POST payment capture",
+    "sampleCount" : 1,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 190.0,
+    "medianResTime" : 190.0,
+    "minResTime" : 190.0,
+    "maxResTime" : 190.0,
+    "pct1ResTime" : 190.0,
+    "pct2ResTime" : 190.0,
+    "pct3ResTime" : 190.0,
+    "throughput" : 5.263157894736842,
+    "receivedKBytesPerSec" : 3.4231085526315788,
+    "sentKBytesPerSec" : 1.5111019736842104
+  }
+}

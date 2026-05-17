@@ -1,0 +1,2 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1779030989250,190,POST payment capture,200,OK,Single capture caller 1-1,text,true,,666,294,1,1,http://localhost/api/v1/payments/intents/2002/capture/,181,0,28
