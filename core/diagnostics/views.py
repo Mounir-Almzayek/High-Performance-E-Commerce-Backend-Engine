@@ -26,3 +26,29 @@ class PoolDiagnosticsView(APIView):
                 "pools": get_pool_stats(),
             }
         )
+
+
+class InstanceView(APIView):
+    """
+    GET /api/v1/instance/
+    Lightweight endpoint that identifies which backend served this request.
+    Used by NFR5 distribution scripts and the load_distribution_sim metrics
+    poller to confirm Nginx is routing across all instances.
+
+    Note: X-Instance-Id is also added to every response by PerformanceMiddleware,
+    so this endpoint is an explicit human-readable alternative.
+    """
+
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        return Response(
+            {
+                "instance_id": settings.INSTANCE_ID,
+                "note": (
+                    "This counter is per-process (RAM only). "
+                    "Each instance reports independently. "
+                    "For cross-instance totals, sum all instances or migrate to Redis (NFR10)."
+                ),
+            }
+        )
