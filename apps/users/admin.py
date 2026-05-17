@@ -5,7 +5,15 @@ from .models import Address, Customer
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "phone", "loyalty_points", "version", "created_at")
+    list_display = (
+        "id",
+        "user",
+        "phone",
+        "wallet_balance",
+        "loyalty_points",
+        "version",
+        "created_at",
+    )
     search_fields = ("user__username", "user__email", "phone")
 
 

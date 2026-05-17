@@ -10,6 +10,7 @@ Tests verify:
 from decimal import Decimal
 
 import pytest
+from django.contrib.auth import get_user_model
 from django.utils import timezone
 
 from apps.orders.models import DailySalesReport, Order, OrderItem
@@ -20,6 +21,13 @@ from core.batch.chunked import (
     iter_in_chunks,
     process_in_parallel,
 )
+
+User = get_user_model()
+
+
+def create_customer(username: str) -> Customer:
+    user = User.objects.create_user(username=username, password="Password123!")
+    return Customer.objects.create(user=user, wallet_balance="1000.00")
 
 
 @pytest.mark.django_db
@@ -35,7 +43,7 @@ class TestIterInChunks:
     def test_small_result_fits_in_single_chunk(self):
         """Fewer items than chunk_size should yield one chunk."""
         # Create test data
-        customer = Customer.objects.create(user__username="test")
+        customer = create_customer("test")
         category = Category.objects.create(name="Test", slug="test")
         product = Product.objects.create(
             sku="SKU1",
@@ -74,7 +82,7 @@ class TestIterInChunks:
 
     def test_large_result_splits_into_multiple_chunks(self):
         """More items than chunk_size should split into multiple chunks."""
-        customer = Customer.objects.create(user__username="test2")
+        customer = create_customer("test2")
         category = Category.objects.create(name="Test2", slug="test2")
         product = Product.objects.create(
             sku="SKU2",
@@ -249,7 +257,7 @@ class TestDailySalesReportCreation:
     def test_report_created_with_correct_totals(self):
         """DailySalesReport should be created with correct aggregated data."""
         # Create test data
-        customer = Customer.objects.create(user__username="report_test")
+        customer = create_customer("report_test")
         category = Category.objects.create(name="ReportCat", slug="report-cat")
 
         products = [
@@ -354,7 +362,7 @@ class TestProcessInParallel:
     def test_parallel_processing_completes_all_chunks(self):
         """All chunks should be processed."""
         # Create test data
-        customer = Customer.objects.create(user__username="parallel")
+        customer = create_customer("parallel")
         category = Category.objects.create(name="Parallel", slug="parallel")
         product = Product.objects.create(
             sku="PARALLEL",

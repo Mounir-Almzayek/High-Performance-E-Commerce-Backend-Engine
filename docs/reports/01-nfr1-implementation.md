@@ -340,9 +340,10 @@ These tests would all fail on a naive implementation:
 
 ## 9. What is intentionally out of scope on this branch
 
-- **NFR3** (Async queues) — `place_order` does NOT yet dispatch
-  Celery tasks via `transaction.on_commit`. The hooks are marked with
-  a comment for the NFR3 owner.
+- **NFR3** (Async queues) — now implemented on `main`: `place_order`
+  dispatches invoice and confirmation tasks through
+  `transaction.on_commit`, so rolled-back orders do not create orphan
+  queue messages.
 - **NFR8** (ACID helpers) — `transaction.atomic()` is used directly
   for now. Once `core/transactions/atomic.py::atomic_with_isolation`
   lands, services will migrate to it for explicit isolation-level

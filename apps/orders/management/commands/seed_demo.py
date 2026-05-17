@@ -240,6 +240,7 @@ class Command(BaseCommand):
             Customer(
                 user=u,
                 phone=f"+963{random.randint(900000000, 999999999)}",
+                wallet_balance=random.randint(500, 5000),
                 loyalty_points=random.randint(0, 5000),
             )
             for u in users

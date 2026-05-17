@@ -28,13 +28,18 @@ Lecture references:
 from __future__ import annotations
 
 import logging
+import time
 from typing import Any
 
+from django.conf import settings
 from django.db import IntegrityError, transaction
+from django.db.models import F
 from django.utils import timezone
+from rest_framework.exceptions import APIException
 
 from apps.inventory import services as inventory_services
 from apps.orders.models import Order, OrderItem
+from apps.users.models import Customer
 from core.aop.decorators import audit_log, timed
 from core.resources.pool import capacity_limited
 
@@ -52,6 +57,22 @@ class InvalidPaymentState(Exception):
 
 class DuplicateWebhook(Exception):
     """Webhook with this signature was processed before. Caller may ignore."""
+
+
+class InsufficientWalletBalance(APIException):
+    """The simulated wallet does not have enough funds for capture."""
+
+    status_code = 402
+    default_code = "insufficient_wallet_balance"
+
+    def __init__(self, *, required, available) -> None:
+        super().__init__(
+            detail={
+                "detail": "Insufficient wallet balance.",
+                "required": str(required),
+                "available": str(available),
+            }
+        )
 
 
 # ----------------------------- public API ---------------------------------
@@ -81,9 +102,10 @@ def capture_payment(*, intent_id: int, external_id: str) -> PaymentIntent:
       2. If `external_id` is already set on the row and matches, this is
          a duplicate retry from the gateway - return idempotently.
       3. Lock the Order row, transition it to PAID.
-      4. Consume inventory for every OrderItem (one FOR UPDATE per stock
+      4. Lock the customer's simulated wallet and deduct the amount.
+      5. Consume inventory for every OrderItem (one FOR UPDATE per stock
          row, taken in PK ASC order to stay deadlock-free).
-      5. Persist the new state.
+      6. Persist the new state.
 
     Concurrency guarantees:
       - Two parallel calls with the same intent_id serialize on step 1.
@@ -121,6 +143,24 @@ def capture_payment(*, intent_id: int, external_id: str) -> PaymentIntent:
             f"Cannot capture payment for order in status={order.status}"
         )
 
+    # Simulated wallet provider / payment latency. In automated tests this
+    # defaults to 0; for the live demo set it to 2-5 seconds through env.
+    delay_seconds = float(
+        getattr(settings, "PAYMENT_CAPTURE_SIMULATED_DELAY_SECONDS", 0)
+    )
+    if delay_seconds > 0:
+        time.sleep(delay_seconds)
+
+    # Lock the customer wallet before checking and deducting. This is the
+    # simulated payment step required for the project: no Stripe needed,
+    # just a real balance check with race-free debit semantics.
+    customer = Customer.objects.select_for_update().get(pk=order.customer_id)
+    if customer.wallet_balance < intent.amount:
+        raise InsufficientWalletBalance(
+            required=intent.amount,
+            available=customer.wallet_balance,
+        )
+
     # Consume inventory. release_stock + consume_stock both lock rows
     # in PK ASC order via inventory.services helpers - safe.
     items = list(
@@ -136,6 +176,10 @@ def capture_payment(*, intent_id: int, external_id: str) -> PaymentIntent:
         )
 
     # State transitions.
+    Customer.objects.filter(pk=customer.pk).update(
+        wallet_balance=F("wallet_balance") - intent.amount,
+        version=F("version") + 1,
+    )
     PaymentIntent.objects.filter(pk=intent.pk).update(
         status=PaymentIntent.CAPTURED,
         external_id=external_id,
@@ -163,6 +207,7 @@ def refund_payment(*, intent_id: int, reason: str = "") -> PaymentIntent:
         )
 
     order = Order.objects.select_for_update().get(pk=intent.order_id)
+    customer = Customer.objects.select_for_update().get(pk=order.customer_id)
 
     items = list(
         OrderItem.objects.filter(order=order).order_by("product_id")
@@ -177,6 +222,10 @@ def refund_payment(*, intent_id: int, reason: str = "") -> PaymentIntent:
             reference=f"refund:{order.public_id}",
         )
 
+    Customer.objects.filter(pk=customer.pk).update(
+        wallet_balance=F("wallet_balance") + intent.amount,
+        version=F("version") + 1,
+    )
     PaymentIntent.objects.filter(pk=intent.pk).update(
         status=PaymentIntent.REFUNDED,
         version=intent.version + 1,

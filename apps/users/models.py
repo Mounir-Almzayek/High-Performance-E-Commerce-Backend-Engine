@@ -2,6 +2,8 @@
 User-related models.
 
 Concurrency notes:
+ - Customer.wallet_balance is the simulated payment wallet. Payment capture
+   must lock the customer row before checking/deducting it.
  - Customer.loyalty_points is updated from multiple flows (order completion,
    refunds, manual adjustments). It MUST be updated through
    apps.users.services.adjust_loyalty_points (never assigned directly) so
@@ -20,6 +22,7 @@ class Customer(models.Model):
         related_name="customer",
     )
     phone = models.CharField(max_length=32, blank=True)
+    wallet_balance = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     loyalty_points = models.PositiveIntegerField(default=0)
 
     # Optimistic-lock version. Bumped by every successful update via

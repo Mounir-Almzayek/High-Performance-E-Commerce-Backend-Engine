@@ -55,4 +55,8 @@ def two_products(db, category) -> tuple[Product, Product]:
 @pytest.fixture
 def customer(db) -> Customer:
     user = User.objects.create_user(username="alice", password="x")
-    return Customer.objects.create(user=user, loyalty_points=100)
+    return Customer.objects.create(
+        user=user,
+        wallet_balance="1000.00",
+        loyalty_points=100,
+    )

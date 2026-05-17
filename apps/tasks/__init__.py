@@ -12,6 +12,7 @@ Tasks are split by responsibility:
 from celery.schedules import crontab
 
 from config.celery import app
+from . import daily_sales_batch
 from . import notifications
 from . import invoicing
 

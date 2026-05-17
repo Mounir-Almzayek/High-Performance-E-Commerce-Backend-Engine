@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import threading
 from concurrent.futures import ThreadPoolExecutor
+from decimal import Decimal
 
 import pytest
 from django.contrib.auth import get_user_model
@@ -31,7 +32,7 @@ pytestmark = pytest.mark.django_db(transaction=True)
 @pytest.fixture
 def order_with_one_item(db):
     user = User.objects.create_user(username="bob", password="x")
-    customer = Customer.objects.create(user=user)
+    customer = Customer.objects.create(user=user, wallet_balance="200.00")
     addr = Address.objects.create(
         customer=customer, kind=Address.SHIPPING, line1="x",
         city="x", postal_code="00000", country="SY", is_default=True,
@@ -88,6 +89,8 @@ def test_concurrent_capture_only_one_succeeds(order_with_one_item):
     order.refresh_from_db()
     assert intent.status == PaymentIntent.CAPTURED
     assert order.status == Order.PAID
+    customer.refresh_from_db()
+    assert customer.wallet_balance == Decimal("100.00")
 
     successes = [r for r in results if r[0] == "ok"]
     assert len(successes) == 1
@@ -110,3 +113,22 @@ def test_duplicate_webhook_is_skipped(order_with_one_item):
     assert WebhookEvent.objects.filter(signature="sig-once").count() == 1
     intent.refresh_from_db()
     assert intent.status == PaymentIntent.CAPTURED
+
+
+def test_capture_rejects_when_wallet_balance_is_insufficient(order_with_one_item):
+    """Payment simulation rejects capture before stock/order state changes."""
+    order, intent, product = order_with_one_item
+    Customer.objects.filter(pk=order.customer_id).update(wallet_balance="50.00")
+
+    with pytest.raises(services.InsufficientWalletBalance):
+        services.capture_payment(intent_id=intent.id, external_id="ext-low-balance")
+
+    intent.refresh_from_db()
+    order.refresh_from_db()
+    stock = StockItem.objects.get(product=product)
+    customer = Customer.objects.get(pk=order.customer_id)
+
+    assert intent.status == PaymentIntent.INIT
+    assert order.status == Order.PENDING
+    assert stock.reserved == 1
+    assert customer.wallet_balance == Decimal("50.00")

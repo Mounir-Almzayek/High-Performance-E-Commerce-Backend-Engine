@@ -12,7 +12,7 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone as django_timezone
 
 from apps.orders.models import DailySalesReport, Order
-from tasks.daily_sales_batch import run_daily_sales
+from apps.tasks.daily_sales_batch import run_daily_sales
 
 
 class Command(BaseCommand):
@@ -85,7 +85,7 @@ class Command(BaseCommand):
         self.stdout.write(self.style.NOTICE("\nRunning batch job..."))
 
         # Override constants for this run
-        from tasks import daily_sales_batch
+        from apps.tasks import daily_sales_batch
         daily_sales_batch.CHUNK_SIZE = options["chunk_size"]
         daily_sales_batch.MAX_WORKERS = options["max_workers"]
 

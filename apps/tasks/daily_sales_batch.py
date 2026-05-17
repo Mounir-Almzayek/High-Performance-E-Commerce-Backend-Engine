@@ -79,7 +79,7 @@ def _aggregate_chunk(chunk: list[OrderItem]) -> dict:
 
 
 @shared_task(
-    name="apps.tasks.daily_sales_batch.run_daily_sales",
+    name="tasks.daily_sales_batch.run_daily_sales",
     acks_late=True,
 )
 def run_daily_sales() -> None:

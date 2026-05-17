@@ -24,9 +24,9 @@ class CustomerSerializer(serializers.ModelSerializer):
         model = Customer
         fields = [
             "id", "username", "email", "phone",
-            "loyalty_points", "version", "addresses",
+            "wallet_balance", "loyalty_points", "version", "addresses",
         ]
-        read_only_fields = ["loyalty_points", "version"]
+        read_only_fields = ["wallet_balance", "loyalty_points", "version"]
 
 
 class RegisterSerializer(serializers.Serializer):

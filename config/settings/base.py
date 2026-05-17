@@ -122,6 +122,12 @@ CELERY_TASK_ACKS_LATE = True              # ack only after successful execution
 CELERY_TASK_REJECT_ON_WORKER_LOST = True  # re-queue if a worker crashes
 CELERY_TASK_TIME_LIMIT = 300
 
+# [Payment demo] Simulated provider/wallet delay. Keep at 0 for automated
+# tests; set to 2-5 seconds during the live demo to make async behavior visible.
+PAYMENT_CAPTURE_SIMULATED_DELAY_SECONDS = float(
+    env("PAYMENT_CAPTURE_SIMULATED_DELAY_SECONDS", default="0")
+)
+
 # -- DRF ---------------------------------------------------------------------
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
