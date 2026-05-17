@@ -29,12 +29,15 @@ from django.db import transaction
 
 from apps.cart.models import Cart, CartItem
 from apps.inventory import services as inventory_services
+from apps.tasks import notifications
+from apps.tasks import invoicing
 from apps.users.models import Address, Customer
 from core.aop.decorators import audit_log, timed
 from core.resources.pool import capacity_limited
 
 from .models import Order, OrderItem
-
+from apps.tasks.notifications import send_order_confirmation
+from apps.tasks.invoicing import generate_invoice
 
 # ----------------------------- exceptions ---------------------------------
 
@@ -144,8 +147,8 @@ def place_order(
     Cart.objects.filter(pk=cart.pk).update(status=Cart.CHECKED_OUT)
 
     # Step 7: NFR3 owner adds:
-    #   transaction.on_commit(lambda: invoicing.generate_invoice.delay(order.id))
-    #   transaction.on_commit(lambda: notifications.send_order_confirmation.delay(order.id))
+    transaction.on_commit(lambda: invoicing.generate_invoice.delay(order.id))
+    transaction.on_commit(lambda: notifications.send_order_confirmation.delay(order.id))
 
     return order
 
