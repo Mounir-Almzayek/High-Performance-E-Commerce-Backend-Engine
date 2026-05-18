@@ -93,10 +93,9 @@ def place_order(
 
     Returns the persisted Order.
     """
-    # Step 1: lock the cart row.
+    # Step 1: DEMO BEFORE VERSION: read the cart without FOR UPDATE.
     cart = (
         Cart.objects
-        .select_for_update()
         .select_related("customer")
         .get(customer=customer, status=Cart.OPEN)
     )
@@ -146,9 +145,9 @@ def place_order(
     # Step 6: close out the cart.
     Cart.objects.filter(pk=cart.pk).update(status=Cart.CHECKED_OUT)
 
-    # Step 7: NFR3 owner adds:
-    transaction.on_commit(lambda: invoicing.generate_invoice.delay(order.id))
-    transaction.on_commit(lambda: notifications.send_order_confirmation.delay(order.id))
+    # Step 7: DEMO BEFORE VERSION: run slow side effects synchronously.
+    invoicing.generate_invoice.apply(args=(order.id,))
+    notifications.send_order_confirmation.apply(args=(order.id,))
 
     return order
 

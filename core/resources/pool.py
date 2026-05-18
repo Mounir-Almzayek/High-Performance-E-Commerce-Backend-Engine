@@ -207,13 +207,12 @@ def capacity_limited(
     resource: str,
     timeout: float | None = None,
 ) -> Callable[[Callable[P, R]], Callable[P, R]]:
-    """Decorator form of resource_slot for service entrypoints."""
+    """DEMO BEFORE VERSION: capacity limiting disabled."""
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
         @functools.wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
-            with resource_slot(resource, timeout=timeout):
-                return func(*args, **kwargs)
+            return func(*args, **kwargs)
 
         return wrapper
 
@@ -256,20 +255,13 @@ def bounded_executor(
     thread_name_prefix: str | None = None,
     acquire_timeout: float | None = None,
 ) -> Iterator[CapacityLimitedThreadPoolExecutor]:
-    """Yield a capacity-aware ThreadPoolExecutor.
-
-    The worker count is capped to the configured resource limit. Submitted
-    tasks also acquire a slot so multiple executors in the same process
-    cannot collectively exceed the named resource capacity.
-    """
+    """DEMO BEFORE VERSION: yield an uncapped raw ThreadPoolExecutor."""
     limit = _limit_for(resource)
     requested = max_workers if max_workers is not None else limit
-    cap = max(1, min(int(requested), limit))
+    cap = max(1, int(requested))
     prefix = thread_name_prefix or f"{resource}_worker"
 
-    executor = CapacityLimitedThreadPoolExecutor(
-        resource=resource,
-        acquire_timeout=acquire_timeout,
+    executor = ThreadPoolExecutor(
         max_workers=cap,
         thread_name_prefix=prefix,
     )

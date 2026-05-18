@@ -27,6 +27,8 @@ Lecture references:
 """
 from __future__ import annotations
 
+import time
+
 from django.db import transaction
 from django.db.models import F
 
@@ -73,14 +75,13 @@ def _check_qty(qty: int) -> None:
 
 
 def _lock_one(product_id: int) -> StockItem:
-    """Return the StockItem with an exclusive row lock.
+    """DEMO BEFORE VERSION: return StockItem without an exclusive row lock.
 
-    MUST be called inside transaction.atomic() - Django silently drops
-    select_for_update() outside an atomic block.
+    This branch intentionally removes select_for_update() to reproduce
+    the race-condition evidence required for the "before" screenshots.
     """
     return (
         StockItem.objects
-        .select_for_update()
         .select_related("product")
         .get(product_id=product_id)
     )
@@ -104,6 +105,7 @@ def reserve_stock(*, product_id: int, qty: int, reference: str) -> None:
         raise NotEnoughStock(
             f"product_id={product_id}: requested {qty}, available {si.available}"
         )
+    time.sleep(0.15)
     StockItem.objects.filter(pk=si.pk).update(
         reserved=F("reserved") + qty,
         version=F("version") + 1,
@@ -228,13 +230,10 @@ def bulk_reserve(*, items: list[tuple[int, int]], reference: str) -> None:
     sorted_items = sorted(items, key=lambda x: x[0])
     product_ids = [pid for pid, _ in sorted_items]
 
-    # 2. Acquire all row locks in one query. ORDER BY product_id makes
-    #    Postgres scan rows (and acquire locks) in our chosen order.
+    # 2. DEMO BEFORE VERSION: read rows without FOR UPDATE locks.
     locked = list(
         StockItem.objects
-        .select_for_update()
         .filter(product_id__in=product_ids)
-        .order_by("product_id")
     )
     by_pid = {si.product_id: si for si in locked}
 
@@ -247,6 +246,7 @@ def bulk_reserve(*, items: list[tuple[int, int]], reference: str) -> None:
             raise NotEnoughStock(
                 f"product_id={pid}: requested {qty}, available {si.available}"
             )
+    time.sleep(0.15)
 
     # 4. Apply updates and the audit ledger inside the same transaction.
     movements: list[StockMovement] = []

@@ -77,10 +77,10 @@ def process_in_parallel(
     chunk_size: int = DEFAULT_CHUNK_SIZE,
     max_workers: int | None = None,
 ) -> list[dict]:
-    """Apply `handler` to chunks in parallel under the bounded executor.
+    """DEMO BEFORE VERSION: process all rows at once without chunked fan-out.
 
-    Each chunk is processed by the handler in a separate thread from the
-    bounded thread pool. Results are collected and returned for merging.
+    This intentionally materializes the queryset so the before-demo can
+    show why chunking is needed for large daily sales jobs.
 
     Args:
         queryset: Django QuerySet to process
@@ -98,38 +98,9 @@ def process_in_parallel(
         >>> results = process_in_parallel(qs, _aggregate_chunk, chunk_size=1000, max_workers=8)
         >>> # results is a list of dicts, one per chunk
     """
-    results: list[dict] = []
-
-    # Use bounded executor from NFR2 to respect resource caps
-    with bounded_executor(
-        max_workers=max_workers,
-        resource="batch",
-        thread_name_prefix="nfr4_batch_worker",
-    ) as executor:
-        # Submit all chunks as futures
-        futures = {
-            executor.submit(handler, chunk): i
-            for i, chunk in enumerate(iter_in_chunks(queryset, chunk_size))
-        }
-
-        logger.info("batch.submitted", extra={"chunks": len(futures)})
-
-        # Collect results as they complete
-        # as_completed yields futures in the order they finish (not submit order)
-        for future in as_completed(futures):
-            chunk_index = futures[future]
-            try:
-                result = future.result()
-                results.append(result)
-                logger.debug("batch.chunk_ok", extra={"chunk": chunk_index})
-            except Exception as exc:
-                # Surface the exception - do not swallow
-                logger.error("batch.chunk_failed", extra={
-                             "chunk": chunk_index, "error": str(exc)})
-                raise
-
-    logger.info("batch.completed", extra={"chunks_processed": len(results)})
-    return results
+    rows = list(queryset)
+    logger.info("batch.before_demo_materialized", extra={"rows": len(rows)})
+    return [handler(rows)] if rows else []
 
 
 class DailySalesAggregator:
