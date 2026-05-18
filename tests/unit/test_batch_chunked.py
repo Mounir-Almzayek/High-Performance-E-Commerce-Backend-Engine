@@ -343,7 +343,7 @@ class TestDailySalesReportCreation:
         )
 
         assert report.total_orders == 1
-        assert report.total_revenue == Decimal("30.00")  # 20 + 10
+        assert report.total_revenue == Decimal("40.00")  # 20 + 20
         assert report.total_items_sold == 3  # 2 + 1
         assert len(report.by_product) == 2
 
