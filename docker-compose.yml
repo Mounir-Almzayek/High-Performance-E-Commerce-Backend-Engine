@@ -1,13 +1,13 @@
 # ----------------------------------------------------------------------------
 # docker-compose.yml
-# Mirrors a production-like topology: Postgres + Redis + two Django instances
+# Mirrors a production-like topology: Postgres + Redis + three Django instances
 # behind Nginx + Celery worker/beat + Locust.
 #
 # Non-functional requirements anchored here:
 #   [NFR2] Gunicorn worker/thread counts come from env vars.
 #   [NFR3] celery_worker / celery_beat run async tasks off the request path.
 #   [NFR4] celery_beat triggers the daily batch job.
-#   [NFR5] web1 + web2 behind nginx simulate horizontal load distribution.
+#   [NFR5] web1 + web2 + web3 behind nginx simulate horizontal load distribution.
 #   [NFR6] redis is shared across instances -> truly distributed cache.
 #   [NFR9] locust container drives 100+ concurrent virtual users.
 # ----------------------------------------------------------------------------

@@ -175,10 +175,12 @@ The clean demo story is:
 
 ## 8. Review note
 
-The merge path should be verified with a seeded dataset before the final
-demo, especially for `total_orders`, because preserving unique order IDs
-across serialized chunk results is stricter than summing item-level
-totals.
+The merge path preserves `order_ids` in each serialized chunk result and
+reconstructs the per-chunk aggregator before the final merge. This keeps
+`total_orders` correct even when one order has multiple `OrderItem` rows
+or when chunks complete in a different order from submission. The unit
+test `test_report_data_preserves_order_ids_for_chunk_merge` protects
+this behavior.
 
 ---
 

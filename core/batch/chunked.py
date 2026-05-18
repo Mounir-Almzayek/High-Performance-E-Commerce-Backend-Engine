@@ -233,4 +233,5 @@ class DailySalesAggregator:
             "total_revenue": round(self.total_revenue, 2),
             "total_items_sold": self.total_items_sold,
             "by_product": self.by_product,
+            "order_ids": sorted(self._order_ids),
         }

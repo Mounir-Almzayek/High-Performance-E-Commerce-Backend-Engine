@@ -15,12 +15,12 @@ evidence, implementation, or screenshots before submission.
 |---|---|---|
 | Payment simulation + wallet | Implemented, evidence needed | `Customer.wallet_balance` is checked/deducted during capture; demo screenshots still needed |
 | Race condition before/after | Partially covered | Concurrency-safe code and unit tests exist; before/after web/JMeter evidence is missing |
-| Resource management | Code covered, evidence missing | Named pools and caps exist; CPU/RAM/thread graphs and before/after screenshots are missing |
+| Resource management | Code covered, evidence missing | Named pools, caps, and process diagnostics exist; CPU/RAM/thread screenshots are still needed |
 | Async/background processing | Mostly covered | Celery + Redis implemented; report needs explicit async-vs-queue comparison and failure demo screenshots |
 | Queue/message broker | Covered | Redis + Celery are acceptable for this project |
 | Background failure / circuit-breaker concept | Partially covered | Retries/idempotency exist; need a simple failure demo showing no infinite loop |
-| Testing tools/artifacts | Missing for JMeter | No `.jmx`, result screenshot, `.png`, `.csv`, or `.jtl` artifacts are currently in the repo |
-| 100-user system test | Not ready | `tests/stress/locustfile.py` still contains TODOs for checkout/webhook flows |
+| Testing tools/artifacts | JMX ready, evidence missing | JMeter `.jmx` plans exist; result screenshots still need to be captured |
+| 100-user system test | Scenario ready, run evidence missing | `tests/stress/locustfile.py` covers browse, checkout, webhook replay, and resource stress; 100-user screenshots/HTML are still needed |
 | Reports | Partially covered | NFR1-NFR4 reports exist; screenshots and measured before/after results are still needed |
 | Packaging | Repo format OK | Do not submit only as one ZIP file |
 
@@ -104,6 +104,8 @@ Current state:
   - Celery concurrency
   - checkout/payment/batch/internal pool caps
 - `core/diagnostics/views.py` exposes `GET /api/v1/_diag/pool/`.
+- `core/diagnostics/views.py` also exposes `GET /api/v1/_diag/process/`
+  for process CPU/RAM/thread evidence.
 - Checkout, payments, and batch processing use the resource caps.
 - Unit tests cover pool behavior.
 
@@ -128,6 +130,7 @@ Recommended demo:
   - process/thread count
   - DB connections if possible
   - `/api/v1/_diag/pool/` before/during/after
+  - `/api/v1/_diag/process/` before/during/after
 
 Recommended monitoring:
 
@@ -230,9 +233,10 @@ Status: **mechanism exists, demo evidence missing**.
 
 Current state:
 
-- Locust is included, but checkout and webhook flows are TODO.
+- Locust includes browse, checkout, webhook replay, and resource-stress
+  flows.
 - Unit tests exist for concurrency and resource pool.
-- No JMeter files exist.
+- JMeter files exist under `tools/jmeter/`.
 
 Required:
 
@@ -253,21 +257,22 @@ Status: **JMX structure ready; real result screenshots still missing**.
 Current state:
 
 - Docker Compose has a Locust service.
-- `tests/stress/locustfile.py` is mostly skeleton.
+- `tests/stress/locustfile.py` implements the main flows needed for a
+  100-user run.
 
-Required fix:
+Required evidence:
 
-- Implement:
+- Run:
   - login/token auth
   - product browsing
   - add to cart
   - place order
   - create/capture payment
-  - webhook replay if needed
+  - webhook replay/resource-stress scenarios when needed
 - Run 100 users against `http://nginx`.
 - Store results in a report with screenshots/CSV graphs.
 
-Status: **not ready**.
+Status: **scenario ready; run evidence missing**.
 
 ---
 
@@ -278,6 +283,8 @@ Current state:
 - Locust service exists.
 - Flower exists.
 - django-silk exists.
+- `/api/v1/_diag/process/` exposes application-level CPU/RAM/thread
+  data.
 - No Prometheus/Grafana services exist.
 
 Recommended:
@@ -290,7 +297,7 @@ Recommended:
   - Postgres connection counts
   - `/api/v1/_diag/pool/` snapshots
 
-Status: **basic tools exist, resource monitoring gap remains**.
+Status: **basic tools exist; screenshot evidence still needs capture**.
 
 ---
 
@@ -372,9 +379,10 @@ Recommended choice:
 
 ## Highest-priority next fixes
 
-1. Implement the Locust checkout/webhook flows.
-2. Create JMeter `.jmx` for the race demo and save result screenshots.
-3. Capture resource monitoring screenshots for NFR2.
-4. Add async-vs-queue and failure demo screenshots for NFR3.
+1. Capture JMeter result screenshots for NFR1, NFR2, NFR3, and NFR5.
+2. Capture resource monitoring screenshots for NFR2 using Docker stats
+   plus `/api/v1/_diag/pool/` and `/api/v1/_diag/process/`.
+3. Add async-vs-queue and failure demo screenshots for NFR3.
+4. Run the 100-user Locust test and save the HTML/CSV/screenshots.
 5. Run migrations/tests inside the Docker environment.
 6. Add the result images/assets to the reports before submission.

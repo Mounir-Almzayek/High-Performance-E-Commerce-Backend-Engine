@@ -249,6 +249,29 @@ class TestDailySalesAggregator:
         assert merged.by_product[101]["quantity"] == 8
         assert merged.by_product[101]["revenue"] == 80.0
 
+    def test_report_data_preserves_order_ids_for_chunk_merge(self):
+        """Serialized chunk results must keep unique order IDs for final merge."""
+        aggregator = DailySalesAggregator()
+
+        class MockItem:
+            def __init__(self, order_id, product_id, sku, quantity, line_total):
+                self.order_id = order_id
+                self.product_id = product_id
+                self.product_sku = sku
+                self.quantity = quantity
+                self.line_total = Decimal(str(line_total))
+
+        aggregator.feed([
+            MockItem(1, 101, "SKU101", 1, 10.00),
+            MockItem(1, 102, "SKU102", 1, 15.00),
+            MockItem(2, 101, "SKU101", 1, 10.00),
+        ])
+
+        report_data = aggregator.to_report_data()
+
+        assert report_data["total_orders"] == 2
+        assert report_data["order_ids"] == [1, 2]
+
 
 @pytest.mark.django_db
 class TestDailySalesReportCreation:

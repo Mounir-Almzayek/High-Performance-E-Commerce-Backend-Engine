@@ -476,8 +476,7 @@ curl http://localhost:8003/api/v1/instance/
 JMeter plans:
 
 ```text
-tools/jmeter/load-distribution-roundrobin.jmx
-tools/jmeter/load-distribution-leastconn.jmx
+tools/jmeter/load-distribution-nfr5.jmx
 ```
 
 Expected screenshots (to be added to `docs/reports/assets/`):

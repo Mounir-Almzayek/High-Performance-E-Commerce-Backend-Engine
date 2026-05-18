@@ -19,8 +19,8 @@ service paths.
 | `config/settings/base.py` | Added env-driven resource caps for web, Celery, checkout, payment, batch, and internal pools |
 | `.env.example` | Documented the resource-management knobs |
 | `core/resources/pool.py` | Implemented named capacity pools, bounded executor, 503-safe overload handling, and live stats |
-| `core/diagnostics/views.py` | Added a diagnostic endpoint for live pool state |
-| `config/urls.py` | Exposed `GET /api/v1/_diag/pool/` |
+| `core/diagnostics/views.py` | Added diagnostic endpoints for live pool state and process CPU/RAM/thread metrics |
+| `config/urls.py` | Exposed `GET /api/v1/_diag/pool/` and `GET /api/v1/_diag/process/` |
 | `apps/orders/services.py` | Applied checkout admission control |
 | `apps/payments/services.py` | Applied payment/webhook admission control |
 | `core/batch/chunked.py` | Runs batch fan-out through the bounded executor |
@@ -128,6 +128,15 @@ concept.
 - available slots
 - accepted and rejected totals
 
+`GET /api/v1/_diag/process/` complements it with process-level runtime
+evidence:
+
+- process id and uptime
+- accumulated CPU seconds and CPU-per-uptime percentage
+- Linux load average when available
+- resident and peak resident memory from `/proc/self/status`
+- Python active thread count and OS process thread count
+
 This makes the NFR demonstrable during load testing instead of being
 only a code-level claim.
 
@@ -180,6 +189,8 @@ Implemented unit coverage verifies:
 - re-entrant acquisition does not consume duplicate slots
 - `bounded_executor` respects the configured resource cap
 - the diagnostic endpoint exposes the configured budget
+- the process diagnostic endpoint exposes CPU/RAM/thread fields used in
+  the monitoring screenshots
 
 Local syntax validation also passed with:
 
@@ -241,6 +252,20 @@ Monitoring screenshots:
 ![Resource monitoring before](assets/resource-monitoring-before.png)
 
 ![Resource monitoring after](assets/resource-monitoring-after.png)
+
+During each run, capture the following endpoints before, during, and
+after the load test:
+
+```text
+GET /api/v1/_diag/pool/
+GET /api/v1/_diag/process/
+```
+
+Use `/api/v1/_diag/pool/` to prove that in-flight work never exceeds the
+configured capacity, and `/api/v1/_diag/process/` to show the CPU/RAM
+and thread behavior requested by the instructor. Docker stats,
+Prometheus, or Grafana can still be used for nicer graphs; this endpoint
+keeps the evidence available inside the Django application itself.
 
 The important thing to explain in the demo is not "more threads is always
 better". The point is that the chosen configuration uses available CPU

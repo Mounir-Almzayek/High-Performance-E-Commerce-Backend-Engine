@@ -9,6 +9,7 @@ This folder contains the JMeter artifacts expected in the submission.
 | `race-condition-checkout.jmx` | Sends many simultaneous checkout requests to the same prepared cart/order flow to prove the race before/after fix |
 | `resource-management-products.jmx` | Generates read/search traffic for NFR2 resource-management comparison |
 | `async-payment-capture.jmx` | Exercises payment capture so NFR3 timing can be compared with Celery/Flower screenshots |
+| `load-distribution-nfr5.jmx` | Sends repeated requests through Nginx and captures backend distribution / failover evidence |
 
 ## Before running
 
@@ -51,6 +52,9 @@ Use these exact names so the reports render automatically:
 | `async-checkout-before.png` | NFR3 report |
 | `async-checkout-after.png` | NFR3 report |
 | `async-flower-retry.png` | NFR3 report |
+| `nfr5-roundrobin-histogram.png` | NFR5 report |
+| `nfr5-leastconn-histogram.png` | NFR5 report |
+| `nfr5-failover-recovery.png` | NFR5 report |
 | `nfr9-100-users-locust.png` | NFR9/full-system evidence |
 
 ## Exported result files
@@ -68,4 +72,5 @@ Suggested names:
 - `resource-low-workers.jtl`
 - `resource-balanced-workers.jtl`
 - `async-payment-capture.jtl`
+- `load-distribution-nfr5.jtl`
 

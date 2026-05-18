@@ -27,7 +27,6 @@ from django.db import transaction
 from apps.orders.models import DailySalesReport, Order
 from core.batch.chunked import (
     DailySalesAggregator,
-    iter_in_chunks,
     process_in_parallel,
 )
 
@@ -160,9 +159,7 @@ def run_daily_sales() -> None:
         chunk_agg.total_revenue = result["total_revenue"]
         chunk_agg.total_items_sold = result["total_items_sold"]
         chunk_agg.by_product = result["by_product"]
-        # Restore order IDs from a minimal representation
-        # (we lose exact order IDs here but keep the count)
-        chunk_agg._order_ids = set()  # Simplified - in real code, pass order_ids
+        chunk_agg._order_ids = set(result["order_ids"])
 
         final_aggregator = final_aggregator.merge(chunk_agg)
 
