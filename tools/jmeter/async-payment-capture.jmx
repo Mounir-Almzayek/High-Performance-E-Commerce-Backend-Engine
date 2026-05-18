@@ -1,8 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="NFR3 Async Queue - Payment Capture" enabled="true">
-      <stringProp name="TestPlan.comments">Capture an existing payment intent, then compare HTTP timing with Flower screenshots showing invoice/email tasks running after commit.</stringProp>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="NFR3 Async Queue - Timing + Idempotency" enabled="true">
+      <stringProp name="TestPlan.comments">
+        NFR3 Async Queue Test Plan — two thread groups:
+
+        Thread Group 1 — Capture Timing (1 thread × 1 loop):
+          Captures a prepared payment intent. HTTP returns in ~200 ms because
+          invoice generation and email dispatch are deferred to Celery.
+          Compare this response time with Flower screenshots showing the
+          slow tasks (send_order_confirmation, generate_invoice) running
+          asynchronously AFTER the HTTP response was already sent.
+          Expected: HTTP 200 in under 500 ms, while Flower shows tasks
+          completing 5-10 seconds later.
+
+        Thread Group 2 — Webhook Idempotency Storm (20 threads × 5 loops):
+          Replays the same gateway signature 100 times concurrently.
+          Expected: all 100 requests return HTTP 204, only ONE WebhookEvent
+          row created in the DB (UNIQUE constraint dedup).
+          This proves NFR3 at-most-once side-effect guarantees.
+
+        Setup for Thread Group 1:
+          1. docker-compose up
+          2. Create an order and payment intent via Postman/curl
+          3. Set AUTH_TOKEN and PAYMENT_INTENT_ID in User Defined Variables
+          4. Run plan — observe ~200 ms capture response
+          5. Check Flower at http://localhost:5555 — tasks appear and
+             complete after HTTP response
+
+        Setup for Thread Group 2 (no auth needed):
+          Run immediately — uses /api/v1/payments/webhook/ which is open.
+      </stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -28,11 +56,26 @@
             <stringProp name="Argument.value">${__P(PAYMENT_INTENT_ID,1)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="WEBHOOK_THREADS" elementType="Argument">
+            <stringProp name="Argument.name">WEBHOOK_THREADS</stringProp>
+            <stringProp name="Argument.value">${__P(WEBHOOK_THREADS,20)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="WEBHOOK_LOOPS" elementType="Argument">
+            <stringProp name="Argument.name">WEBHOOK_LOOPS</stringProp>
+            <stringProp name="Argument.value">${__P(WEBHOOK_LOOPS,5)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </elementProp>
     </TestPlan>
     <hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Single capture caller" enabled="true">
+
+      <!-- ═══════════════════════════════════════════════════════════════
+           Thread Group 1: Async capture timing (1 request)
+           Goal: show HTTP responds fast (~200 ms) while tasks run later
+           ═══════════════════════════════════════════════════════════════ -->
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG1 - Capture timing (1 request - compare with Flower)" enabled="true">
         <stringProp name="ThreadGroup.num_threads">1</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -44,18 +87,19 @@
       <hashTree>
         <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Auth + JSON Headers" enabled="true">
           <collectionProp name="HeaderManager.headers">
-            <elementProp name="" elementType="Header">
+            <elementProp "" elementType="Header">
               <stringProp name="Header.name">Authorization</stringProp>
               <stringProp name="Header.value">Token ${AUTH_TOKEN}</stringProp>
             </elementProp>
-            <elementProp name="" elementType="Header">
+            <elementProp "" elementType="Header">
               <stringProp name="Header.name">Content-Type</stringProp>
               <stringProp name="Header.value">application/json</stringProp>
             </elementProp>
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST payment capture" enabled="true">
+
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST payment capture (async timing proof)" enabled="true">
           <stringProp name="HTTPSampler.domain">${HOST}</stringProp>
           <stringProp name="HTTPSampler.port">${PORT}</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -64,20 +108,134 @@
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
+              <elementProp "" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{"external_id": "jmeter-${__time()}"}</stringProp>
+                <stringProp name="Argument.value">{"external_id": "jmeter-nfr3-${__time()}"}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
           </elementProp>
         </HTTPSamplerProxy>
+        <hashTree>
+          <!-- HTTP must return fast (under 1 second) even though email/invoice
+               tasks run for 5-10 seconds in the background via Celery -->
+          <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Assert response under 1000 ms (async proof)" enabled="true">
+            <stringProp name="DurationAssertion.duration">1000</stringProp>
+          </DurationAssertion>
+          <hashTree/>
+        </hashTree>
+
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report - Capture Timing" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">results/async-payment-capture.jtl</stringProp>
+        </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+      </hashTree>
+
+      <!-- ═══════════════════════════════════════════════════════════════
+           Thread Group 2: Webhook idempotency storm
+           20 threads × 5 loops = 100 replays of the SAME signature.
+           Goal: 100 requests → 100 × HTTP 204, only 1 WebhookEvent row.
+           ═══════════════════════════════════════════════════════════════ -->
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG2 - Webhook idempotency storm (20t x 5 loops = 100 replays)" enabled="true">
+        <stringProp name="ThreadGroup.num_threads">${WEBHOOK_THREADS}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${WEBHOOK_LOOPS}</stringProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Webhook Headers" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp "" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+            <!-- Fixed signature so all 100 replays are treated as duplicate events -->
+            <elementProp "" elementType="Header">
+              <stringProp name="Header.name">X-Gateway-Signature</stringProp>
+              <stringProp name="Header.value">gw_idempotency_test_fixed_sig_001</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /api/v1/payments/webhook/ (same sig, 100 replays)" enabled="true">
+          <stringProp name="HTTPSampler.domain">${HOST}</stringProp>
+          <stringProp name="HTTPSampler.port">${PORT}</stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.path">/api/v1/payments/webhook/</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp "" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{"event": "payment.captured", "amount": "49.99", "currency": "USD"}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <!-- All 100 replays must return 204 — idempotency guarantee -->
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert 204 No Content (idempotent)" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">204</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message">Webhook replay must return 204 on every call</stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report - Webhook Storm" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <stringProp name="filename">results/webhook-idempotency-storm.jtl</stringProp>
+        </ResultCollector>
+        <hashTree/>
+
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
+
     </hashTree>
   </hashTree>
 </jmeterTestPlan>

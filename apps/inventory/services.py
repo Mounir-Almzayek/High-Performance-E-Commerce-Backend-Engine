@@ -35,6 +35,24 @@ from core.aop.decorators import audit_log, timed
 from .models import StockItem, StockMovement
 
 
+def _alert_if_low(si: StockItem) -> None:
+    """Fire an async low-stock alert when available units cross the reorder threshold.
+
+    Called AFTER the DB update commits (via on_commit) so the task sees
+    the final on_hand value, not the in-flight one.
+    """
+    # Re-read available from the updated values stored in si is not safe here
+    # because si was loaded before the UPDATE; we pass the product_id and let
+    # the task read fresh state.  The threshold check is advisory — a brief
+    # double-alert on concurrent writes is acceptable.
+    available_after = si.on_hand - si.reserved
+    if available_after <= si.reorder_threshold:
+        from apps.tasks.notifications import send_low_stock_alert  # local import avoids circular
+        transaction.on_commit(
+            lambda: send_low_stock_alert.delay(si.product_id)
+        )
+
+
 # ----------------------------- exceptions ---------------------------------
 
 
@@ -96,6 +114,9 @@ def reserve_stock(*, product_id: int, qty: int, reference: str) -> None:
         quantity=qty,
         reference=reference,
     )
+    # Adjust si to reflect the pending update so _alert_if_low sees the right value.
+    si.reserved += qty
+    _alert_if_low(si)
 
 
 @timed("inventory.release_stock")
@@ -148,6 +169,9 @@ def consume_stock(*, product_id: int, qty: int, reference: str) -> None:
         quantity=-qty,
         reference=reference,
     )
+    si.on_hand -= qty
+    si.reserved -= qty
+    _alert_if_low(si)
 
 
 @timed("inventory.restock")

@@ -89,7 +89,8 @@ def test_concurrent_capture_only_one_succeeds(order_with_one_item):
     order.refresh_from_db()
     assert intent.status == PaymentIntent.CAPTURED
     assert order.status == Order.PAID
-    customer.refresh_from_db()
+    # Reload customer from DB (not in scope from fixture — must query directly).
+    customer = Customer.objects.get(pk=order.customer_id)
     assert customer.wallet_balance == Decimal("100.00")
 
     successes = [r for r in results if r[0] == "ok"]

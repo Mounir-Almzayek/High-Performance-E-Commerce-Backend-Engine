@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="NFR5 Load Distribution - Nginx least_conn" enabled="true">
+      <stringProp name="TestPlan.comments">
+        NFR5 Load Distribution Test Plan.
+
+        Goal: prove that Nginx distributes requests across the 3 App Instances
+        (web1, web2, web3) roughly evenly using the least_conn strategy.
+
+        What to look for in the results:
+          - X-Served-By response header shows which backend handled each request.
+          - After 300 requests each backend should handle ~33% (allow ±10%).
+          - No errors (0% error rate) proves all 3 instances are healthy.
+
+        Setup:
+          1. docker-compose up  (nginx + web1 + web2 + web3 must be running)
+          2. Run this plan: jmeter -n -t load-distribution-nfr5.jmx -l results/load-distribution-nfr5.jtl
+          3. Check X-Served-By in the "View Results Tree" or parse the JTL.
+
+        Failover test (run AFTER the normal test):
+          1. docker-compose stop web1
+          2. Re-run this plan — only web2 and web3 appear in X-Served-By (~50% each).
+          3. docker-compose start web1
+      </stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="HOST" elementType="Argument">
+            <stringProp name="Argument.name">HOST</stringProp>
+            <stringProp name="Argument.value">${__P(HOST,localhost)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="PORT" elementType="Argument">
+            <stringProp name="Argument.name">PORT</stringProp>
+            <stringProp name="Argument.value">${__P(PORT,80)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="THREADS" elementType="Argument">
+            <stringProp name="Argument.name">THREADS</stringProp>
+            <stringProp name="Argument.value">${__P(THREADS,30)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="RAMP_SECONDS" elementType="Argument">
+            <stringProp name="Argument.name">RAMP_SECONDS</stringProp>
+            <stringProp name="Argument.value">${__P(RAMP_SECONDS,3)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="LOOPS" elementType="Argument">
+            <stringProp name="Argument.name">LOOPS</stringProp>
+            <stringProp name="Argument.value">${__P(LOOPS,10)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+
+      <!-- ═══════════════════════════════════════════════════════════════
+           Thread Group: 30 users × 10 loops = 300 requests total
+           ═══════════════════════════════════════════════════════════════ -->
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Load Distribution Callers (30 VUs x 10 loops)" enabled="true">
+        <stringProp name="ThreadGroup.num_threads">${THREADS}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RAMP_SECONDS}</stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${LOOPS}</stringProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+
+        <!-- Headers -->
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="JSON Headers" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp "" elementType="Header">
+              <stringProp name="Header.name">Accept</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+
+        <!-- ── Request 1: Product list (read-heavy, goes through Nginx) ── -->
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /api/v1/products/products/" enabled="true">
+          <stringProp name="HTTPSampler.domain">${HOST}</stringProp>
+          <stringProp name="HTTPSampler.port">${PORT}</stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.path">/api/v1/products/products/</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <!-- Extract X-Served-By to show which backend handled the request -->
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract X-Served-By" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">response_headers</stringProp>
+            <stringProp name="RegexExtractor.refname">served_by</stringProp>
+            <stringProp name="RegexExtractor.regex">X-Served-By: (.+)</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default">unknown-backend</stringProp>
+            <stringProp name="RegexExtractor.match_no">1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+          <!-- Assert 200 OK -->
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert 200 OK" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message">Expected HTTP 200 from Nginx upstream</stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+
+        <!-- ── Request 2: Instance identification endpoint ── -->
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /api/v1/instance/ (instance ID)" enabled="true">
+          <stringProp name="HTTPSampler.domain">${HOST}</stringProp>
+          <stringProp name="HTTPSampler.port">${PORT}</stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.path">/api/v1/instance/</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <!-- Extract instance_id from JSON body -->
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract instance_id" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">instance_id</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.instance_id</stringProp>
+            <stringProp name="JSONPostProcessor.match_nos">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">unknown</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <!-- Assert X-Served-By header is present -->
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert X-Served-By present" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">X-Served-By</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message">Nginx must add X-Served-By header</stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+
+        <!-- ── Listeners ── -->
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>true</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">results/load-distribution-nfr5.jtl</stringProp>
+        </ResultCollector>
+        <hashTree/>
+
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree (check X-Served-By)" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <responseHeaders>true</responseHeaders>
+            </value>
+          </objProp>
+        </ResultCollector>
+        <hashTree/>
+
+        <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+        </ResultCollector>
+        <hashTree/>
+
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
