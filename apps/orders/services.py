@@ -25,8 +25,6 @@ from __future__ import annotations
 
 from decimal import Decimal
 
-from django.db import transaction
-
 from apps.cart.models import Cart, CartItem
 from apps.inventory import services as inventory_services
 from apps.tasks import notifications
@@ -34,6 +32,7 @@ from apps.tasks import invoicing
 from apps.users.models import Address, Customer
 from core.aop.decorators import audit_log, timed
 from core.resources.pool import capacity_limited
+from core.transactions.atomic import atomic_with_isolation, on_commit
 
 from .models import Order, OrderItem
 from apps.tasks.notifications import send_order_confirmation
@@ -67,7 +66,7 @@ def _calculate_totals(items: list[CartItem]) -> tuple[Decimal, Decimal, Decimal,
 @timed("orders.place_order")
 @audit_log("orders.place_order")
 @capacity_limited("checkout")
-@transaction.atomic
+@atomic_with_isolation("read committed")
 def place_order(
     *,
     customer: Customer,
@@ -146,16 +145,18 @@ def place_order(
     # Step 6: close out the cart.
     Cart.objects.filter(pk=cart.pk).update(status=Cart.CHECKED_OUT)
 
-    # Step 7: NFR3 owner adds:
-    transaction.on_commit(lambda: invoicing.generate_invoice.delay(order.id))
-    transaction.on_commit(lambda: notifications.send_order_confirmation.delay(order.id))
+    # Step 7: deferred side effects. Dispatched only AFTER commit through the
+    # NFR8 logged on_commit wrapper, so a rolled-back order can never produce
+    # an orphan invoice or confirmation email.
+    on_commit(lambda: invoicing.generate_invoice.delay(order.id))
+    on_commit(lambda: notifications.send_order_confirmation.delay(order.id))
 
     return order
 
 
 @timed("orders.cancel_order")
 @audit_log("orders.cancel_order")
-@transaction.atomic
+@atomic_with_isolation("read committed")
 def cancel_order(*, order: Order, reason: str = "") -> Order:
     """Cancel a PENDING order and release its inventory reservations.
 

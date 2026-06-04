@@ -42,6 +42,7 @@ from apps.orders.models import Order, OrderItem
 from apps.users.models import Customer
 from core.aop.decorators import audit_log, timed
 from core.resources.pool import capacity_limited
+from core.transactions.atomic import atomic_with_isolation
 
 from .models import PaymentIntent, WebhookEvent
 
@@ -93,7 +94,7 @@ def create_intent(*, order_id: int, amount, currency: str = "USD") -> PaymentInt
 @timed("payments.capture_payment")
 @audit_log("payments.capture_payment")
 @capacity_limited("payment")
-@transaction.atomic
+@atomic_with_isolation("read committed")
 def capture_payment(*, intent_id: int, external_id: str) -> PaymentIntent:
     """Move a PaymentIntent from INIT/AUTHORIZED to CAPTURED.
 
@@ -197,7 +198,7 @@ def capture_payment(*, intent_id: int, external_id: str) -> PaymentIntent:
 @timed("payments.refund_payment")
 @audit_log("payments.refund_payment")
 @capacity_limited("payment")
-@transaction.atomic
+@atomic_with_isolation("read committed")
 def refund_payment(*, intent_id: int, reason: str = "") -> PaymentIntent:
     """Refund a captured payment. Releases inventory back to stock."""
     intent = PaymentIntent.objects.select_for_update().get(pk=intent_id)
