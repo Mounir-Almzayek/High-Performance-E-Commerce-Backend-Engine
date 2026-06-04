@@ -11,9 +11,18 @@ is shared.
 | Dev 3 | Async queues (NFR3) | [dev3-async-queues.md](dev3-async-queues.md) |
 | Dev 4 | Batch processing (NFR4) | [dev4-batch-processing.md](dev4-batch-processing.md) |
 | Dev 5 | Load distribution (NFR5) | [dev5-load-distribution.md](dev5-load-distribution.md) |
+| Dev 6 | Distributed caching (NFR6) | [dev6-distributed-caching.md](dev6-distributed-caching.md) |
+| Dev 7 | Concurrency control (NFR7) | [dev7-concurrency-control.md](dev7-concurrency-control.md) |
+| Dev 8 | ACID transactions (NFR8) | [dev8-acid-transactions.md](dev8-acid-transactions.md) |
+| Dev 9 | Stress testing (NFR9) | [dev9-stress-testing.md](dev9-stress-testing.md) |
+| Dev 10 | Benchmarking (NFR10) | [dev10-benchmarking.md](dev10-benchmarking.md) |
 
-NFR6–10 are unassigned in this milestone but already have specs and
-stubs ready in [../requirements/](../requirements/).
+NFR1–5 are implemented (code + reports in [../reports/](../reports/)).
+NFR6–10 now have specs ([../requirements/](../requirements/)), assignment
+sheets (above), and code stubs ready — but are **not yet implemented**.
+Each NFR6–10 owner writes their implementation report under
+`../reports/<n>-nfr<n>-implementation.md` **after** the work is done, with
+real before/after numbers (do not pre-fill it).
 
 ## Working agreement
 
