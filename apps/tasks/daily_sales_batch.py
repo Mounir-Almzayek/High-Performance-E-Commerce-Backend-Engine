@@ -35,23 +35,15 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger("tasks.daily_sales")
 
-# Chunk size for processing - tune based on memory and DB performance
 CHUNK_SIZE = 1_000
 
-# Max parallel workers - should respect NFR2 resource caps
 MAX_WORKERS = 8
 
 
 def _get_yesterday_window() -> tuple[datetime, datetime]:
-    """Return start and end of yesterday in UTC.
-
-    Returns:
-        Tuple of (start_of_yesterday, start_of_today) as UTC datetimes
-    """
     today = date.today()
     yesterday = today - timedelta(days=1)
 
-    # Create timezone-aware datetimes
     start = datetime.combine(
         yesterday, datetime.min.time()).replace(tzinfo=timezone.utc)
     end = datetime.combine(today, datetime.min.time()
@@ -61,17 +53,6 @@ def _get_yesterday_window() -> tuple[datetime, datetime]:
 
 
 def _aggregate_chunk(chunk: list[OrderItem]) -> dict:
-    """Aggregate one chunk of OrderItems into a partial result.
-
-    This runs in a worker thread from the bounded pool.
-    Memory is bounded because chunk size is fixed.
-
-    Args:
-        chunk: List of OrderItem instances (typically 1000 items)
-
-    Returns:
-        Dict representation of DailySalesAggregator for this chunk
-    """
     aggregator = DailySalesAggregator()
     aggregator.feed(chunk)
     return aggregator.to_report_data()
@@ -82,31 +63,17 @@ def _aggregate_chunk(chunk: list[OrderItem]) -> dict:
     acks_late=True,
 )
 def run_daily_sales() -> None:
-    """Entry point for the daily aggregation job.
-
-    This task runs every day at 02:00 UTC to aggregate yesterday's sales.
-    It uses chunked processing to handle large datasets without OOM.
-
-    Steps:
-        1. Determine yesterday's date range
-        2. Query OrderItems for completed orders
-        3. Process in parallel chunks
-        4. Merge results
-        5. Save DailySalesReport
-    """
-    from apps.orders.models import OrderItem  # Import here to avoid circular imports
+    # Import here to avoid circular imports
+    from apps.orders.models import OrderItem
 
     logger.info("daily_sales.starting")
 
-    # Step 1: Determine time window (yesterday)
     start, end = _get_yesterday_window()
     report_date = start.date()
 
     logger.info("daily_sales.window", extra={
                 "start": start.isoformat(), "end": end.isoformat()})
 
-    # Step 2: Build queryset for yesterday's completed orders
-    # Only include orders that were successfully paid/shipped/delivered
     completed_statuses = [Order.PAID, Order.SHIPPED, Order.DELIVERED]
 
     queryset = (
@@ -116,17 +83,15 @@ def run_daily_sales() -> None:
             order__placed_at__lt=end,
             order__status__in=completed_statuses,
         )
-        .select_related("order")  # For order_id access without extra query
+        .select_related("order")
     )
 
-    # Log count for monitoring
     total_items = queryset.count()
     logger.info("daily_sales.items_to_process", extra={"count": total_items})
 
     if total_items == 0:
         logger.info("daily_sales.no_data", extra={
                     "date": report_date.isoformat()})
-        # Create empty report to indicate job ran successfully
         DailySalesReport.objects.get_or_create(
             date=report_date,
             defaults={
@@ -138,8 +103,6 @@ def run_daily_sales() -> None:
         )
         return
 
-    # Step 3: Process in parallel chunks
-    # This uses NFR2's bounded_executor to respect resource caps
     chunk_results = process_in_parallel(
         queryset=queryset,
         handler=_aggregate_chunk,
@@ -150,10 +113,8 @@ def run_daily_sales() -> None:
     logger.info("daily_sales.chunks_completed",
                 extra={"chunks": len(chunk_results)})
 
-    # Step 4: Merge all chunk results
     final_aggregator = DailySalesAggregator()
     for result in chunk_results:
-        # Convert dict back to aggregator for merging
         chunk_agg = DailySalesAggregator()
         chunk_agg.total_orders = result["total_orders"]
         chunk_agg.total_revenue = result["total_revenue"]
@@ -163,9 +124,7 @@ def run_daily_sales() -> None:
 
         final_aggregator = final_aggregator.merge(chunk_agg)
 
-    # Step 5: Persist results atomically
     with transaction.atomic():
-        # Use update_or_create to handle re-runs (idempotent)
         report, created = DailySalesReport.objects.update_or_create(
             date=report_date,
             defaults={
@@ -187,9 +146,6 @@ def run_daily_sales() -> None:
             "total_items_sold": final_aggregator.total_items_sold,
         },
     )
-
-    # Step 6: Send notification (could trigger NFR3 notification task)
-    # notifications.send_low_stock_alert.delay(...)  # If any products need restocking
 
     return {
         "date": report_date.isoformat(),

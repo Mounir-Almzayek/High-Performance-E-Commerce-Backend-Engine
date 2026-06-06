@@ -205,6 +205,31 @@ Tuning decisions:
 | `max_fails=3` | 3 failures | Avoids removing a backend on a single transient error |
 | `fail_timeout=10s` | 10 s | Short enough that a restarted backend re-enters rotation quickly |
 
+
+### 5.1 Windows host-port mapping
+
+On the tested Windows machine, local services were already using the
+default Postgres, Redis, and HTTP ports. Docker Compose therefore exposes
+the containers on non-conflicting host ports while preserving the normal
+container-to-container ports inside the Docker network:
+
+| Service | Container port | Windows host port | Reason |
+|---|---:|---:|---|
+| Nginx/API | 80 | 8080 | Port 80 was already handled by local Apache/XAMPP |
+| Postgres | 5432 | 5433 | Port 5432 was already allocated |
+| Redis | 6379 | 6380 | Port 6379 was already allocated |
+| web1 | 8000 | 8001 | Direct diagnostic access to instance 1 |
+| web2 | 8000 | 8002 | Direct diagnostic access to instance 2 |
+| web3 | 8000 | 8003 | Direct diagnostic access to instance 3 |
+
+The important detail is that internal Docker traffic still uses
+`db:5432`, `redis:6379`, and `nginx:80`. Only the Windows host-facing
+ports changed. Therefore the verification base URL on Windows is:
+
+```text
+http://localhost:8080
+```
+
 ---
 
 ## 6. Distribution histogram — round_robin vs least_conn
@@ -278,27 +303,127 @@ goal is low latency for the next request, not equal request counts.
 
 ## 7. Failover demonstration
 
-### 7.1 Setup
+### 7.1 Setup — Windows PowerShell
 
-```bash
-# Start the full stack
-docker-compose up --build -d
+The verified Windows setup uses `localhost:8080` for Nginx/API because
+port 80 may be owned by Apache/XAMPP or another local web server.
 
-# Run distribution check (baseline — all 3 up)
-bash tools/distribution_check.sh 300
+```powershell
+# Start from the project root.
+cd "D:\4th\High-Performance-E-Commerce-Backend-Engine"
 
-# Output (expected):
-#   web1:8000 : 98 requests  (32.7%)
-#   web2:8000 : 101 requests (33.7%)
-#   web3:8000 : 101 requests (33.7%)
-#   Total errors: 0
+# Clean old containers and orphaned services.
+docker compose down --remove-orphans
+
+# Start the full stack.
+docker compose up --build -d
+
+# Confirm all services are running.
+docker compose ps
+
+# Seed the demo data.
+docker compose exec web1 python manage.py seed_demo --fresh
+
+# Health check through Nginx.
+curl.exe http://localhost:8080/healthz
+
+# API check through Nginx.
+curl.exe http://localhost:8080/api/v1/products/products/
 ```
+
+Expected result:
+
+```text
+/healthz -> ok
+/products/products/ -> JSON product list
+```
+
+If the Windows host already uses ports 5432, 6379, or 80, keep these
+Docker Compose host mappings:
+
+```yaml
+db:
+  ports:
+    - "5433:5432"
+
+redis:
+  ports:
+    - "6380:6379"
+
+nginx:
+  ports:
+    - "8080:80"
+```
+
+### 7.1.1 Distribution check — PowerShell equivalent
+
+```powershell
+$Target = "http://localhost:8080/api/v1/products/products/"
+$Counts = @{}
+$Errors = 0
+
+1..300 | ForEach-Object {
+    $Headers = curl.exe -s -D - $Target -o NUL
+    $Line = ($Headers | Select-String "X-Served-By").Line
+
+    if ($Line) {
+        $Backend = ($Line -replace "X-Served-By:\s*", "").Trim()
+        if (-not $Counts.ContainsKey($Backend)) {
+            $Counts[$Backend] = 0
+        }
+        $Counts[$Backend]++
+    }
+    else {
+        $Errors++
+    }
+}
+
+$Counts.GetEnumerator() | Sort-Object Name
+"Total errors: $Errors"
+```
+
+Expected output pattern:
+
+```text
+web1:8000 : about 100 requests
+web2:8000 : about 100 requests
+web3:8000 : about 100 requests
+Total errors: 0
+```
+
 
 ### 7.2 Failover scenario
 
-```bash
-# Run the failover demo (stops web1 mid-burst)
-bash tools/failover_demo.sh
+```powershell
+# Stop one backend, then keep sending requests through Nginx.
+docker compose stop web1
+
+$Target = "http://localhost:8080/api/v1/products/products/"
+$Counts = @{}
+$Errors = 0
+
+1..150 | ForEach-Object {
+    $Headers = curl.exe -s -D - $Target -o NUL
+    $Line = ($Headers | Select-String "X-Served-By").Line
+
+    if ($Line) {
+        $Backend = ($Line -replace "X-Served-By:\s*", "").Trim()
+        if (-not $Counts.ContainsKey($Backend)) {
+            $Counts[$Backend] = 0
+        }
+        $Counts[$Backend]++
+    }
+    else {
+        $Errors++
+    }
+}
+
+$Counts.GetEnumerator() | Sort-Object Name
+"Errors: $Errors"
+
+# Restart the backend and wait for Nginx fail_timeout to expire.
+docker compose start web1
+Start-Sleep -Seconds 12
 ```
 
 Expected output:
@@ -445,25 +570,96 @@ under NFR10 if a real-time dashboard of system-wide call rates is needed.
 
 ---
 
-## 12. How to verify locally
+## 12. How to verify locally on Windows
+
+All commands below are written for **Windows PowerShell** and Docker
+Desktop. Use `curl.exe` instead of `curl` because `curl` may be an alias
+for `Invoke-WebRequest` in Windows PowerShell.
+
+```powershell
+# 1. Start from the project root.
+cd "D:\4th\High-Performance-E-Commerce-Backend-Engine"
+
+# 2. Start the stack. This includes web1, web2, web3, Redis, Postgres, and Nginx.
+docker compose down --remove-orphans
+docker compose up --build -d
+
+# 3. Confirm services and host-port mappings.
+docker compose ps
+
+# 4. Seed demo data.
+docker compose exec web1 python manage.py seed_demo --fresh
+
+# 5. Check Nginx health through the Windows host port.
+curl.exe http://localhost:8080/healthz
+
+# 6. Check product traffic through Nginx.
+curl.exe http://localhost:8080/api/v1/products/products/
+
+# 7. Check direct per-instance diagnostics.
+curl.exe http://localhost:8001/api/v1/instance/
+curl.exe http://localhost:8002/api/v1/instance/
+curl.exe http://localhost:8003/api/v1/instance/
+```
+
+Expected verified Windows mapping:
+
+| Service | Windows URL / port |
+|---|---|
+| Nginx/API | `http://localhost:8080` |
+| web1 direct | `http://localhost:8001` |
+| web2 direct | `http://localhost:8002` |
+| web3 direct | `http://localhost:8003` |
+| Postgres | `localhost:5433` |
+| Redis | `localhost:6380` |
+
+### 12.1 Check request distribution on Windows
+
+```powershell
+$Target = "http://localhost:8080/api/v1/products/products/"
+$Counts = @{}
+$Errors = 0
+
+1..300 | ForEach-Object {
+    $Headers = curl.exe -s -D - $Target -o NUL
+    $Line = ($Headers | Select-String "X-Served-By").Line
+
+    if ($Line) {
+        $Backend = ($Line -replace "X-Served-By:\s*", "").Trim()
+        if (-not $Counts.ContainsKey($Backend)) {
+            $Counts[$Backend] = 0
+        }
+        $Counts[$Backend]++
+    }
+    else {
+        $Errors++
+    }
+}
+
+$Counts.GetEnumerator() | Sort-Object Name
+"Total errors: $Errors"
+```
+
+### 12.2 Run the standalone simulation
+
+```powershell
+cd load_distribution_sim
+python -m pip install requests
+python sim.py
+cd ..
+```
+
+### 12.3 Optional Git Bash / Linux equivalents
+
+Use this section only when running Git Bash, WSL, macOS, or Linux. The
+PowerShell commands above are the preferred Windows instructions.
 
 ```bash
-# 1. Start the stack (includes web1, web2, web3)
-docker-compose up --build -d
-
-# 2. Seed demo data
-docker-compose exec web1 python manage.py seed_demo --fresh
-
-# 3. Check request distribution (300 hits, expect ~100 per backend)
+docker compose up --build -d
+docker compose exec web1 python manage.py seed_demo --fresh
 bash tools/distribution_check.sh 300
-
-# 4. Run the failover demo
 bash tools/failover_demo.sh
-
-# 5. Run the standalone simulation (no Docker needed)
 cd load_distribution_sim && python sim.py
-
-# 6. Check per-instance metrics
 curl http://localhost:8001/api/v1/instance/
 curl http://localhost:8002/api/v1/instance/
 curl http://localhost:8003/api/v1/instance/

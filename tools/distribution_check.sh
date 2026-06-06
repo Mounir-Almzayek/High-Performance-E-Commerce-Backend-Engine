@@ -29,7 +29,7 @@
 set -euo pipefail
 
 N="${1:-300}"
-HOST="${2:-http://localhost}"
+HOST="${2:-http://localhost:8080}"
 ENDPOINT="${HOST}/api/v1/products/products/"
 DIAG_ENDPOINT="${HOST}/api/v1/instance/"
 TMPFILE=$(mktemp)
