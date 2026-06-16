@@ -1,0 +1,59 @@
+{
+  "configuration": {
+    "product_id": 1,
+    "stock": 100,
+    "workers": 50,
+    "requests": 200,
+    "mode": "all"
+  },
+  "results": [
+    {
+      "mode": "nolock",
+      "successes": 200,
+      "rejections": 0,
+      "oversell": 100,
+      "duration_seconds": 0.990617,
+      "throughput_ops_sec": 201.89,
+      "avg_latency_ms": 203.012,
+      "p50_latency_ms": 207.822,
+      "p95_latency_ms": 305.453,
+      "p99_latency_ms": 350.769,
+      "retry_count": 0,
+      "deadlocks": 0,
+      "final_reserved": 23,
+      "stock_movements": 200
+    },
+    {
+      "mode": "pessimistic",
+      "successes": 100,
+      "rejections": 100,
+      "oversell": 0,
+      "duration_seconds": 1.564998,
+      "throughput_ops_sec": 127.8,
+      "avg_latency_ms": 368.672,
+      "p50_latency_ms": 405.229,
+      "p95_latency_ms": 776.496,
+      "p99_latency_ms": 1033.37,
+      "retry_count": 0,
+      "deadlocks": 0,
+      "final_reserved": 100,
+      "stock_movements": 100
+    },
+    {
+      "mode": "optimistic",
+      "successes": 100,
+      "rejections": 100,
+      "oversell": 0,
+      "duration_seconds": 7.158414,
+      "throughput_ops_sec": 27.94,
+      "avg_latency_ms": 1764.286,
+      "p50_latency_ms": 1017.323,
+      "p95_latency_ms": 6963.717,
+      "p99_latency_ms": 7082.553,
+      "retry_count": 4097,
+      "deadlocks": 0,
+      "final_reserved": 100,
+      "stock_movements": 100
+    }
+  ]
+}

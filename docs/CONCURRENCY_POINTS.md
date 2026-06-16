@@ -1,115 +1,91 @@
 # Concurrency points map
 
-Every place in the codebase where two or more concurrent callers can
-interfere with each other is listed here, with the protection mechanism
-in effect.
+Every place where concurrent callers can interfere is listed here with
+the protection mechanism in effect. New or changed concurrency points
+must update this document in the same change.
 
-This file is the contract between the architecture and the implementers:
-if a service function is added/modified in a way that introduces a new
-concurrency point, this document MUST be updated in the same change.
+## 1. Inventory (`apps/inventory/services.py`) - implemented
 
-> **Status legend:** ✅ implemented (NFR1 branch) · ⏳ pending (other NFR owner)
-
-For the engineering rationale behind each choice see
-[reports/01-nfr1-implementation.md](reports/01-nfr1-implementation.md).
-
----
-
-## 1. Inventory (`apps/inventory/services.py`) ✅
-
-Highest-contention surface in the system. Every public function here is a
-race target. All five are protected with `SELECT ... FOR UPDATE` inside
-`@transaction.atomic`.
+Inventory is the highest-contention surface. All public stock mutations
+use `SELECT ... FOR UPDATE` inside `transaction.atomic()`. Every
+successful change also inserts a `StockMovement` in the same transaction.
 
 | Function | Race | Implemented mechanism |
 |---|---|---|
-| `reserve_stock` | Two carts reserving the last unit at the same time | Pessimistic row lock on `StockItem` + F-expression update + StockMovement insert in same atomic |
-| `release_stock` | Cancellation + reservation timeout overlap | Same discipline |
-| `consume_stock` | Webhook capture racing with foreground cancel | Lock + status guard |
-| `restock` | Concurrent supplier deliveries / admin imports | Lock + `on_hand = F('on_hand') + qty` |
-| `bulk_reserve` | Two checkouts share two products in opposite order | **PK-ASC lock order**: `select_for_update().filter(id__in=...).order_by("product_id")` |
+| `reserve_stock` | Two carts reserve the last unit | Pessimistic row lock on `StockItem`, guarded availability check, F-expression update, and movement insert |
+| `release_stock` | Cancellation and reservation timeout overlap | Same pessimistic locking discipline |
+| `consume_stock` | Payment capture races with cancellation | Same pessimistic locking discipline and state guard |
+| `restock` | Concurrent deliveries or admin imports | Row lock plus atomic `on_hand` increment |
+| `bulk_reserve` | Two checkouts lock shared products in different orders | Pessimistic locks acquired in ascending `product_id` order |
 
-Every successful change must also INSERT a `StockMovement` row in the
-SAME transaction (atomicity invariant for NFR8).
+Do not replace these locks with optimistic CAS. Hot inventory rows have
+high contention, so retries would waste work and reduce predictability.
 
----
-
-## 2. Orders (`apps/orders/services.py`) ✅
+## 2. Orders (`apps/orders/services.py`) - implemented
 
 | Function | Race | Implemented mechanism |
 |---|---|---|
-| `place_order` | Two tabs from the same user clicking checkout | `select_for_update` on `Cart`; cart-locked region wraps `bulk_reserve` (PK-ASC) and the Order/OrderItem inserts |
-| `cancel_order` | User cancellation racing with payment-capture webhook | `select_for_update` on `Order` + status guard; release_stock called per item in PK-ASC order |
+| `place_order` | Two tabs submit checkout | Lock cart; reserve inventory and insert order rows in the same transaction |
+| `cancel_order` | User cancellation races with payment capture | Lock order, validate status, then release inventory in stable order |
 
-Async dispatch (notification, invoicing) is left to NFR3 owner.
-Implementation note in `place_order` comments where the
-`transaction.on_commit` calls go.
-
----
-
-## 3. Payments (`apps/payments/services.py`) ✅
+## 3. Payments (`apps/payments/services.py`) - implemented
 
 | Function | Race | Implemented mechanism |
 |---|---|---|
-| `capture_payment` | Duplicate webhook from gateway / parallel "Pay" clicks | `select_for_update` on `PaymentIntent`; same-`external_id` short-circuit returns idempotently; consume_stock per item in PK-ASC order |
-| `refund_payment` | Concurrent refund + chargeback | Same locking discipline + status guard |
-| `process_webhook` | Same signature on web1 and web2 simultaneously | UNIQUE index on `WebhookEvent.signature`; INSERT in inner `atomic`, `IntegrityError` -> return False (deduplicated) |
+| `capture_payment` | Duplicate webhook or parallel pay clicks | Lock `PaymentIntent`, use status guard and idempotent external ID |
+| `refund_payment` | Concurrent refund and chargeback | Same pessimistic locking discipline and status guard |
+| `process_webhook` | Same signature reaches multiple instances | Unique `WebhookEvent.signature`; duplicate insert returns false |
 
----
-
-## 4. Cart (`apps/cart/services.py`) ✅
+## 4. Cart (`apps/cart/services.py`) - implemented
 
 | Function | Race | Implemented mechanism |
 |---|---|---|
-| `add_item` | Two clicks within the same second / two tabs | `select_for_update` on `Cart`; `get_or_create` + atomic in-row `quantity` increment under the lock |
-| `update_item` | User reduces quantity while checkout starts | `select_for_update` on `Cart`; status guard refuses mutation if cart already CHECKED_OUT |
+| `add_item` | Repeated click or multiple tabs | Lock cart and update quantity under the lock |
+| `update_item` | Cart edit races with checkout | Lock cart and reject mutation after checkout |
 
----
-
-## 5. Users (`apps/users/services.py`) ✅
+## 5. Users (`apps/users/services.py`) - implemented
 
 | Function | Race | Implemented mechanism |
 |---|---|---|
-| `register_customer` | Duplicate username/email submission | UNIQUE constraint at the auth layer + `transaction.atomic` so a failed Customer create rolls back the User |
-| `adjust_loyalty_points` | Order completion + admin tweak + refund | F-expression atomic update — single SQL statement, no application lock; conditional WHERE clause prevents going negative |
+| `register_customer` | Duplicate username or email submission | Unique constraint plus atomic User/Customer creation |
+| `adjust_loyalty_points` | Completion, refund, and admin adjustment overlap | Atomic SQL F-expression update; conditional deduction prevents negative points |
 
----
+Loyalty points intentionally do **not** use optimistic CAS. They are a
+pure counter, so one conditional SQL `UPDATE` can perform the arithmetic
+and bump `version` without a read, lock, or retry loop.
 
-## 6. Products (`apps/products/services.py`) ⏳
+## 6. Products (`apps/products/services.py`) - implemented
 
-| Function | Race | Mechanism |
+| Function | Race | Implemented mechanism |
 |---|---|---|
-| `update_product_price` | Two admins editing the same product | Optimistic `version` CAS via `core.concurrency.locks.bump_version`; on success → `invalidate_product()` (NFR6 owner) |
+| `update_product_price` | Two admins edit the same product version | Optimistic `version` CAS via `bump_version`; invalidate product cache after commit |
 
----
+`PATCH /api/v1/products/products/{id}/price/` requires
+`expected_version`. A stale version returns HTTP 409 with code
+`stale_product_version`; human/admin conflicts are surfaced instead of
+being automatically retried.
 
 ## 7. Cache layer (`core/cache/redis_cache.py`)
 
 | Race | Mechanism |
 |---|---|
-| Thundering herd on cache miss for a hot key | Single-flight via short-lived Redis lock OR `cache.add()` semantics |
-| Cache + DB drift after a write | Writers MUST call `invalidate_product()` after committing |
+| Thundering herd on a hot cache miss | NFR6-owned single-flight guard |
+| Cache and database drift after a write | Writers call the NFR6 invalidation helper after commit |
 
----
+## 8. Lock acquisition order
 
-## 8. Lock acquisition order (deadlock avoidance)
+Transactions that lock several rows must acquire them in ascending
+primary-key order. `bulk_reserve` applies this rule by sorting products
+before locking them. Future multi-row locking must follow the same rule.
 
-Two transactions that lock multiple rows in conflicting orders deadlock.
-Convention enforced project-wide:
+## 9. Test coverage
 
-> **Always acquire locks in ascending primary-key order.**
+The NFR7 acceptance tests are:
 
-Concrete rule for `bulk_reserve`: sort `items` by `product_id` before
-locking. Same rule for any future multi-row locking (e.g. multi-warehouse
-inventory).
+- `tests/unit/test_nfr7_pessimistic_inventory.py`
+- `tests/unit/test_nfr7_optimistic_product.py`
+- `tests/unit/test_nfr7_atomic_loyalty.py`
 
----
-
-## 9. Test coverage required
-
-Every row in this file should map to at least one test in `tests/unit/`
-that asserts the protection works under simulated concurrency
-(`threading` + `transaction.atomic`, or `pytest-django`'s `TransactionTestCase`).
-
-The NFR9 stress test is *not* a substitute — it confirms throughput, but
-unit tests confirm correctness of the locks themselves.
+These tests use threads and transactional database access to prove
+correctness. Stress tests and benchmarks measure behavior under load but
+do not replace these correctness tests.
