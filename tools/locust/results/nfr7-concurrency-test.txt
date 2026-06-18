@@ -1,0 +1,24 @@
+Starting NFR7 same-product concurrency test
+Product id: 2001
+Product name: NFR7 Hot Product
+Initial stock on_hand: 5
+Initial reserved: 0
+Initial available: 5
+Concurrent reservation requests on same product: 20
+Each request attempts to reserve qty=1
+--- Result ---
+Total concurrent requests: 20
+Accepted reservations: 5
+Rejected reservations: 15
+Unexpected errors: 0
+Final on_hand: 5
+Final reserved: 5
+Final available: 0
+Reserve movement rows written: 5
+Elapsed time(s): 0.433
+--- Expected ---
+Expected accepted reservations: 5
+Expected rejected reservations: 15
+Expected oversell: 0
+--- Verdict ---
+PASS: Pessimistic locking serialized concurrent reservations correctly.

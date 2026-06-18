@@ -1,0 +1,31 @@
+Starting NFR8 ACID rollback evidence test
+--- Scenario 1: place_order failure injection ---
+Injected failure point: inventory bulk_reserve, after Order and OrderItems are created inside the transaction
+Before Orders: 0
+Before OrderItems: 0
+Before StockMovements: 0
+Before cart status: open
+Before stock on_hand/reserved/available: 10/0/10
+Caught expected exception: injected NFR8 reservation failure
+After Orders: 0
+After OrderItems: 0
+After StockMovements: 0
+After cart status: open
+After stock on_hand/reserved/available: 10/0/10
+Scenario 1 verdict: PASS
+--- Scenario 2: capture_payment late failure injection ---
+Injected failure point: after consume_stock has written StockItem + StockMovement inside the transaction
+Before wallet balance: 200.00
+Before PaymentIntent status: init
+Before Order status: pending
+Before StockMovements: 0
+Before stock on_hand/reserved/available: 5/1/4
+Caught expected exception: injected NFR8 failure after stock consume
+After wallet balance: 200.00
+After PaymentIntent status: init
+After Order status: pending
+After StockMovements: 0
+After stock on_hand/reserved/available: 5/1/4
+Scenario 2 verdict: PASS
+--- Final verdict ---
+PASS: Injected partial failures rolled back the full composite operations.

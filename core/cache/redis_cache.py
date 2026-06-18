@@ -110,23 +110,19 @@ def cache_get_or_set(key: str, builder: Callable[[], Any], ttl: int) -> Any:
 
 def invalidate_product(product_id: int) -> None:
     """Remove every cache key that depends on this product."""
-    # Remove explicit product detail key and attempt to remove listing/search
-    # keys by pattern via the redis connection. Deleting patterns may be
-    # expensive; acceptable for admin/editor flows.
+    # Use Django's cache API so key prefixes/versioning match cache.set/get.
     try:
-        conn = get_redis_connection("default")
-        # detail key
-        conn.delete(f"product:{product_id}")
-        # remove any listing keys (product:list:{filter_hash}:p{page})
-        try:
-            conn.delete_pattern("product:list:*")
-        except AttributeError:
-            # Some redis clients expose scan_iter only; emulate pattern delete
-            keys = list(conn.scan_iter(match="product:list:*", count=1000))
+        cache.delete(f"product:{product_id}")
+        cache.delete(f"inventory:level:{product_id}")
+
+        delete_pattern = getattr(cache, "delete_pattern", None)
+        if delete_pattern is not None:
+            delete_pattern("product:list:*")
+        else:
+            conn = get_redis_connection("default")
+            keys = list(conn.scan_iter(match="*product:list:*", count=1000))
             if keys:
                 conn.delete(*keys)
-        # Invalidate inventory-level short TTL keys for this product
-        conn.delete(f"inventory:level:{product_id}")
     except Exception:
         # Swallow to avoid bringing down writers; log is left to caller's logger
         pass
