@@ -2,6 +2,8 @@ from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from apps.inventory.services import NotEnoughStock
+
 from . import services
 from .models import Order
 from .serializers import (
@@ -33,9 +35,20 @@ class OrderViewSet(viewsets.ReadOnlyModelViewSet):
     def place(self, request):
         s = PlaceOrderSerializer(data=request.data)
         s.is_valid(raise_exception=True)
-        order = services.place_order(
-            customer=request.user.customer, **s.validated_data
-        )
+        try:
+            order = services.place_order(
+                customer=request.user.customer, **s.validated_data
+            )
+        except NotEnoughStock as exc:
+            return Response(
+                {"detail": str(exc), "code": "not_enough_stock"},
+                status=status.HTTP_409_CONFLICT,
+            )
+        except services.CartEmpty as exc:
+            return Response(
+                {"detail": str(exc), "code": "cart_empty"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=["post"])

@@ -1,0 +1,984 @@
+﻿===== 2026-06-17T14:31:29.0151909+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          97.28%    70.79MiB / 2.711GiB   2.55%     1.33kB / 126B     19.3MB / 0B       2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            0.13%     197.9MiB / 2.711GiB   7.13%     34.6kB / 24.4kB   13.4MB / 16.4kB   5
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.13%     200.1MiB / 2.711GiB   7.21%     34.8kB / 24.4kB   18.4MB / 8.19kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     86.59MiB / 2.711GiB   3.12%     38.5kB / 51kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.12%     195.7MiB / 2.711GiB   7.05%     34.7kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     81.75MiB / 2.711GiB   2.95%     1.75kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.05%     220.3MiB / 2.711GiB   7.94%     39kB / 40.7kB     7.14MB / 9.07MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           0.00%     8.352MiB / 2.711GiB   0.30%     32.3kB / 11.7kB   10.8MB / 4.1kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              0.01%     46.49MiB / 2.711GiB   1.67%     2.82MB / 2.1MB    75.6MB / 24.3MB   6
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           8.40%     12.93MiB / 2.711GiB   0.47%     252kB / 232kB     61.6MB / 65.5kB   6
+===== 2026-06-17T14:31:36.5370013+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          11.02%    93.65MiB / 2.711GiB   3.37%     93.5kB / 76.5kB   22.8MB / 0B       11
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            674.66%   287.5MiB / 2.711GiB   10.36%    1.97MB / 2.29MB   14.7MB / 16.4kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     198MiB / 2.711GiB     7.13%     35kB / 24.4kB     18.4MB / 8.19kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     85.09MiB / 2.711GiB   3.07%     44.2kB / 53.5kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     194.4MiB / 2.711GiB   7.00%     34.9kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     81.15MiB / 2.711GiB   2.92%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.04%     213.7MiB / 2.711GiB   7.70%     45.8kB / 46.7kB   7.14MB / 15.5MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.01%     10.95MiB / 2.711GiB   0.39%     207kB / 220kB     10.9MB / 4.1kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              47.01%    65.27MiB / 2.711GiB   2.35%     5MB / 3.93MB      76.8MB / 28.1MB   14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.72%     12.79MiB / 2.711GiB   0.46%     258kB / 240kB     61.6MB / 65.5kB   6
+===== 2026-06-17T14:31:44.0573268+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          9.87%     93.49MiB / 2.711GiB   3.37%     1.26MB / 169kB    22.8MB / 0B       2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            539.49%   295.6MiB / 2.711GiB   10.65%    6.6MB / 9.95MB    14.8MB / 20.5kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     197.4MiB / 2.711GiB   7.11%     35kB / 24.4kB     18.4MB / 8.19kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.09%     85.06MiB / 2.711GiB   3.06%     48.1kB / 55.3kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     194.1MiB / 2.711GiB   6.99%     34.9kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     81.04MiB / 2.711GiB   2.92%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.45%     209.2MiB / 2.711GiB   7.54%     52.1kB / 52kB     7.14MB / 19.8MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           3.01%     12.1MiB / 2.711GiB    0.44%     1.49MB / 1.57MB   10.9MB / 12.3kB   9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              60.52%    68.16MiB / 2.711GiB   2.46%     11.5MB / 8.37MB   77MB / 36MB       14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.64%     18.05MiB / 2.711GiB   0.65%     263kB / 248kB     67.5MB / 69.6kB   6
+===== 2026-06-17T14:31:51.5893937+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          28.30%    93.65MiB / 2.711GiB   3.37%     4.85MB / 268kB    22.8MB / 0B       2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            347.71%   303.6MiB / 2.711GiB   10.94%    13.2MB / 25.4MB   14.8MB / 20.5kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.13%     197.1MiB / 2.711GiB   7.10%     35kB / 24.4kB     18.4MB / 8.19kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     84.77MiB / 2.711GiB   3.05%     50.9kB / 56.3kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.19%     194MiB / 2.711GiB     6.99%     34.9kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.99MiB / 2.711GiB   2.92%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.69%     206.3MiB / 2.711GiB   7.43%     56.6kB / 56.1kB   7.14MB / 22.4MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           8.31%     11.11MiB / 2.711GiB   0.40%     5.22MB / 5.38MB   10.9MB / 49.2kB   9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              125.12%   73.4MiB / 2.711GiB    2.64%     23.3MB / 14.8MB   77.5MB / 62.2MB   14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           26.13%    17.8MiB / 2.711GiB    0.64%     269kB / 257kB     67.5MB / 69.6kB   6
+===== 2026-06-17T14:31:58.3877373+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          25.17%    94.12MiB / 2.711GiB   3.39%     10.2MB / 399kB    22.8MB / 20.5kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            331.48%   306.7MiB / 2.711GiB   11.05%    22.9MB / 49.9MB   14.8MB / 20.5kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     197.1MiB / 2.711GiB   7.10%     35kB / 24.4kB     18.4MB / 8.19kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     84.58MiB / 2.711GiB   3.05%     55kB / 58.3kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     194.1MiB / 2.711GiB   6.99%     34.9kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     81MiB / 2.711GiB      2.92%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.13%     206.1MiB / 2.711GiB   7.43%     63.2kB / 61.6kB   7.14MB / 22.7MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           6.26%     11.11MiB / 2.711GiB   0.40%     11.5MB / 11.8MB   10.9MB / 49.2kB   9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              105.39%   79.81MiB / 2.711GiB   2.88%     41.5MB / 24.1MB   78.8MB / 83.9MB   14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.70%     17.75MiB / 2.711GiB   0.64%     276kB / 266kB     67.5MB / 69.6kB   6
+===== 2026-06-17T14:32:06.0037787+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          24.01%    93.47MiB / 2.711GiB   3.37%     18.1MB / 599kB    22.8MB / 20.5kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            341.23%   308.8MiB / 2.711GiB   11.13%    33.4MB / 77.4MB   14.8MB / 20.5kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.10%     197.1MiB / 2.711GiB   7.10%     35kB / 24.4kB     18.4MB / 8.19kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.11%     84.83MiB / 2.711GiB   3.06%     58.9kB / 59.5kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.10%     194.1MiB / 2.711GiB   6.99%     34.9kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     81MiB / 2.711GiB      2.92%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.33%     205.5MiB / 2.711GiB   7.40%     68.9kB / 66.8kB   7.14MB / 22.9MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           7.12%     11.07MiB / 2.711GiB   0.40%     19MB / 19.4MB     10.9MB / 49.2kB   9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              119.15%   87.01MiB / 2.711GiB   3.13%     62MB / 34.3MB     79.8MB / 98.3MB   14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.63%     17.75MiB / 2.711GiB   0.64%     280kB / 273kB     67.5MB / 69.6kB   6
+===== 2026-06-17T14:32:13.5722261+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          28.66%    94.07MiB / 2.711GiB   3.39%     23.2MB / 743kB    22.8MB / 20.5kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            344.73%   310.5MiB / 2.711GiB   11.19%    42.2MB / 98.8MB   14.8MB / 20.5kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.07%     197.1MiB / 2.711GiB   7.10%     35kB / 24.4kB     18.4MB / 8.19kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.18%     84.59MiB / 2.711GiB   3.05%     62.7kB / 61.3kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     194.1MiB / 2.711GiB   6.99%     34.9kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     81MiB / 2.711GiB      2.92%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.23%     205.3MiB / 2.711GiB   7.40%     75.1kB / 72.1kB   7.14MB / 23MB     5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           6.96%     11.27MiB / 2.711GiB   0.41%     24.3MB / 24.8MB   10.9MB / 49.2kB   9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              106.96%   92.74MiB / 2.711GiB   3.34%     78.1MB / 42.7MB   80.2MB / 126MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.70%     17.72MiB / 2.711GiB   0.64%     288kB / 284kB     67.5MB / 69.6kB   6
+===== 2026-06-17T14:32:21.0879749+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          20.00%    94.02MiB / 2.711GiB   3.39%     30MB / 899kB      22.8MB / 20.5kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            352.38%   309.7MiB / 2.711GiB   11.16%    52.2MB / 125MB    14.8MB / 20.5kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     197.1MiB / 2.711GiB   7.10%     35kB / 24.4kB     18.4MB / 8.19kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     84.83MiB / 2.711GiB   3.06%     65.9kB / 62.6kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.10%     194.1MiB / 2.711GiB   6.99%     34.9kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.98MiB / 2.711GiB   2.92%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.23%     205.1MiB / 2.711GiB   7.39%     80.2kB / 77.1kB   7.14MB / 24.1MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           5.31%     10.79MiB / 2.711GiB   0.39%     31.2MB / 31.9MB   10.9MB / 73.7kB   9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              111.22%   98.79MiB / 2.711GiB   3.56%     97.3MB / 52.4MB   80.3MB / 140MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.64%     17.28MiB / 2.711GiB   0.62%     294kB / 292kB     67.5MB / 77.8kB   6
+===== 2026-06-17T14:32:27.9457063+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          18.40%    93.98MiB / 2.711GiB   3.39%     35.7MB / 1.06MB   22.8MB / 32.8kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            209.51%   309.1MiB / 2.711GiB   11.14%    60.5MB / 145MB    14.8MB / 20.5kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.14%     197.1MiB / 2.711GiB   7.10%     35kB / 24.4kB     18.4MB / 8.19kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.74%     84.58MiB / 2.711GiB   3.05%     69.8kB / 64.4kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.10%     194.1MiB / 2.711GiB   6.99%     34.9kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.96MiB / 2.711GiB   2.92%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.57%     204.8MiB / 2.711GiB   7.38%     86.6kB / 82.6kB   7.14MB / 24.9MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.71%     11.71MiB / 2.711GiB   0.42%     37.2MB / 38MB     10.9MB / 106kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              93.95%    103.8MiB / 2.711GiB   3.74%     115MB / 61.6MB    80.3MB / 175MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.82%     17.4MiB / 2.711GiB    0.63%     300kB / 301kB     67.5MB / 77.8kB   6
+===== 2026-06-17T14:32:35.4883787+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          26.46%    93.65MiB / 2.711GiB   3.37%     42.5MB / 1.22MB   22.8MB / 32.8kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            355.77%   313.4MiB / 2.711GiB   11.29%    72.1MB / 175MB    14.8MB / 20.5kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.18%     197.1MiB / 2.711GiB   7.10%     35kB / 24.4kB     18.4MB / 8.19kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.13%     85.31MiB / 2.711GiB   3.07%     73.5kB / 65.5kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     194.1MiB / 2.711GiB   6.99%     34.9kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.96MiB / 2.711GiB   2.92%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.35%     204.1MiB / 2.711GiB   7.35%     92.1kB / 87.6kB   7.14MB / 24.9MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           6.98%     11.01MiB / 2.711GiB   0.40%     44.3MB / 45.2MB   10.9MB / 106kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              97.54%    108.3MiB / 2.711GiB   3.90%     132MB / 69.9MB    80.5MB / 203MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.71%     17.47MiB / 2.711GiB   0.63%     306kB / 310kB     67.5MB / 77.8kB   6
+===== 2026-06-17T14:32:43.0005121+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          21.47%    93.83MiB / 2.711GiB   3.38%     48.2MB / 1.37MB   22.8MB / 41kB     2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            306.04%   313.2MiB / 2.711GiB   11.28%    81.5MB / 198MB    14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     196.9MiB / 2.711GiB   7.09%     35kB / 24.4kB     18.4MB / 8.19kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.35%     84.89MiB / 2.711GiB   3.06%     76.9kB / 67.5kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     193.9MiB / 2.711GiB   6.98%     34.9kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.93MiB / 2.711GiB   2.92%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.13%     202.9MiB / 2.711GiB   7.31%     97.8kB / 92.3kB   7.14MB / 25.7MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           5.74%     11.46MiB / 2.711GiB   0.41%     49.5MB / 50.5MB   10.9MB / 131kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              178.30%   114.4MiB / 2.711GiB   4.12%     152MB / 80.6MB    80.7MB / 220MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           8.02%     17.19MiB / 2.711GiB   0.62%     312kB / 318kB     67.5MB / 77.8kB   6
+===== 2026-06-17T14:32:50.4965599+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          25.45%    93.73MiB / 2.711GiB   3.38%     54.5MB / 1.53MB   22.8MB / 41kB     2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            351.61%   313.3MiB / 2.711GiB   11.29%    92MB / 224MB      14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.12%     197.1MiB / 2.711GiB   7.10%     35kB / 24.4kB     18.4MB / 8.19kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.16%     84.75MiB / 2.711GiB   3.05%     80.7kB / 68.7kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.11%     193.9MiB / 2.711GiB   6.99%     34.9kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.93MiB / 2.711GiB   2.92%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.18%     201.8MiB / 2.711GiB   7.27%     103kB / 97.5kB    7.14MB / 27.2MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           9.75%     11.42MiB / 2.711GiB   0.41%     56.7MB / 57.8MB   10.9MB / 131kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              110.85%   120.1MiB / 2.711GiB   4.33%     172MB / 90.7MB    80.9MB / 251MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.72%     16.81MiB / 2.711GiB   0.61%     318kB / 326kB     67.5MB / 77.8kB   6
+===== 2026-06-17T14:32:57.8863847+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          21.53%    93.65MiB / 2.711GiB   3.37%     59.7MB / 1.68MB   22.8MB / 41kB     2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            353.68%   313.9MiB / 2.711GiB   11.31%    100MB / 245MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.11%     197.1MiB / 2.711GiB   7.10%     35kB / 24.4kB     18.4MB / 8.19kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          27.51%    84.98MiB / 2.711GiB   3.06%     84.4kB / 70.4kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.16%     193.9MiB / 2.711GiB   6.99%     34.9kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.92MiB / 2.711GiB   2.92%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.42%     201.4MiB / 2.711GiB   7.26%     110kB / 103kB     7.14MB / 27.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           9.66%     12.24MiB / 2.711GiB   0.44%     62.1MB / 63.4MB   10.9MB / 131kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              164.97%   125.2MiB / 2.711GiB   4.51%     187MB / 98.9MB    80.9MB / 283MB    20
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           3.68%     16.93MiB / 2.711GiB   0.61%     324kB / 336kB     67.5MB / 77.8kB   6
+===== 2026-06-17T14:33:06.3755319+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          23.06%    94.2MiB / 2.711GiB    3.39%     65.1MB / 1.79MB   22.8MB / 41kB     2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            350.66%   315.5MiB / 2.711GiB   11.37%    110MB / 270MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.10%     197.1MiB / 2.711GiB   7.10%     35kB / 24.4kB     18.4MB / 12.3kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     84.99MiB / 2.711GiB   3.06%     88.5kB / 71.7kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.11%     193.9MiB / 2.711GiB   6.99%     34.9kB / 24.4kB   10.1MB / 8.19kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.92MiB / 2.711GiB   2.92%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.06%     201.3MiB / 2.711GiB   7.25%     116kB / 108kB     7.14MB / 27.7MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           7.23%     11MiB / 2.711GiB      0.40%     68.6MB / 70MB     10.9MB / 131kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              113.74%   130MiB / 2.711GiB     4.68%     205MB / 108MB     81MB / 295MB      14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.65%     16.87MiB / 2.711GiB   0.61%     330kB / 345kB     67.5MB / 77.8kB   6
+===== 2026-06-17T14:33:14.0469156+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          25.47%    93.64MiB / 2.711GiB   3.37%     72.5MB / 1.97MB   22.8MB / 53.2kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            353.96%   315.6MiB / 2.711GiB   11.37%    120MB / 295MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     196.6MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.20%     84.56MiB / 2.711GiB   3.05%     92.6kB / 73.7kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     193.6MiB / 2.711GiB   6.98%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.82MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.96%     198.9MiB / 2.711GiB   7.17%     122kB / 114kB     7.14MB / 30.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           8.08%     11.16MiB / 2.711GiB   0.40%     75.4MB / 76.9MB   10.9MB / 229kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              113.66%   134.2MiB / 2.711GiB   4.84%     225MB / 118MB     81.2MB / 327MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.59%     16.03MiB / 2.711GiB   0.58%     337kB / 354kB     67.5MB / 77.8kB   6
+===== 2026-06-17T14:33:21.4752949+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          34.47%    93.91MiB / 2.711GiB   3.38%     77.4MB / 2.1MB    22.8MB / 53.2kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            331.85%   316.7MiB / 2.711GiB   11.41%    128MB / 315MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.10%     196.4MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.12%     84.5MiB / 2.711GiB    3.04%     95.3kB / 74.6kB   8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     193.5MiB / 2.711GiB   6.97%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.8MiB / 2.711GiB    2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.12%     197.9MiB / 2.711GiB   7.13%     126kB / 118kB     7.14MB / 31.4MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           7.62%     11.22MiB / 2.711GiB   0.40%     80.4MB / 82MB     10.9MB / 242kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              99.22%    140MiB / 2.711GiB     5.04%     242MB / 127MB     81.3MB / 339MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           12.34%    16.21MiB / 2.711GiB   0.58%     341kB / 361kB     67.5MB / 77.8kB   6
+===== 2026-06-17T14:33:29.0344354+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          14.09%    93.9MiB / 2.711GiB    3.38%     84MB / 2.27MB     22.8MB / 69.6kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            228.29%   316.3MiB / 2.711GiB   11.40%    139MB / 342MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     196.2MiB / 2.711GiB   7.07%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.16%     84.17MiB / 2.711GiB   3.03%     100kB / 76.7kB    8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.23%     193.5MiB / 2.711GiB   6.97%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.77MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.37%     197.2MiB / 2.711GiB   7.11%     134kB / 124kB     7.14MB / 31.9MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.54%     11.3MiB / 2.711GiB    0.41%     87.3MB / 89MB     10.9MB / 279kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              96.66%    145.8MiB / 2.711GiB   5.25%     260MB / 136MB     81.5MB / 373MB    15
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           9.48%     18.11MiB / 2.711GiB   0.65%     349kB / 373kB     67.5MB / 77.8kB   13
+===== 2026-06-17T14:33:37.9616514+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          19.63%    94.34MiB / 2.711GiB   3.40%     88.8MB / 2.39MB   22.8MB / 69.6kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            335.35%   314.8MiB / 2.711GiB   11.34%    147MB / 361MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.12%     196.2MiB / 2.711GiB   7.07%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     83.91MiB / 2.711GiB   3.02%     104kB / 78.7kB    8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     193.4MiB / 2.711GiB   6.97%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.77MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.10%     197MiB / 2.711GiB     7.10%     141kB / 130kB     7.14MB / 32.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           7.14%     11.52MiB / 2.711GiB   0.42%     92.2MB / 94.1MB   10.9MB / 295kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              106.39%   149.3MiB / 2.711GiB   5.38%     274MB / 144MB     82MB / 399MB      14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.56%     15.71MiB / 2.711GiB   0.57%     356kB / 382kB     67.5MB / 77.8kB   6
+===== 2026-06-17T14:33:46.4513930+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          12.34%    93.87MiB / 2.711GiB   3.38%     95.1MB / 2.55MB   22.8MB / 69.6kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            125.26%   316MiB / 2.711GiB     11.39%    157MB / 387MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.11%     196.4MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     84.14MiB / 2.711GiB   3.03%     108kB / 80kB      8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     193.4MiB / 2.711GiB   6.97%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.77MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.05%     196.4MiB / 2.711GiB   7.08%     147kB / 135kB     7.14MB / 32.8MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.06%     11.52MiB / 2.711GiB   0.42%     98.8MB / 101MB    10.9MB / 295kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              42.55%    155MiB / 2.711GiB     5.58%     294MB / 154MB     82.1MB / 413MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.62%     15.88MiB / 2.711GiB   0.57%     362kB / 391kB     67.5MB / 77.8kB   6
+===== 2026-06-17T14:33:54.1312150+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          20.01%    94.25MiB / 2.711GiB   3.40%     101MB / 2.69MB    22.8MB / 69.6kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            266.90%   313MiB / 2.711GiB     11.28%    168MB / 414MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     196.4MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.23%     83.89MiB / 2.711GiB   3.02%     111kB / 81.5kB    8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     193.4MiB / 2.711GiB   6.97%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.77MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   1.60%     196.2MiB / 2.711GiB   7.07%     153kB / 141kB     7.14MB / 33.1MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           5.82%     11.26MiB / 2.711GiB   0.41%     106MB / 108MB     10.9MB / 295kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              100.13%   160.3MiB / 2.711GiB   5.77%     311MB / 163MB     82.2MB / 425MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           1.10%     15.63MiB / 2.711GiB   0.56%     369kB / 401kB     67.5MB / 81.9kB   6
+===== 2026-06-17T14:34:01.6061822+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          21.55%    94.66MiB / 2.711GiB   3.41%     107MB / 2.86MB    22.8MB / 81.9kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            340.60%   313.6MiB / 2.711GiB   11.30%    177MB / 436MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.10%     196.4MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.17%     84.36MiB / 2.711GiB   3.04%     116kB / 83kB      8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     193.4MiB / 2.711GiB   6.97%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.76MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.22%     195.6MiB / 2.711GiB   7.05%     159kB / 147kB     7.14MB / 33.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           5.81%     11.33MiB / 2.711GiB   0.41%     111MB / 114MB     10.9MB / 299kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              103.89%   165.8MiB / 2.711GiB   5.97%     330MB / 173MB     82.2MB / 475MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.75%     15.59MiB / 2.711GiB   0.56%     375kB / 410kB     67.5MB / 86kB     6
+===== 2026-06-17T14:34:09.2002667+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          26.09%    93.48MiB / 2.711GiB   3.37%     113MB / 2.99MB    22.8MB / 81.9kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            360.03%   314.4MiB / 2.711GiB   11.33%    187MB / 463MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     196.4MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     84.12MiB / 2.711GiB   3.03%     119kB / 84.9kB    8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     193.4MiB / 2.711GiB   6.97%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.76MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.06%     196.4MiB / 2.711GiB   7.07%     165kB / 151kB     7.14MB / 33.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           6.76%     11.29MiB / 2.711GiB   0.41%     118MB / 121MB     10.9MB / 299kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              112.24%   171.1MiB / 2.711GiB   6.16%     347MB / 181MB     82.2MB / 486MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.65%     15.72MiB / 2.711GiB   0.57%     381kB / 417kB     67.5MB / 86kB     6
+===== 2026-06-17T14:34:16.7552026+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          25.76%    93.34MiB / 2.711GiB   3.36%     121MB / 3.2MB     22.8MB / 94.2kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            341.04%   316.2MiB / 2.711GiB   11.39%    199MB / 492MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.13%     196.4MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     84.32MiB / 2.711GiB   3.04%     123kB / 86kB      8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     193.4MiB / 2.711GiB   6.97%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.73MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.05%     195MiB / 2.711GiB     7.02%     170kB / 156kB     7.14MB / 34.5MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           7.35%     10.97MiB / 2.711GiB   0.40%     126MB / 129MB     10.9MB / 328kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              117.62%   179.1MiB / 2.711GiB   6.45%     369MB / 192MB     83.8MB / 531MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.59%     15.46MiB / 2.711GiB   0.56%     387kB / 426kB     67.5MB / 94.2kB   6
+===== 2026-06-17T14:34:24.2041978+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          27.12%    93.18MiB / 2.711GiB   3.36%     127MB / 3.35MB    22.8MB / 94.2kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            318.34%   314MiB / 2.711GiB     11.31%    210MB / 519MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     196.3MiB / 2.711GiB   7.07%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.29%     84.53MiB / 2.711GiB   3.05%     127kB / 87.8kB    8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     193.3MiB / 2.711GiB   6.96%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.71MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.30%     194.9MiB / 2.711GiB   7.02%     176kB / 162kB     7.14MB / 35MB     5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           6.70%     10.93MiB / 2.711GiB   0.39%     133MB / 135MB     10.9MB / 328kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              123.01%   185.4MiB / 2.711GiB   6.68%     392MB / 205MB     83.8MB / 546MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.66%     15.03MiB / 2.711GiB   0.54%     393kB / 435kB     67.5MB / 94.2kB   6
+===== 2026-06-17T14:34:31.6767780+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          23.13%    93.21MiB / 2.711GiB   3.36%     135MB / 3.55MB    22.8MB / 94.2kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            318.60%   309.8MiB / 2.711GiB   11.16%    221MB / 547MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.07%     196.4MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.08%     84.05MiB / 2.711GiB   3.03%     131kB / 89.2kB    8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.13%     193.3MiB / 2.711GiB   6.96%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.73MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.21%     194.2MiB / 2.711GiB   7.00%     182kB / 167kB     7.14MB / 35.5MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           6.51%     11.06MiB / 2.711GiB   0.40%     140MB / 143MB     10.9MB / 336kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              164.49%   186.5MiB / 2.711GiB   6.72%     413MB / 215MB     85.7MB / 573MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.67%     15.62MiB / 2.711GiB   0.56%     399kB / 444kB     67.5MB / 94.2kB   6
+===== 2026-06-17T14:34:39.1120937+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          14.91%    92.9MiB / 2.711GiB    3.35%     140MB / 3.67MB    22.8MB / 94.2kB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            250.76%   315.8MiB / 2.711GiB   11.38%    230MB / 567MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     196.5MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     83.95MiB / 2.711GiB   3.02%     134kB / 90.9kB    8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     193.2MiB / 2.711GiB   6.96%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.69MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.05%     192.7MiB / 2.711GiB   6.94%     188kB / 171kB     7.14MB / 37.1MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.32%     11.41MiB / 2.711GiB   0.41%     145MB / 148MB     10.9MB / 385kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              93.71%    191.1MiB / 2.711GiB   6.89%     428MB / 224MB     87.1MB / 614MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           6.44%     14.57MiB / 2.711GiB   0.52%     405kB / 452kB     67.5MB / 94.2kB   6
+===== 2026-06-17T14:34:46.5832954+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          9.81%     92.89MiB / 2.711GiB   3.35%     145MB / 3.8MB     22.8MB / 106kB    2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            94.84%    315.1MiB / 2.711GiB   11.35%    238MB / 587MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     196.5MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     84.12MiB / 2.711GiB   3.03%     138kB / 92.1kB    8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.15%     193.3MiB / 2.711GiB   6.96%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.69MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.05%     191.7MiB / 2.711GiB   6.91%     193kB / 177kB     7.14MB / 37.8MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.80%     11.85MiB / 2.711GiB   0.43%     150MB / 153MB     10.9MB / 414kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              22.73%    192.1MiB / 2.711GiB   6.92%     443MB / 232MB     87.9MB / 633MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.74%     16.8MiB / 2.711GiB    0.61%     410kB / 460kB     69.8MB / 94.2kB   6
+===== 2026-06-17T14:34:54.0783357+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          8.08%     92.65MiB / 2.711GiB   3.34%     150MB / 3.93MB    22.8MB / 618kB    2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            63.79%    314.4MiB / 2.711GiB   11.33%    247MB / 608MB     14.8MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     196.5MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.07%     84.07MiB / 2.711GiB   3.03%     142kB / 94.1kB    8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.10%     193.2MiB / 2.711GiB   6.96%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.68MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.22%     191.5MiB / 2.711GiB   6.90%     200kB / 182kB     7.14MB / 38.4MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.63%     11.38MiB / 2.711GiB   0.41%     155MB / 159MB     10.9MB / 446kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              19.90%    192.2MiB / 2.711GiB   6.92%     459MB / 240MB     87.9MB / 669MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.65%     17.35MiB / 2.711GiB   0.63%     416kB / 468kB     69.8MB / 98.3kB   6
+===== 2026-06-17T14:35:01.5062204+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          4.67%     92.52MiB / 2.711GiB   3.33%     154MB / 4.02MB    22.8MB / 631kB    2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            23.74%    315.6MiB / 2.711GiB   11.37%    253MB / 624MB     14.9MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     196.5MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     84.3MiB / 2.711GiB    3.04%     145kB / 95.1kB    8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.07%     193.2MiB / 2.711GiB   6.96%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.68MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.04%     191.5MiB / 2.711GiB   6.90%     205kB / 186kB     7.14MB / 38.4MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           1.55%     12.05MiB / 2.711GiB   0.43%     160MB / 163MB     10.9MB / 446kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              8.95%     192.8MiB / 2.711GiB   6.95%     471MB / 246MB     87.9MB / 700MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.47%     16.85MiB / 2.711GiB   0.61%     422kB / 477kB     69.8MB / 98.3kB   6
+===== 2026-06-17T14:35:08.8644602+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          16.28%    93.25MiB / 2.711GiB   3.36%     158MB / 4.1MB     22.8MB / 631kB    2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            269.35%   316.3MiB / 2.711GiB   11.40%    259MB / 639MB     14.9MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     196.5MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.42%     83.82MiB / 2.711GiB   3.02%     149kB / 96.9kB    8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     193.2MiB / 2.711GiB   6.96%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.68MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.05%     191.3MiB / 2.711GiB   6.89%     211kB / 192kB     7.14MB / 38.4MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.43%     11.59MiB / 2.711GiB   0.42%     164MB / 167MB     10.9MB / 446kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              83.63%    193.3MiB / 2.711GiB   6.97%     482MB / 252MB     87.9MB / 716MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.63%     16.94MiB / 2.711GiB   0.61%     428kB / 486kB     69.8MB / 98.3kB   6
+===== 2026-06-17T14:35:16.2733378+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          13.33%    92.75MiB / 2.711GiB   3.34%     162MB / 4.2MB     22.8MB / 897kB    2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            32.04%    316.4MiB / 2.711GiB   11.40%    264MB / 651MB     14.9MB / 57.3kB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.07%     196.5MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.10%     83.81MiB / 2.711GiB   3.02%     153kB / 98.3kB    8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     193.3MiB / 2.711GiB   6.96%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.69MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.23%     190.4MiB / 2.711GiB   6.86%     217kB / 197kB     7.14MB / 38.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           3.76%     11.76MiB / 2.711GiB   0.42%     168MB / 171MB     10.9MB / 463kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              95.06%    192.8MiB / 2.711GiB   6.94%     493MB / 258MB     87.9MB / 732MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.53%     16.57MiB / 2.711GiB   0.60%     434kB / 495kB     69.8MB / 106kB    6
+===== 2026-06-17T14:35:23.6353601+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          15.22%    92.59MiB / 2.711GiB   3.34%     166MB / 4.3MB     22.8MB / 1.27MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            163.50%   314.4MiB / 2.711GiB   11.33%    273MB / 672MB     14.9MB / 135kB    13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     196.5MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.10%     84.01MiB / 2.711GiB   3.03%     157kB / 100kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.10%     193.3MiB / 2.711GiB   6.96%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.68MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.25%     190.3MiB / 2.711GiB   6.86%     223kB / 202kB     7.14MB / 39.2MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.81%     11.85MiB / 2.711GiB   0.43%     172MB / 176MB     10.9MB / 475kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              77.61%    193.3MiB / 2.711GiB   6.97%     507MB / 265MB     88MB / 749MB      14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.60%     16.57MiB / 2.711GiB   0.60%     441kB / 505kB     69.8MB / 106kB    6
+===== 2026-06-17T14:35:31.1470627+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          19.43%    91.88MiB / 2.711GiB   3.31%     171MB / 4.41MB    22.8MB / 1.56MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            290.34%   315.4MiB / 2.711GiB   11.36%    280MB / 689MB     14.9MB / 406kB    13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     196.5MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.17%     83.99MiB / 2.711GiB   3.03%     160kB / 101kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     193.3MiB / 2.711GiB   6.96%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.68MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.28%     189.8MiB / 2.711GiB   6.84%     227kB / 206kB     7.14MB / 39.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           5.30%     11.5MiB / 2.711GiB    0.41%     177MB / 180MB     10.9MB / 492kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              103.17%   193.2MiB / 2.711GiB   6.96%     519MB / 272MB     88MB / 795MB      20
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           5.56%     17.19MiB / 2.711GiB   0.62%     446kB / 512kB     69.8MB / 119kB    6
+===== 2026-06-17T14:35:38.0186350+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          9.30%     91.98MiB / 2.711GiB   3.31%     175MB / 4.52MB    22.8MB / 1.56MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            104.05%   314MiB / 2.711GiB     11.31%    287MB / 707MB     14.9MB / 406kB    13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     196.5MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.23%     83.99MiB / 2.711GiB   3.03%     164kB / 103kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     193.3MiB / 2.711GiB   6.96%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.68MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 24.6kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.31%     189.8MiB / 2.711GiB   6.84%     234kB / 213kB     7.14MB / 39.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.83%     11.15MiB / 2.711GiB   0.40%     182MB / 185MB     10.9MB / 492kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              38.20%    192.8MiB / 2.711GiB   6.95%     533MB / 279MB     88MB / 812MB      14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.55%     16.78MiB / 2.711GiB   0.60%     451kB / 519kB     69.8MB / 127kB    6
+===== 2026-06-17T14:35:45.4839312+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          7.90%     91.29MiB / 2.711GiB   3.29%     180MB / 4.63MB    22.8MB / 2.2MB    2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            152.56%   314.5MiB / 2.711GiB   11.33%    295MB / 724MB     14.9MB / 1.34MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     196.5MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     83.91MiB / 2.711GiB   3.02%     167kB / 104kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     193.4MiB / 2.711GiB   6.97%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.64MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.11%     189.3MiB / 2.711GiB   6.82%     239kB / 217kB     7.14MB / 40.4MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.46%     11.53MiB / 2.711GiB   0.42%     186MB / 190MB     10.9MB / 520kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              56.75%    193.7MiB / 2.711GiB   6.98%     546MB / 286MB     88.4MB / 831MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.56%     16.98MiB / 2.711GiB   0.61%     458kB / 528kB     69.8MB / 135kB    6
+===== 2026-06-17T14:35:52.8116655+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          11.90%    90.76MiB / 2.711GiB   3.27%     183MB / 4.73MB    22.8MB / 2.63MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            4.34%     314.2MiB / 2.711GiB   11.32%    302MB / 741MB     14.9MB / 1.9MB    13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     196.5MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.30%     84.16MiB / 2.711GiB   3.03%     170kB / 106kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.10%     193.4MiB / 2.711GiB   6.97%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.64MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.14%     188.2MiB / 2.711GiB   6.78%     245kB / 222kB     7.14MB / 41.1MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           1.26%     11.48MiB / 2.711GiB   0.41%     190MB / 194MB     10.9MB / 537kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              1.23%     196.9MiB / 2.711GiB   7.09%     558MB / 293MB     89.1MB / 865MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.48%     16.45MiB / 2.711GiB   0.59%     465kB / 538kB     69.8MB / 135kB    6
+===== 2026-06-17T14:36:00.3452082+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          21.33%    90.67MiB / 2.711GiB   3.27%     188MB / 4.83MB    22.8MB / 2.63MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            370.74%   313.6MiB / 2.711GiB   11.30%    309MB / 760MB     14.9MB / 1.9MB    13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.07%     196.5MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.10%     83.91MiB / 2.711GiB   3.02%     175kB / 109kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     193.4MiB / 2.711GiB   6.97%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.64MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.06%     187.9MiB / 2.711GiB   6.77%     250kB / 227kB     7.14MB / 41.1MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           5.57%     10.68MiB / 2.711GiB   0.38%     195MB / 199MB     10.9MB / 537kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              115.08%   198.9MiB / 2.711GiB   7.16%     572MB / 301MB     89.1MB / 887MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.58%     16.93MiB / 2.711GiB   0.61%     471kB / 546kB     69.8MB / 135kB    6
+===== 2026-06-17T14:36:07.0099807+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          15.49%    90.93MiB / 2.711GiB   3.28%     193MB / 4.96MB    22.8MB / 2.63MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            300.85%   314.2MiB / 2.711GiB   11.32%    319MB / 781MB     14.9MB / 1.9MB    13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.11%     196.5MiB / 2.711GiB   7.08%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     83.66MiB / 2.711GiB   3.01%     179kB / 110kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.11%     193.4MiB / 2.711GiB   6.97%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.64MiB / 2.711GiB   2.91%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.29%     188.4MiB / 2.711GiB   6.79%     256kB / 232kB     7.14MB / 41.1MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.54%     11.31MiB / 2.711GiB   0.41%     201MB / 205MB     10.9MB / 537kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              100.90%   200MiB / 2.711GiB     7.20%     588MB / 309MB     89.1MB / 899MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.52%     17.26MiB / 2.711GiB   0.62%     477kB / 555kB     69.8MB / 135kB    6
+===== 2026-06-17T14:36:14.3044454+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          5.79%     88.66MiB / 2.711GiB   3.19%     196MB / 5.03MB    22.8MB / 3.54MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            52.30%    308.1MiB / 2.711GiB   11.10%    322MB / 791MB     14.9MB / 7.99MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.11%     195.7MiB / 2.711GiB   7.05%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.10%     83.21MiB / 2.711GiB   3.00%     183kB / 112kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     192.7MiB / 2.711GiB   6.94%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.37MiB / 2.711GiB   2.90%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.63%     180.5MiB / 2.711GiB   6.50%     262kB / 237kB     7.14MB / 49MB     5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.46%     11.27MiB / 2.711GiB   0.41%     203MB / 207MB     10.9MB / 811kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              21.42%    198.3MiB / 2.711GiB   7.14%     596MB / 313MB     89.3MB / 908MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.57%     15.32MiB / 2.711GiB   0.55%     482kB / 563kB     69.9MB / 266kB    6
+===== 2026-06-17T14:36:21.9041122+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          7.20%     88.87MiB / 2.711GiB   3.20%     199MB / 5.1MB     22.8MB / 3.54MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            114.98%   308.4MiB / 2.711GiB   11.11%    328MB / 803MB     14.9MB / 7.99MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     195.7MiB / 2.711GiB   7.05%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     82.96MiB / 2.711GiB   2.99%     186kB / 113kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     192.7MiB / 2.711GiB   6.94%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.37MiB / 2.711GiB   2.90%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.04%     180.6MiB / 2.711GiB   6.51%     267kB / 242kB     7.14MB / 49.2MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.20%     11.16MiB / 2.711GiB   0.40%     206MB / 210MB     10.9MB / 811kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              61.89%    200.1MiB / 2.711GiB   7.21%     605MB / 319MB     89.3MB / 922MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.52%     16.27MiB / 2.711GiB   0.59%     488kB / 572kB     70.3MB / 266kB    6
+===== 2026-06-17T14:36:29.0935113+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          16.49%    88.83MiB / 2.711GiB   3.20%     205MB / 5.23MB    22.8MB / 3.54MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            293.15%   307.5MiB / 2.711GiB   11.08%    337MB / 825MB     14.9MB / 8.06MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     195.6MiB / 2.711GiB   7.05%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.35%     83.68MiB / 2.711GiB   3.01%     189kB / 115kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.11%     192.7MiB / 2.711GiB   6.94%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.35MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.06%     179.3MiB / 2.711GiB   6.46%     273kB / 247kB     7.14MB / 49.9MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.32%     10.77MiB / 2.711GiB   0.39%     212MB / 217MB     10.9MB / 811kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              93.24%    200MiB / 2.711GiB     7.21%     621MB / 328MB     89.5MB / 957MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.73%     16.15MiB / 2.711GiB   0.58%     495kB / 581kB     70.3MB / 266kB    6
+===== 2026-06-17T14:36:36.4773277+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          9.12%     88.28MiB / 2.711GiB   3.18%     208MB / 5.32MB    22.8MB / 3.54MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            284.61%   306.6MiB / 2.711GiB   11.05%    343MB / 838MB     14.9MB / 8.06MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.10%     195.6MiB / 2.711GiB   7.05%     35kB / 24.4kB     18.4MB / 45.1kB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.07%     83.92MiB / 2.711GiB   3.02%     193kB / 116kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     192.7MiB / 2.711GiB   6.94%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.35MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.19%     179.5MiB / 2.711GiB   6.47%     279kB / 252kB     7.14MB / 49.9MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           3.02%     11.11MiB / 2.711GiB   0.40%     216MB / 220MB     10.9MB / 811kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              14.58%    200.2MiB / 2.711GiB   7.21%     632MB / 333MB     89.5MB / 964MB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.56%     15.81MiB / 2.711GiB   0.57%     501kB / 590kB     70.3MB / 266kB    6
+===== 2026-06-17T14:36:43.9484246+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          4.42%     88.2MiB / 2.711GiB    3.18%     210MB / 5.36MB    22.8MB / 3.57MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            181.84%   304.9MiB / 2.711GiB   10.98%    347MB / 849MB     14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     195.1MiB / 2.711GiB   7.03%     35kB / 24.4kB     18.4MB / 307kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.10%     83.23MiB / 2.711GiB   3.00%     197kB / 118kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.13%     192.4MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.23%     176.5MiB / 2.711GiB   6.36%     285kB / 257kB     7.14MB / 53.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.61%     11.06MiB / 2.711GiB   0.40%     218MB / 223MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              174.09%   258.4MiB / 2.711GiB   9.31%     639MB / 337MB     92.3MB / 975MB    15
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           4.57%     16.11MiB / 2.711GiB   0.58%     506kB / 597kB     70.3MB / 266kB    6
+===== 2026-06-17T14:36:51.3911204+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          9.57%     88.1MiB / 2.711GiB    3.17%     213MB / 5.43MB    22.8MB / 3.65MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            79.55%    304.9MiB / 2.711GiB   10.99%    352MB / 859MB     14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.10%     195.1MiB / 2.711GiB   7.03%     35kB / 24.4kB     18.4MB / 307kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.14%     83.23MiB / 2.711GiB   3.00%     200kB / 119kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     192.4MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.45%     176.2MiB / 2.711GiB   6.35%     290kB / 262kB     7.14MB / 53.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.88%     10.64MiB / 2.711GiB   0.38%     221MB / 225MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              31.22%    203.3MiB / 2.711GiB   7.32%     646MB / 342MB     94.6MB / 1GB      14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.62%     15.14MiB / 2.711GiB   0.55%     512kB / 606kB     70.6MB / 287kB    6
+===== 2026-06-17T14:36:58.0346860+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          17.00%    88.37MiB / 2.711GiB   3.18%     218MB / 5.54MB    22.8MB / 3.65MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            302.70%   303.8MiB / 2.711GiB   10.94%    359MB / 877MB     14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     195.1MiB / 2.711GiB   7.03%     35kB / 24.4kB     18.4MB / 307kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.34%     83.47MiB / 2.711GiB   3.01%     204kB / 121kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.11%     192.4MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.36%     176.4MiB / 2.711GiB   6.36%     296kB / 267kB     7.14MB / 53.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           5.11%     10.71MiB / 2.711GiB   0.39%     226MB / 231MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              104.76%   208.4MiB / 2.711GiB   7.51%     661MB / 350MB     97.5MB / 1.04GB   14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           4.21%     15.05MiB / 2.711GiB   0.54%     519kB / 616kB     70.7MB / 287kB    6
+===== 2026-06-17T14:37:05.5124214+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          21.75%    88.29MiB / 2.711GiB   3.18%     222MB / 5.64MB    22.8MB / 3.65MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            71.04%    303.8MiB / 2.711GiB   10.95%    367MB / 897MB     14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     195.1MiB / 2.711GiB   7.03%     35kB / 24.4kB     18.4MB / 307kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     83.47MiB / 2.711GiB   3.01%     207kB / 122kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     192.4MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.16%     176.2MiB / 2.711GiB   6.35%     301kB / 271kB     7.14MB / 53.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.93%     10.76MiB / 2.711GiB   0.39%     231MB / 236MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              112.24%   209.3MiB / 2.711GiB   7.54%     674MB / 356MB     97.5MB / 1.06GB   14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.56%     15.22MiB / 2.711GiB   0.55%     524kB / 623kB     70.7MB / 287kB    6
+===== 2026-06-17T14:37:13.0690430+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          10.65%    88.21MiB / 2.711GiB   3.18%     227MB / 5.73MB    22.8MB / 3.65MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            184.08%   304.5MiB / 2.711GiB   10.97%    373MB / 908MB     14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.10%     195.1MiB / 2.711GiB   7.03%     35kB / 24.4kB     18.4MB / 307kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.17%     83.22MiB / 2.711GiB   3.00%     211kB / 124kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     192.4MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.53%     176MiB / 2.711GiB     6.34%     308kB / 277kB     7.14MB / 53.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.96%     10.89MiB / 2.711GiB   0.39%     235MB / 240MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              67.10%    209.2MiB / 2.711GiB   7.54%     684MB / 363MB     97.8MB / 1.07GB   14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.51%     15.04MiB / 2.711GiB   0.54%     529kB / 631kB     70.7MB / 287kB    6
+===== 2026-06-17T14:37:20.3668905+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          6.03%     88.52MiB / 2.711GiB   3.19%     230MB / 5.82MB    22.8MB / 3.66MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            105.40%   304MiB / 2.711GiB     10.95%    380MB / 924MB     14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     195.1MiB / 2.711GiB   7.03%     35kB / 24.4kB     18.4MB / 307kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     82.98MiB / 2.711GiB   2.99%     214kB / 125kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     192.4MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.07%     176.2MiB / 2.711GiB   6.35%     312kB / 282kB     7.14MB / 53.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           1.85%     11.35MiB / 2.711GiB   0.41%     238MB / 243MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              39.84%    209.8MiB / 2.711GiB   7.56%     694MB / 369MB     97.8MB / 1.1GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.56%     15.33MiB / 2.711GiB   0.55%     536kB / 639kB     70.7MB / 295kB    6
+===== 2026-06-17T14:37:27.1310218+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          12.21%    88.61MiB / 2.711GiB   3.19%     233MB / 5.89MB    22.8MB / 3.66MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            192.23%   305MiB / 2.711GiB     10.99%    384MB / 937MB     14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.07%     195.1MiB / 2.711GiB   7.03%     35kB / 24.4kB     18.4MB / 307kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     82.98MiB / 2.711GiB   2.99%     218kB / 126kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.15%     192.4MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.05%     176.4MiB / 2.711GiB   6.36%     318kB / 287kB     7.14MB / 53.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           3.32%     11.1MiB / 2.711GiB    0.40%     242MB / 247MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              66.09%    209.7MiB / 2.711GiB   7.56%     704MB / 373MB     97.8MB / 1.11GB   14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.54%     15.23MiB / 2.711GiB   0.55%     541kB / 648kB     70.7MB / 295kB    6
+===== 2026-06-17T14:37:34.5065025+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          16.59%    88.27MiB / 2.711GiB   3.18%     238MB / 6MB       22.8MB / 3.67MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            251.36%   302.4MiB / 2.711GiB   10.89%    393MB / 956MB     14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.11%     195MiB / 2.711GiB     7.03%     35kB / 24.4kB     18.4MB / 307kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.11%     83.23MiB / 2.711GiB   3.00%     222kB / 128kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.27%     192.4MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.32%     176.1MiB / 2.711GiB   6.35%     324kB / 292kB     7.14MB / 53.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           5.98%     11.04MiB / 2.711GiB   0.40%     247MB / 252MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              97.35%    210.2MiB / 2.711GiB   7.57%     718MB / 381MB     98.1MB / 1.15GB   14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           4.66%     15.45MiB / 2.711GiB   0.56%     547kB / 656kB     70.7MB / 295kB    6
+===== 2026-06-17T14:37:41.9855752+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          19.10%    87.93MiB / 2.711GiB   3.17%     243MB / 6.12MB    22.8MB / 3.67MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            155.98%   304.1MiB / 2.711GiB   10.95%    400MB / 975MB     14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.07%     195MiB / 2.711GiB     7.03%     35kB / 24.4kB     18.4MB / 307kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     82.75MiB / 2.711GiB   2.98%     225kB / 129kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     192.4MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 45.1kB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.05%     176.2MiB / 2.711GiB   6.35%     329kB / 296kB     7.14MB / 53.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           3.85%     11.07MiB / 2.711GiB   0.40%     251MB / 256MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              66.82%    210.5MiB / 2.711GiB   7.58%     732MB / 389MB     98.4MB / 1.16GB   14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.58%     15.61MiB / 2.711GiB   0.56%     553kB / 664kB     70.7MB / 295kB    6
+===== 2026-06-17T14:37:49.2086154+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          7.89%     88.23MiB / 2.711GiB   3.18%     247MB / 6.22MB    22.8MB / 3.77MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            128.92%   304.8MiB / 2.711GiB   10.98%    407MB / 990MB     14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     194.6MiB / 2.711GiB   7.01%     35kB / 24.4kB     18.4MB / 651kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     82.75MiB / 2.711GiB   2.98%     229kB / 131kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     192.2MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 279kB    5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.09%     175.5MiB / 2.711GiB   6.32%     336kB / 302kB     7.14MB / 54.2MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.93%     10.59MiB / 2.711GiB   0.38%     255MB / 260MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              43.23%    215.1MiB / 2.711GiB   7.75%     744MB / 395MB     103MB / 1.21GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           4.51%     15.62MiB / 2.711GiB   0.56%     560kB / 674kB     71.2MB / 295kB    6
+===== 2026-06-17T14:37:56.5823260+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          13.72%    88MiB / 2.711GiB      3.17%     250MB / 6.31MB    22.8MB / 3.77MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            246.89%   303.7MiB / 2.711GiB   10.94%    413MB / 1.01GB    14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     194.6MiB / 2.711GiB   7.01%     35kB / 24.4kB     18.4MB / 651kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.10%     82.98MiB / 2.711GiB   2.99%     233kB / 132kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     192.2MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 279kB    5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.28%     176MiB / 2.711GiB     6.34%     341kB / 307kB     7.14MB / 54.2MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.00%     10.61MiB / 2.711GiB   0.38%     260MB / 265MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              84.42%    219.5MiB / 2.711GiB   7.91%     756MB / 401MB     105MB / 1.23GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.89%     15.91MiB / 2.711GiB   0.57%     564kB / 681kB     71.2MB / 295kB    6
+===== 2026-06-17T14:38:03.9633505+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          13.96%    88.16MiB / 2.711GiB   3.18%     255MB / 6.41MB    22.8MB / 3.78MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            228.48%   303.7MiB / 2.711GiB   10.94%    421MB / 1.02GB    14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     194.6MiB / 2.711GiB   7.01%     35kB / 24.4kB     18.4MB / 659kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.26%     83.23MiB / 2.711GiB   3.00%     236kB / 134kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.10%     192.2MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 279kB    5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.22%     175.7MiB / 2.711GiB   6.33%     348kB / 312kB     7.14MB / 54.2MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.24%     10.63MiB / 2.711GiB   0.38%     264MB / 269MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              102.21%   221.4MiB / 2.711GiB   7.98%     768MB / 408MB     105MB / 1.27GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           3.87%     15.45MiB / 2.711GiB   0.56%     572kB / 692kB     71.2MB / 295kB    6
+===== 2026-06-17T14:38:11.4601989+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          12.97%    88.01MiB / 2.711GiB   3.17%     258MB / 6.5MB     22.8MB / 3.78MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            244.94%   306MiB / 2.711GiB     11.02%    427MB / 1.04GB    14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     194.6MiB / 2.711GiB   7.01%     35kB / 24.4kB     18.4MB / 659kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.07%     83MiB / 2.711GiB      2.99%     240kB / 135kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.16%     192.2MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 279kB    5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.25%     175.3MiB / 2.711GiB   6.31%     352kB / 317kB     7.14MB / 54.2MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           3.82%     10.97MiB / 2.711GiB   0.40%     268MB / 273MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              89.81%    222.9MiB / 2.711GiB   8.03%     779MB / 414MB     106MB / 1.28GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.56%     15.92MiB / 2.711GiB   0.57%     577kB / 699kB     71.2MB / 295kB    6
+===== 2026-06-17T14:38:17.9820053+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          22.42%    88.23MiB / 2.711GiB   3.18%     263MB / 6.63MB    22.8MB / 3.8MB    2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            350.10%   305MiB / 2.711GiB     10.99%    436MB / 1.06GB    14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.12%     194.6MiB / 2.711GiB   7.01%     35kB / 24.4kB     18.4MB / 659kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.50%     83.24MiB / 2.711GiB   3.00%     244kB / 137kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     192.2MiB / 2.711GiB   6.93%     34.9kB / 24.4kB   10.1MB / 279kB    5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.29%     176MiB / 2.711GiB     6.34%     359kB / 322kB     7.14MB / 54.2MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           6.73%     11MiB / 2.711GiB      0.40%     273MB / 278MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              116.02%   225.5MiB / 2.711GiB   8.13%     795MB / 423MB     106MB / 1.31GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.61%     15.83MiB / 2.711GiB   0.57%     581kB / 706kB     71.2MB / 295kB    6
+===== 2026-06-17T14:38:25.3942249+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          17.82%    88.39MiB / 2.711GiB   3.18%     269MB / 6.77MB    22.8MB / 3.85MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            308.79%   304.9MiB / 2.711GiB   10.99%    446MB / 1.08GB    14.9MB / 12MB     13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     194.5MiB / 2.711GiB   7.01%     35kB / 24.4kB     18.4MB / 766kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     83.23MiB / 2.711GiB   3.00%     247kB / 138kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     191.9MiB / 2.711GiB   6.91%     34.9kB / 24.4kB   10.1MB / 639kB    5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.11%     175.1MiB / 2.711GiB   6.31%     364kB / 326kB     7.14MB / 54.8MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           5.19%     10.43MiB / 2.711GiB   0.38%     279MB / 285MB     10.9MB / 877kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              120.36%   230.5MiB / 2.711GiB   8.30%     813MB / 433MB     111MB / 1.35GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           4.74%     15.54MiB / 2.711GiB   0.56%     588kB / 715kB     71.3MB / 295kB    6
+===== 2026-06-17T14:38:32.8260753+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          12.97%    88.27MiB / 2.711GiB   3.18%     272MB / 6.86MB    22.8MB / 3.85MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            101.20%   306.9MiB / 2.711GiB   11.06%    451MB / 1.09GB    14.9MB / 12.1MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     194.4MiB / 2.711GiB   7.00%     35kB / 24.4kB     18.4MB / 766kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.28%     83.48MiB / 2.711GiB   3.01%     251kB / 140kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     191.7MiB / 2.711GiB   6.91%     34.9kB / 24.4kB   10.1MB / 684kB    5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.29%     174.4MiB / 2.711GiB   6.28%     370kB / 332kB     7.14MB / 55.3MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           3.58%     10.91MiB / 2.711GiB   0.39%     282MB / 288MB     10.9MB / 889kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              115.30%   223.6MiB / 2.711GiB   8.05%     824MB / 439MB     111MB / 1.37GB    12
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.58%     15.5MiB / 2.711GiB    0.56%     595kB / 725kB     71.3MB / 295kB    6
+===== 2026-06-17T14:38:40.2828956+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          19.70%    87.98MiB / 2.711GiB   3.17%     277MB / 6.98MB    22.8MB / 3.85MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            340.32%   307.4MiB / 2.711GiB   11.07%    461MB / 1.12GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.13%     194.4MiB / 2.711GiB   7.00%     35kB / 24.4kB     18.4MB / 766kB    5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     83.47MiB / 2.711GiB   3.01%     254kB / 141kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.11%     191.7MiB / 2.711GiB   6.91%     34.9kB / 24.4kB   10.1MB / 684kB    5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.09%     174.6MiB / 2.711GiB   6.29%     375kB / 336kB     7.14MB / 55.4MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           7.39%     10.73MiB / 2.711GiB   0.39%     287MB / 293MB     10.9MB / 889kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              147.89%   235.4MiB / 2.711GiB   8.48%     838MB / 447MB     115MB / 1.4GB     14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.88%     15.8MiB / 2.711GiB    0.57%     600kB / 732kB     71.3MB / 295kB    6
+===== 2026-06-17T14:38:47.2939879+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          17.82%    87.37MiB / 2.711GiB   3.15%     282MB / 7.11MB    22.8MB / 4.24MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            211.17%   308.6MiB / 2.711GiB   11.12%    470MB / 1.14GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     193.1MiB / 2.711GiB   6.96%     35kB / 24.4kB     18.4MB / 1.74MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     83.14MiB / 2.711GiB   3.00%     258kB / 142kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     190.6MiB / 2.711GiB   6.87%     34.9kB / 24.4kB   10.1MB / 1.68MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.19MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.05%     171.3MiB / 2.711GiB   6.17%     380kB / 341kB     7.14MB / 59MB     5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           5.64%     10.72MiB / 2.711GiB   0.39%     292MB / 298MB     10.9MB / 918kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              63.87%    237.4MiB / 2.711GiB   8.55%     855MB / 456MB     119MB / 1.44GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.56%     16.63MiB / 2.711GiB   0.60%     605kB / 740kB     77.1MB / 319kB    6
+===== 2026-06-17T14:38:54.7049142+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          5.59%     87.16MiB / 2.711GiB   3.14%     285MB / 7.2MB     22.8MB / 4.24MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            60.84%    308.7MiB / 2.711GiB   11.12%    475MB / 1.15GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     193.1MiB / 2.711GiB   6.96%     35kB / 24.4kB     18.4MB / 1.74MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.13%     83.15MiB / 2.711GiB   3.00%     262kB / 144kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     190.6MiB / 2.711GiB   6.87%     34.9kB / 24.4kB   10.1MB / 1.68MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.19MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.07%     170.8MiB / 2.711GiB   6.15%     385kB / 345kB     7.14MB / 59MB     5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           1.75%     11.05MiB / 2.711GiB   0.40%     296MB / 302MB     10.9MB / 918kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              20.23%    238.7MiB / 2.711GiB   8.60%     863MB / 461MB     119MB / 1.45GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.91%     16.61MiB / 2.711GiB   0.60%     613kB / 750kB     77.1MB / 324kB    6
+===== 2026-06-17T14:39:02.1474509+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          5.79%     87.23MiB / 2.711GiB   3.14%     290MB / 7.29MB    22.8MB / 4.25MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            23.54%    307.6MiB / 2.711GiB   11.08%    482MB / 1.16GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.10%     193.1MiB / 2.711GiB   6.96%     35kB / 24.4kB     18.4MB / 1.74MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     82.91MiB / 2.711GiB   2.99%     264kB / 145kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     190.6MiB / 2.711GiB   6.87%     34.9kB / 24.4kB   10.1MB / 1.68MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.19MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.07%     171.3MiB / 2.711GiB   6.17%     391kB / 351kB     7.14MB / 59MB     5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.11%     11.38MiB / 2.711GiB   0.41%     300MB / 306MB     10.9MB / 918kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              10.55%    239.8MiB / 2.711GiB   8.64%     875MB / 468MB     119MB / 1.46GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.47%     16.67MiB / 2.711GiB   0.60%     618kB / 757kB     77.1MB / 328kB    6
+===== 2026-06-17T14:39:09.0919798+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          16.26%    87.21MiB / 2.711GiB   3.14%     294MB / 7.38MB    22.8MB / 4.25MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            241.24%   310.4MiB / 2.711GiB   11.18%    488MB / 1.18GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     193.1MiB / 2.711GiB   6.96%     35kB / 24.4kB     18.4MB / 1.74MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.03%     82.66MiB / 2.711GiB   2.98%     269kB / 147kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.11%     190.6MiB / 2.711GiB   6.87%     34.9kB / 24.4kB   10.1MB / 1.68MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.19MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.05%     171MiB / 2.711GiB     6.16%     398kB / 357kB     7.14MB / 59MB     5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           3.78%     10.89MiB / 2.711GiB   0.39%     304MB / 310MB     10.9MB / 918kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              73.64%    241.9MiB / 2.711GiB   8.72%     888MB / 475MB     119MB / 1.49GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.54%     17.04MiB / 2.711GiB   0.61%     624kB / 767kB     77.1MB / 328kB    6
+===== 2026-06-17T14:39:16.4163486+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          7.50%     86.57MiB / 2.711GiB   3.12%     297MB / 7.46MB    22.8MB / 4.25MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            200.89%   310.8MiB / 2.711GiB   11.20%    495MB / 1.19GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.06%     193.1MiB / 2.711GiB   6.96%     35kB / 24.4kB     18.4MB / 1.74MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.07%     83.15MiB / 2.711GiB   3.00%     272kB / 148kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     190.6MiB / 2.711GiB   6.87%     34.9kB / 24.4kB   10.1MB / 1.68MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.19MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.19%     170.7MiB / 2.711GiB   6.15%     404kB / 362kB     7.14MB / 59MB     5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.16%     10.79MiB / 2.711GiB   0.39%     308MB / 314MB     10.9MB / 918kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              72.79%    243MiB / 2.711GiB     8.76%     897MB / 480MB     120MB / 1.51GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.54%     16.86MiB / 2.711GiB   0.61%     629kB / 774kB     77.1MB / 328kB    6
+===== 2026-06-17T14:39:23.6918764+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          18.14%    87.56MiB / 2.711GiB   3.15%     301MB / 7.54MB    22.8MB / 4.25MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            345.87%   310.6MiB / 2.711GiB   11.19%    501MB / 1.21GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     193.1MiB / 2.711GiB   6.96%     35kB / 24.4kB     18.4MB / 1.74MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     83.39MiB / 2.711GiB   3.00%     276kB / 150kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.12%     190.6MiB / 2.711GiB   6.87%     34.9kB / 24.4kB   10.1MB / 1.68MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.19MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.06%     170.8MiB / 2.711GiB   6.15%     409kB / 366kB     7.14MB / 59MB     5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           5.27%     10.59MiB / 2.711GiB   0.38%     312MB / 318MB     10.9MB / 918kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              116.75%   243.6MiB / 2.711GiB   8.78%     909MB / 486MB     120MB / 1.52GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.72%     17.05MiB / 2.711GiB   0.61%     635kB / 783kB     77.1MB / 328kB    6
+===== 2026-06-17T14:39:31.0879294+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          14.07%    87.89MiB / 2.711GiB   3.17%     305MB / 7.65MB    22.8MB / 4.25MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            258.25%   310.8MiB / 2.711GiB   11.20%    508MB / 1.23GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.10%     193.1MiB / 2.711GiB   6.96%     35kB / 24.4kB     18.4MB / 1.74MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.16%     82.66MiB / 2.711GiB   2.98%     279kB / 151kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.07%     190.6MiB / 2.711GiB   6.87%     34.9kB / 24.4kB   10.1MB / 1.68MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.19MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.29%     170.7MiB / 2.711GiB   6.15%     415kB / 372kB     7.14MB / 59MB     5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           3.56%     10.77MiB / 2.711GiB   0.39%     316MB / 322MB     10.9MB / 918kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              89.45%    244.6MiB / 2.711GiB   8.81%     921MB / 493MB     120MB / 1.56GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.83%     16.57MiB / 2.711GiB   0.60%     641kB / 792kB     77.1MB / 328kB    6
+===== 2026-06-17T14:39:38.2954527+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          4.03%     87.7MiB / 2.711GiB    3.16%     308MB / 7.72MB    22.8MB / 4.25MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            54.74%    310.8MiB / 2.711GiB   11.20%    513MB / 1.24GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.10%     193.1MiB / 2.711GiB   6.96%     35kB / 24.4kB     18.4MB / 1.74MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.33%     83.39MiB / 2.711GiB   3.00%     283kB / 153kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.12%     190.6MiB / 2.711GiB   6.87%     34.9kB / 24.4kB   10.1MB / 1.68MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.19MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.32%     171MiB / 2.711GiB     6.16%     421kB / 377kB     7.14MB / 59MB     5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.61%     11.08MiB / 2.711GiB   0.40%     320MB / 326MB     10.9MB / 918kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              72.65%    243.9MiB / 2.711GiB   8.79%     932MB / 499MB     120MB / 1.57GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.60%     16.36MiB / 2.711GiB   0.59%     648kB / 801kB     77.1MB / 328kB    6
+===== 2026-06-17T14:39:45.6552064+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          18.53%    86.68MiB / 2.711GiB   3.12%     314MB / 7.87MB    22.8MB / 4.26MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            339.66%   311.4MiB / 2.711GiB   11.22%    524MB / 1.26GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.08%     193.1MiB / 2.711GiB   6.96%     35kB / 24.4kB     18.4MB / 1.74MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     83.37MiB / 2.711GiB   3.00%     286kB / 154kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     190.7MiB / 2.711GiB   6.87%     34.9kB / 24.4kB   10.1MB / 1.69MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.18MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.12%     170.2MiB / 2.711GiB   6.13%     426kB / 381kB     7.14MB / 59.8MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           7.08%     10.65MiB / 2.711GiB   0.38%     324MB / 331MB     10.9MB / 934kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              103.86%   250.4MiB / 2.711GiB   9.02%     949MB / 509MB     122MB / 1.61GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.69%     16.58MiB / 2.711GiB   0.60%     653kB / 808kB     77.1MB / 336kB    6
+===== 2026-06-17T14:39:53.2516791+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          17.64%    87.41MiB / 2.711GiB   3.15%     318MB / 7.98MB    22.8MB / 4.26MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            327.27%   311.4MiB / 2.711GiB   11.22%    532MB / 1.28GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.11%     193.1MiB / 2.711GiB   6.96%     35kB / 24.4kB     18.4MB / 1.74MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.26%     83.37MiB / 2.711GiB   3.00%     290kB / 156kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     190.7MiB / 2.711GiB   6.87%     34.9kB / 24.4kB   10.1MB / 1.69MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.18MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.13%     170.4MiB / 2.711GiB   6.14%     432kB / 387kB     7.14MB / 59.8MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.97%     10.43MiB / 2.711GiB   0.38%     330MB / 336MB     10.9MB / 934kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              108.85%   251.4MiB / 2.711GiB   9.06%     962MB / 516MB     123MB / 1.62GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.56%     17.53MiB / 2.711GiB   0.63%     659kB / 818kB     78MB / 336kB      6
+===== 2026-06-17T14:40:00.6734428+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          9.83%     87.41MiB / 2.711GiB   3.15%     322MB / 8.1MB     22.8MB / 4.26MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            28.78%    312MiB / 2.711GiB     11.24%    539MB / 1.3GB     14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.07%     193.1MiB / 2.711GiB   6.96%     35kB / 24.4kB     18.4MB / 1.74MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.07%     83.12MiB / 2.711GiB   2.99%     294kB / 158kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     190.7MiB / 2.711GiB   6.87%     34.9kB / 24.4kB   10.1MB / 1.69MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.18MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.21%     170.4MiB / 2.711GiB   6.14%     438kB / 392kB     7.14MB / 59.8MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.10%     11.29MiB / 2.711GiB   0.41%     334MB / 340MB     10.9MB / 934kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              9.50%     253MiB / 2.711GiB     9.12%     975MB / 523MB     123MB / 1.65GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.54%     17.31MiB / 2.711GiB   0.62%     665kB / 827kB     78MB / 336kB      6
+===== 2026-06-17T14:40:08.1915204+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          3.62%     87.07MiB / 2.711GiB   3.14%     325MB / 8.16MB    22.8MB / 4.26MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            118.16%   312.4MiB / 2.711GiB   11.26%    544MB / 1.31GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     193.1MiB / 2.711GiB   6.96%     35kB / 24.4kB     18.4MB / 1.74MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.22%     83.38MiB / 2.711GiB   3.00%     298kB / 159kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.10%     190.7MiB / 2.711GiB   6.87%     34.9kB / 24.4kB   10.1MB / 1.69MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.18MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.21%     170.7MiB / 2.711GiB   6.15%     444kB / 397kB     7.14MB / 59.8MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           1.17%     11.34MiB / 2.711GiB   0.41%     336MB / 343MB     10.9MB / 934kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              5.20%     254.4MiB / 2.711GiB   9.16%     982MB / 528MB     124MB / 1.66GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.61%     17.24MiB / 2.711GiB   0.62%     672kB / 836kB     78MB / 336kB      6
+===== 2026-06-17T14:40:15.7327047+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          18.19%    86.81MiB / 2.711GiB   3.13%     330MB / 8.26MB    22.8MB / 4.28MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            298.01%   311.9MiB / 2.711GiB   11.24%    551MB / 1.33GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     193.1MiB / 2.711GiB   6.96%     35kB / 24.4kB     18.4MB / 1.74MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     83.13MiB / 2.711GiB   2.99%     301kB / 161kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     190.7MiB / 2.711GiB   6.87%     34.9kB / 24.4kB   10.1MB / 1.69MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.18MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.12%     169.9MiB / 2.711GiB   6.12%     449kB / 402kB     7.14MB / 60.3MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           5.90%     10.58MiB / 2.711GiB   0.38%     342MB / 349MB     10.9MB / 934kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              117.76%   255.7MiB / 2.711GiB   9.21%     997MB / 535MB     127MB / 1.7GB     14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.56%     17.28MiB / 2.711GiB   0.62%     677kB / 843kB     78MB / 336kB      6
+===== 2026-06-17T14:40:23.1925254+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          12.58%    86.88MiB / 2.711GiB   3.13%     335MB / 8.37MB    22.8MB / 4.28MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            211.36%   311.8MiB / 2.711GiB   11.23%    559MB / 1.35GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.10%     193MiB / 2.711GiB     6.95%     35kB / 24.4kB     18.4MB / 1.75MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          1.90%     83.12MiB / 2.711GiB   2.99%     305kB / 163kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.10%     190.5MiB / 2.711GiB   6.86%     34.9kB / 24.4kB   10.1MB / 1.99MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.18MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.23%     169.9MiB / 2.711GiB   6.12%     455kB / 407kB     7.14MB / 60.3MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.10%     10.25MiB / 2.711GiB   0.37%     347MB / 354MB     10.9MB / 934kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              86.62%    259.1MiB / 2.711GiB   9.34%     1.01GB / 542MB    130MB / 1.71GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.56%     17.17MiB / 2.711GiB   0.62%     683kB / 852kB     78MB / 336kB      6
+===== 2026-06-17T14:40:30.5361197+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          12.09%    87.74MiB / 2.711GiB   3.16%     337MB / 8.44MB    22.8MB / 4.28MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            225.53%   311.7MiB / 2.711GiB   11.23%    563MB / 1.36GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.07%     193MiB / 2.711GiB     6.95%     35kB / 24.4kB     18.4MB / 1.75MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     82.64MiB / 2.711GiB   2.98%     308kB / 164kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     190.5MiB / 2.711GiB   6.86%     34.9kB / 24.4kB   10.1MB / 1.99MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.18MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.06%     170.1MiB / 2.711GiB   6.13%     460kB / 411kB     7.14MB / 60.3MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           3.27%     11.2MiB / 2.711GiB    0.40%     349MB / 356MB     10.9MB / 934kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              87.52%    259.3MiB / 2.711GiB   9.34%     1.02GB / 546MB    130MB / 1.72GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.53%     16.87MiB / 2.711GiB   0.61%     688kB / 859kB     78MB / 336kB      6
+===== 2026-06-17T14:40:37.2447548+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          4.22%     87.64MiB / 2.711GiB   3.16%     341MB / 8.53MB    22.8MB / 4.28MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            54.53%    307.5MiB / 2.711GiB   11.08%    570MB / 1.37GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     193MiB / 2.711GiB     6.95%     35kB / 24.4kB     18.4MB / 1.75MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     82.89MiB / 2.711GiB   2.99%     312kB / 165kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.12%     190.4MiB / 2.711GiB   6.86%     34.9kB / 24.4kB   10.1MB / 2MB      5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.18MiB / 2.711GiB   2.89%     1.92kB / 126B     7.52MB / 32.8kB   1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.07%     169.6MiB / 2.711GiB   6.11%     466kB / 417kB     7.14MB / 60.3MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           1.16%     11.34MiB / 2.711GiB   0.41%     354MB / 361MB     10.9MB / 934kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              22.64%    261MiB / 2.711GiB     9.40%     1.03GB / 553MB    132MB / 1.75GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.56%     16.86MiB / 2.711GiB   0.61%     695kB / 868kB     78MB / 344kB      6
+===== 2026-06-17T14:40:44.6212695+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          18.31%    87.82MiB / 2.711GiB   3.16%     345MB / 8.62MB    22.8MB / 4.28MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            307.03%   309.1MiB / 2.711GiB   11.14%    576MB / 1.39GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.15%     193MiB / 2.711GiB     6.95%     35kB / 24.4kB     18.4MB / 1.75MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.13%     83.39MiB / 2.711GiB   3.00%     316kB / 167kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.18%     190.4MiB / 2.711GiB   6.86%     34.9kB / 24.4kB   10.1MB / 2.13MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.17MiB / 2.711GiB   2.89%     1.92kB / 126B     7.58MB / 41kB     1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.33%     169.3MiB / 2.711GiB   6.10%     472kB / 423kB     7.14MB / 60.4MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           7.51%     10.85MiB / 2.711GiB   0.39%     358MB / 365MB     10.9MB / 934kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              151.48%   269.1MiB / 2.711GiB   9.69%     1.04GB / 559MB    136MB / 1.76GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.66%     17.05MiB / 2.711GiB   0.61%     701kB / 878kB     78MB / 344kB      6
+===== 2026-06-17T14:40:52.0311188+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          8.00%     86.86MiB / 2.711GiB   3.13%     349MB / 8.7MB     22.8MB / 4.28MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            121.16%   309.8MiB / 2.711GiB   11.16%    582MB / 1.4GB     14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.12%     193MiB / 2.711GiB     6.95%     35kB / 24.4kB     18.4MB / 1.75MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     83.14MiB / 2.711GiB   3.00%     319kB / 168kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     190.4MiB / 2.711GiB   6.86%     34.9kB / 24.4kB   10.1MB / 2.13MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.58MB / 41kB     1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.06%     170MiB / 2.711GiB     6.13%     477kB / 427kB     7.14MB / 60.4MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           2.47%     10.88MiB / 2.711GiB   0.39%     361MB / 368MB     10.9MB / 934kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              42.57%    271.2MiB / 2.711GiB   9.77%     1.05GB / 565MB    137MB / 1.8GB     14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.51%     17.27MiB / 2.711GiB   0.62%     706kB / 885kB     78MB / 344kB      6
+===== 2026-06-17T14:40:59.2590065+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          15.65%    87.28MiB / 2.711GiB   3.14%     353MB / 8.81MB    22.8MB / 4.28MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            40.28%    310.2MiB / 2.711GiB   11.18%    589MB / 1.42GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.07%     193MiB / 2.711GiB     6.95%     35kB / 24.4kB     18.4MB / 1.75MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.02%     83.62MiB / 2.711GiB   3.01%     323kB / 170kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     190.4MiB / 2.711GiB   6.86%     34.9kB / 24.4kB   10.1MB / 2.13MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.58MB / 41kB     1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.06%     169.3MiB / 2.711GiB   6.10%     484kB / 432kB     7.14MB / 60.4MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           1.92%     10.61MiB / 2.711GiB   0.38%     366MB / 373MB     10.9MB / 934kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              17.99%    275MiB / 2.711GiB     9.91%     1.06GB / 572MB    141MB / 1.82GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.57%     16.88MiB / 2.711GiB   0.61%     713kB / 894kB     78MB / 344kB      6
+===== 2026-06-17T14:41:06.6698250+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          3.06%     87.41MiB / 2.711GiB   3.15%     357MB / 8.89MB    22.8MB / 4.3MB    2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            29.12%    311.7MiB / 2.711GiB   11.23%    595MB / 1.43GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     193MiB / 2.711GiB     6.95%     35kB / 24.4kB     18.4MB / 1.75MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.08%     83.36MiB / 2.711GiB   3.00%     328kB / 172kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.09%     190.2MiB / 2.711GiB   6.85%     34.9kB / 24.4kB   10.1MB / 2.4MB    5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.25MiB / 2.711GiB   2.89%     1.92kB / 126B     7.58MB / 41kB     1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.19%     169.6MiB / 2.711GiB   6.11%     490kB / 438kB     7.14MB / 60.6MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           1.02%     11.08MiB / 2.711GiB   0.40%     370MB / 377MB     10.9MB / 934kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              10.23%    276.8MiB / 2.711GiB   9.97%     1.07GB / 577MB    143MB / 1.84GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.62%     17.14MiB / 2.711GiB   0.62%     720kB / 905kB     78MB / 344kB      6
+===== 2026-06-17T14:41:13.9308695+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          16.24%    87.75MiB / 2.711GiB   3.16%     360MB / 8.95MB    22.8MB / 4.3MB    2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            266.96%   311.4MiB / 2.711GiB   11.22%    600MB / 1.44GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.07%     192.8MiB / 2.711GiB   6.95%     35kB / 24.4kB     18.4MB / 2.08MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.01%     82.85MiB / 2.711GiB   2.98%     331kB / 174kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.07%     189.8MiB / 2.711GiB   6.84%     34.9kB / 24.4kB   10.1MB / 2.59MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.24MiB / 2.711GiB   2.89%     1.92kB / 126B     7.58MB / 41kB     1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.06%     169.4MiB / 2.711GiB   6.10%     495kB / 442kB     7.14MB / 61.3MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.94%     10.3MiB / 2.711GiB    0.37%     373MB / 380MB     10.9MB / 942kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              95.81%    276.7MiB / 2.711GiB   9.97%     1.08GB / 582MB    143MB / 1.85GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.58%     16.77MiB / 2.711GiB   0.60%     726kB / 912kB     78MB / 344kB      6
+===== 2026-06-17T14:41:21.3408791+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          4.76%     87MiB / 2.711GiB      3.13%     362MB / 9.04MB    22.8MB / 4.31MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            11.13%    311.6MiB / 2.711GiB   11.22%    606MB / 1.46GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     192.8MiB / 2.711GiB   6.95%     35kB / 24.4kB     18.4MB / 2.08MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.11%     83.35MiB / 2.711GiB   3.00%     335kB / 175kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.08%     189.8MiB / 2.711GiB   6.84%     34.9kB / 24.4kB   10.1MB / 2.59MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.24MiB / 2.711GiB   2.89%     1.92kB / 126B     7.58MB / 41kB     1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.25%     168.7MiB / 2.711GiB   6.08%     501kB / 447kB     7.14MB / 61.3MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           1.65%     10.96MiB / 2.711GiB   0.40%     375MB / 383MB     10.9MB / 942kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              3.18%     277.6MiB / 2.711GiB   10.00%    1.09GB / 587MB    143MB / 1.86GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           0.50%     17.18MiB / 2.711GiB   0.62%     732kB / 921kB     78MB / 344kB      6
+===== 2026-06-17T14:41:28.1119143+01:00 =====
+CONTAINER ID   NAME                                                         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+f1a410a4dbd1   high-performance-e-commerce-backend-engine-locust-1          15.54%    87.87MiB / 2.711GiB   3.17%     367MB / 9.14MB    22.8MB / 4.31MB   2
+77dd71a4eee6   high-performance-e-commerce-backend-engine-web2-1            318.93%   311.4MiB / 2.711GiB   11.22%    614MB / 1.47GB    14.9MB / 12.2MB   13
+2012aaf0acda   high-performance-e-commerce-backend-engine-web1-1            0.09%     192.8MiB / 2.711GiB   6.95%     35kB / 24.4kB     18.4MB / 2.08MB   5
+ed700478c1a2   high-performance-e-commerce-backend-engine-flower-1          0.33%     83.11MiB / 2.711GiB   2.99%     339kB / 177kB     8.58MB / 0B       10
+dc8a52c8734f   high-performance-e-commerce-backend-engine-web3-1            0.10%     189.8MiB / 2.711GiB   6.84%     34.9kB / 24.4kB   10.1MB / 2.59MB   5
+98a0dfdc1186   high-performance-e-commerce-backend-engine-celery_beat-1     0.00%     80.24MiB / 2.711GiB   2.89%     1.92kB / 126B     7.58MB / 41kB     1
+1929d24dd078   high-performance-e-commerce-backend-engine-celery_worker-1   0.24%     168.7MiB / 2.711GiB   6.08%     505kB / 451kB     7.14MB / 61.3MB   5
+307badaa93b7   high-performance-e-commerce-backend-engine-nginx-1           4.42%     10.44MiB / 2.711GiB   0.38%     380MB / 387MB     10.9MB / 942kB    9
+68bc04f59a09   high-performance-e-commerce-backend-engine-db-1              111.30%   279.4MiB / 2.711GiB   10.07%    1.11GB / 595MB    144MB / 1.87GB    14
+48a24788b19c   high-performance-e-commerce-backend-engine-redis-1           4.41%     16.5MiB / 2.711GiB    0.59%     738kB / 931kB     78MB / 344kB      6

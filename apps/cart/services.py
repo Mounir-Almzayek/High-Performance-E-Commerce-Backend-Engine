@@ -34,8 +34,17 @@ class CartLocked(Exception):
 
 
 def get_or_create_cart(customer) -> Cart:
-    """Get or lazily create the customer's cart. Single-row INSERT, no lock."""
+    """Get or lazily create the customer's open cart.
+
+    The demo data model keeps one cart per customer. After checkout the order
+    has already snapshotted its items, so the same cart row can be reopened for
+    the next shopping session.
+    """
     cart, _ = Cart.objects.get_or_create(customer=customer)
+    if cart.status != Cart.OPEN:
+        CartItem.objects.filter(cart=cart).delete()
+        cart.status = Cart.OPEN
+        cart.save(update_fields=["status", "updated_at"])
     return cart
 
 
@@ -105,7 +114,7 @@ def update_item(*, customer, item_id: int, quantity: int) -> CartItem | None:
 
 @timed("cart.clear_cart")
 def clear_cart(*, customer) -> None:
-    """Mark the cart CHECKED_OUT. Single-statement update, no lock needed."""
-    Cart.objects.filter(customer=customer, status=Cart.OPEN).update(
-        status=Cart.CHECKED_OUT,
-    )
+    """Empty the current cart while keeping it open for the next add."""
+    cart = get_or_create_cart(customer)
+    CartItem.objects.filter(cart=cart).delete()
+    Cart.objects.filter(pk=cart.pk).update(status=Cart.OPEN)

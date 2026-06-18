@@ -175,3 +175,15 @@ RESOURCE_LIMITS = {
 # Identifier injected by docker-compose so logs can reveal which instance
 # served a given request (used by NFR5 / NFR10 reports).
 INSTANCE_ID = env("INSTANCE_ID", default="local")
+
+# Silk is useful for manual profiling, but it writes a row per request and can
+# distort stress-test results. Keep it off unless a benchmark explicitly needs
+# request-level profiling.
+SILKY_ENABLED = env.bool("SILKY_ENABLED", default=False)
+
+
+def _silky_intercept(request):
+    return SILKY_ENABLED
+
+
+SILKY_INTERCEPT_FUNC = _silky_intercept
