@@ -22,7 +22,11 @@ class ProductListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ["id", "sku", "name", "slug", "price", "currency", "category_name"]
+        fields = [
+            "id", "sku", "name", "slug", "price", "currency", "version",
+            "category_name",
+        ]
+        read_only_fields = ["version"]
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
@@ -38,3 +42,8 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "created_at", "updated_at",
         ]
         read_only_fields = ["version"]
+
+
+class UpdateProductPriceSerializer(serializers.Serializer):
+    price = serializers.DecimalField(max_digits=12, decimal_places=2)
+    expected_version = serializers.IntegerField(min_value=0)

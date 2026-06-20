@@ -7,6 +7,11 @@ Cache touchpoints (owned by NFR6):
  - update_product_price(product_id, ...)       [NFR6] writer must invalidate
                                                [NFR7] optimistic update
 """
+from django.db import transaction
+
+from core.cache.redis_cache import invalidate_product
+from core.concurrency.locks import bump_version
+
 from .models import Product
 
 
@@ -42,5 +47,22 @@ def update_product_price(*, product_id: int, new_price, expected_version: int):
     mismatch. After a successful update, must call
     core.cache.redis_cache.invalidate_product(product_id). [NFR6]
     """
-    # TODO [NFR7 + NFR6]: optimistic update + cache invalidation.
-    raise NotImplementedError("Concurrency owner must implement update_product_price")
+    with transaction.atomic():
+        bump_version(
+            Product,
+            pk=product_id,
+            expected_version=expected_version,
+            fields={"price": new_price},
+        )
+        product = Product.objects.get(pk=product_id)
+        transaction.on_commit(lambda: _invalidate_product_safely(product_id))
+
+    return product
+
+
+def _invalidate_product_safely(product_id: int) -> None:
+    """Allow product writes while the NFR6 cache invalidator is still a stub."""
+    try:
+        invalidate_product(product_id)
+    except NotImplementedError:
+        pass

@@ -1,11 +1,17 @@
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, status, viewsets
+from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.response import Response
 
+from core.concurrency.locks import StaleObjectError
+
+from . import services
 from .models import Category, Product
 from .serializers import (
     CategorySerializer,
     ProductDetailSerializer,
     ProductListSerializer,
+    UpdateProductPriceSerializer,
 )
 
 
@@ -41,3 +47,27 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
         if self.action == "retrieve":
             return ProductDetailSerializer
         return ProductListSerializer
+
+    @action(
+        detail=True,
+        methods=["patch"],
+        permission_classes=[permissions.IsAdminUser],
+        url_path="price",
+    )
+    def price(self, request, pk=None):
+        serializer = UpdateProductPriceSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            product = services.update_product_price(
+                product_id=int(pk),
+                new_price=serializer.validated_data["price"],
+                expected_version=serializer.validated_data["expected_version"],
+            )
+        except StaleObjectError:
+            return Response(
+                {"code": "stale_product_version"},
+                status=status.HTTP_409_CONFLICT,
+            )
+
+        return Response(ProductDetailSerializer(product).data)
