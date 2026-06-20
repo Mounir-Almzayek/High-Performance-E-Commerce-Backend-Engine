@@ -1,0 +1,30 @@
+{
+    "sourceFile": "docker-compose.yml",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1780750740397,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1780750813399,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n     command: [\"redis-server\", \"--appendonly\", \"yes\"]\r\n     volumes:\r\n       - redisdata:/data\r\n     ports:\r\n-      - \"6379:6379\"\r\n+          - \"6380:6379\"\r\n     healthcheck:\r\n       test: [\"CMD\", \"redis-cli\", \"ping\"]\r\n       interval: 5s\r\n       timeout: 3s\r\n"
+                },
+                {
+                    "date": 1780751203494,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}\r\n     volumes:\r\n       - pgdata:/var/lib/postgresql/data\r\n     ports:\r\n-  - \"5433:5432\"\r\n+      - \"5433:5432\"\r\n     healthcheck:\r\n       test: [\"CMD-SHELL\", \"pg_isready -U $${POSTGRES_USER}\"]\r\n       interval: 5s\r\n       timeout: 3s\r\n@@ -34,9 +34,9 @@\n     command: [\"redis-server\", \"--appendonly\", \"yes\"]\r\n     volumes:\r\n       - redisdata:/data\r\n     ports:\r\n-          - \"6380:6379\"\r\n+        - \"6380:6379\"\r\n     healthcheck:\r\n       test: [\"CMD\", \"redis-cli\", \"ping\"]\r\n       interval: 5s\r\n       timeout: 3s\r\n@@ -79,9 +79,9 @@\n     depends_on: [web1, web2, web3]\r\n     volumes:\r\n       - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro\r\n     ports:\r\n-      - \"80:80\"\r\n+      - \"8080:80\"\r\n \r\n   # ---- Celery (NFR3, NFR4) ----\r\n   celery_worker:\r\n     <<: *web\r\n"
+                },
+                {
+                    "date": 1780751460971,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n     command: [\"redis-server\", \"--appendonly\", \"yes\"]\r\n     volumes:\r\n       - redisdata:/data\r\n     ports:\r\n-        - \"6380:6379\"\r\n+      - \"6380:6379\"\r\n     healthcheck:\r\n       test: [\"CMD\", \"redis-cli\", \"ping\"]\r\n       interval: 5s\r\n       timeout: 3s\r\n"
+                }
+            ],
+            "date": 1780750740397,
+            "name": "Commit-0",
+            "content": "# ----------------------------------------------------------------------------\r\n# docker-compose.yml\r\n# Mirrors a production-like topology: Postgres + Redis + three Django instances\r\n# behind Nginx + Celery worker/beat + Locust.\r\n#\r\n# Non-functional requirements anchored here:\r\n#   [NFR2] Gunicorn worker/thread counts come from env vars.\r\n#   [NFR3] celery_worker / celery_beat run async tasks off the request path.\r\n#   [NFR4] celery_beat triggers the daily batch job.\r\n#   [NFR5] web1 + web2 + web3 behind nginx simulate horizontal load distribution.\r\n#   [NFR6] redis is shared across instances -> truly distributed cache.\r\n#   [NFR9] locust container drives 100+ concurrent virtual users.\r\n# ----------------------------------------------------------------------------\r\n\r\nservices:\r\n  db:\r\n    image: postgres:16-alpine\r\n    environment:\r\n      POSTGRES_DB: ${POSTGRES_DB}\r\n      POSTGRES_USER: ${POSTGRES_USER}\r\n      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}\r\n    volumes:\r\n      - pgdata:/var/lib/postgresql/data\r\n    ports:\r\n  - \"5433:5432\"\r\n    healthcheck:\r\n      test: [\"CMD-SHELL\", \"pg_isready -U $${POSTGRES_USER}\"]\r\n      interval: 5s\r\n      timeout: 3s\r\n      retries: 10\r\n\r\n  redis:\r\n    image: redis:7-alpine\r\n    command: [\"redis-server\", \"--appendonly\", \"yes\"]\r\n    volumes:\r\n      - redisdata:/data\r\n    ports:\r\n      - \"6379:6379\"\r\n    healthcheck:\r\n      test: [\"CMD\", \"redis-cli\", \"ping\"]\r\n      interval: 5s\r\n      timeout: 3s\r\n      retries: 10\r\n\r\n  # ---- Three Django instances behind Nginx (NFR5 — web3 added by Dev 5) ----\r\n  web1: &web\r\n    build:\r\n      context: .\r\n      dockerfile: docker/Dockerfile\r\n    env_file: .env\r\n    environment:\r\n      INSTANCE_ID: web1\r\n    depends_on:\r\n      db: { condition: service_healthy }\r\n      redis: { condition: service_healthy }\r\n    expose:\r\n      - \"8000\"\r\n    ports:\r\n      - \"8001:8000\"\r\n    command: [\"/app/docker/entrypoint.sh\", \"gunicorn\"]\r\n\r\n  web2:\r\n    <<: *web\r\n    environment:\r\n      INSTANCE_ID: web2\r\n    ports:\r\n      - \"8002:8000\"\r\n\r\n  # NFR5: third instance added by Developer 5 for 3-backend least_conn demo\r\n  web3:\r\n    <<: *web\r\n    environment:\r\n      INSTANCE_ID: web3\r\n    ports:\r\n      - \"8003:8000\"\r\n\r\n  nginx:\r\n    image: nginx:1.27-alpine\r\n    depends_on: [web1, web2, web3]\r\n    volumes:\r\n      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro\r\n    ports:\r\n      - \"80:80\"\r\n\r\n  # ---- Celery (NFR3, NFR4) ----\r\n  celery_worker:\r\n    <<: *web\r\n    ports: []\r\n    expose: []\r\n    command: [\"/app/docker/entrypoint.sh\", \"celery-worker\"]\r\n\r\n  celery_beat:\r\n    <<: *web\r\n    ports: []\r\n    expose: []\r\n    command: [\"/app/docker/entrypoint.sh\", \"celery-beat\"]\r\n\r\n  flower:\r\n    <<: *web\r\n    ports:\r\n      - \"5555:5555\"\r\n    expose: []\r\n    command: [\"/app/docker/entrypoint.sh\", \"flower\"]\r\n\r\n  # ---- Locust load generator (NFR9) ----\r\n  locust:\r\n    build:\r\n      context: .\r\n      dockerfile: docker/Dockerfile\r\n    env_file: .env\r\n    depends_on: [nginx]\r\n    volumes:\r\n      - ./tests/stress:/app/tests/stress\r\n    command: [\"locust\", \"-f\", \"/app/tests/stress/locustfile.py\", \"--host\", \"http://nginx\"]\r\n    ports:\r\n      - \"8089:8089\"\r\n\r\nvolumes:\r\n  pgdata:\r\n  redisdata:\r\n"
+        }
+    ]
+}

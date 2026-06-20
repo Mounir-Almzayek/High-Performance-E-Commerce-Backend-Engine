@@ -117,13 +117,20 @@ def send_low_stock_alert(product_id: int) -> None:
 @shared_task(name="tasks.notifications.warm_product_cache")
 def warm_product_cache() -> None:
     """
-    Periodic cache warming task (NOT part of NFR3).
+    Periodic cache warming task — NFR6.
+
+    Runs every 15 minutes (beat schedule in tasks/__init__.py). Calls
+    core.cache.redis_cache.prefetch_top_products which:
+      1. Acquires a distributed Redis lock to ensure exactly ONE worker
+         instance runs the warmer even when celery_worker is scaled.
+      2. Fetches the top-100 products by order volume.
+      3. Populates ``product:{id}`` keys with the read-through helper.
+
+    If the lock is already held by another node, the task exits silently
+    (the other node is doing the work).
     """
+    from core.cache.redis_cache import prefetch_top_products
 
-    logger.info(" Starting cache warming")
-
-    time.sleep(2)
-
-    logger.info("Product cache warmed")
-
-    return None
+    logger.info("cache_warmer.starting")
+    warmed = prefetch_top_products(n=100)
+    logger.info("cache_warmer.done", extra={"warmed": warmed})

@@ -3,6 +3,7 @@ import threading
 import time
 
 from django.conf import settings
+from django_redis import get_redis_connection
 from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -14,12 +15,6 @@ _PROCESS_STARTED_AT = time.time()
 
 
 def _read_proc_status() -> dict[str, int | None]:
-    """Return Linux /proc process metrics when available.
-
-    Docker demo containers run on Linux, so /proc gives us CPU/RAM/thread
-    evidence without adding another runtime dependency. Local Windows runs
-    simply return None for Linux-only fields.
-    """
     metrics: dict[str, int | None] = {
         "rss_kb": None,
         "peak_rss_kb": None,
@@ -49,8 +44,6 @@ def _load_average() -> list[float] | None:
 
 
 class PoolDiagnosticsView(APIView):
-    """Expose live process-local capacity counters for NFR2."""
-
     permission_classes = [permissions.AllowAny]
 
     def get(self, request):
@@ -71,8 +64,6 @@ class PoolDiagnosticsView(APIView):
 
 
 class ProcessDiagnosticsView(APIView):
-    """Expose process-level CPU/RAM/thread counters for NFR2 monitoring."""
-
     permission_classes = [permissions.AllowAny]
 
     def get(self, request):
@@ -106,18 +97,7 @@ class ProcessDiagnosticsView(APIView):
 
 
 class InstanceView(APIView):
-    """
-    GET /api/v1/instance/
-    Lightweight endpoint that identifies which backend served this request.
-    Used by NFR5 distribution scripts and the load_distribution_sim metrics
-    poller to confirm Nginx is routing across all instances.
-
-    Note: X-Instance-Id is also added to every response by PerformanceMiddleware,
-    so this endpoint is an explicit human-readable alternative.
-    """
-
     permission_classes = [permissions.AllowAny]
-
     def get(self, request):
         return Response(
             {
@@ -129,3 +109,45 @@ class InstanceView(APIView):
                 ),
             }
         )
+
+
+class CacheDiagnosticsView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        try:
+            conn = get_redis_connection("default")
+            info = conn.info()
+
+            hits = info.get("keyspace_hits", 0)
+            misses = info.get("keyspace_misses", 0)
+            total = hits + misses
+            hit_ratio = round(hits / total, 4) if total > 0 else 0.0
+
+            def count_keys(pattern: str) -> int:
+                cursor, keys = conn.scan(cursor=0, match=pattern, count=500)
+                total_keys = len(keys)
+                while cursor:
+                    cursor, batch = conn.scan(cursor=cursor, match=pattern, count=500)
+                    total_keys += len(batch)
+                return total_keys
+
+            return Response({
+                "instance_id": settings.INSTANCE_ID,
+                "redis": {
+                    "used_memory_human": info.get("used_memory_human"),
+                    "connected_clients": info.get("connected_clients"),
+                    "keyspace_hits": hits,
+                    "keyspace_misses": misses,
+                    "hit_ratio": hit_ratio,
+                },
+                "key_counts": {
+                    "product_detail": count_keys("product:[0-9]*"),
+                    "product_list": count_keys("product:list:*"),
+                    "cart": count_keys("cart:*"),
+                    "inventory_level": count_keys("inventory:level:*"),
+                    "rebuild_locks": count_keys("sflock:*"),
+                },
+            })
+        except Exception as exc:  # noqa: BLE001
+            return Response({"error": str(exc)}, status=503)

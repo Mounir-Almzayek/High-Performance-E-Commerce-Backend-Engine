@@ -31,6 +31,7 @@ from django.db import transaction
 from django.db.models import F
 
 from core.aop.decorators import audit_log, timed
+from core.cache.redis_cache import invalidate_inventory
 
 from .models import StockItem, StockMovement
 
@@ -89,6 +90,30 @@ def _lock_one(product_id: int) -> StockItem:
 # ----------------------------- public API ---------------------------------
 
 
+def get_level(product_id: int) -> dict:
+    """
+    Return the current stock level for a product.
+
+    Cached with TTL_INVENTORY_LEVEL (5 seconds). The very short TTL means
+    the cache only absorbs burst reads — it is NOT a substitute for the
+    pessimistic-locked write path. Invalidated by every stock mutation via
+    invalidate_inventory on_commit.
+
+    Returns a dict: {"on_hand": int, "reserved": int, "available": int}
+    """
+    from core.cache.redis_cache import TTL_INVENTORY_LEVEL, cache_get_or_set
+
+    key = f"inventory:level:{product_id}"
+
+    def _fetch() -> dict:
+        si = StockItem.objects.select_related("product").get(product_id=product_id)
+        return {"on_hand": si.on_hand, "reserved": si.reserved, "available": si.available}
+
+    return cache_get_or_set(key=key, builder=_fetch, ttl=TTL_INVENTORY_LEVEL)
+
+
+
+
 @timed("inventory.reserve_stock")
 @audit_log("inventory.reserve_stock")
 @transaction.atomic
@@ -114,6 +139,8 @@ def reserve_stock(*, product_id: int, qty: int, reference: str) -> None:
         quantity=qty,
         reference=reference,
     )
+    # Invalidate inventory-level cache on commit so the next reader sees fresh data.
+    transaction.on_commit(lambda pid=product_id: invalidate_inventory(pid))
     # Adjust si to reflect the pending update so _alert_if_low sees the right value.
     si.reserved += qty
     _alert_if_low(si)
@@ -141,6 +168,7 @@ def release_stock(*, product_id: int, qty: int, reference: str) -> None:
         quantity=-qty,
         reference=reference,
     )
+    transaction.on_commit(lambda pid=product_id: invalidate_inventory(pid))
 
 
 @timed("inventory.consume_stock")
@@ -171,6 +199,7 @@ def consume_stock(*, product_id: int, qty: int, reference: str) -> None:
     )
     si.on_hand -= qty
     si.reserved -= qty
+    transaction.on_commit(lambda pid=product_id: invalidate_inventory(pid))
     _alert_if_low(si)
 
 
@@ -191,6 +220,7 @@ def restock(*, product_id: int, qty: int, reference: str) -> None:
         quantity=qty,
         reference=reference,
     )
+    transaction.on_commit(lambda pid=product_id: invalidate_inventory(pid))
 
 
 @timed("inventory.bulk_reserve")
@@ -263,3 +293,6 @@ def bulk_reserve(*, items: list[tuple[int, int]], reference: str) -> None:
             reference=reference,
         ))
     StockMovement.objects.bulk_create(movements)
+    # Invalidate inventory-level cache for every product touched by this bulk reserve.
+    for pid, _ in sorted_items:
+        transaction.on_commit(lambda p=pid: invalidate_inventory(p))

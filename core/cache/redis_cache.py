@@ -1,159 +1,232 @@
 """
-Distributed cache layer - [NFR6].
+Distributed cache layer - NFR6.
 
-Goals:
-  - Cut DB pressure on the hottest read paths (catalog browse, product
-    detail) by serving them from Redis.
-  - Keep cache invalidation honest: every writer to a cached entity must
-    invalidate via the helpers here, never directly via cache.delete().
-
-Public surface (filled in by NFR6 owner):
-
-  - cache_get_or_set(key, builder, ttl)
-        Read-through cache. `builder` is a zero-arg callable that produces
-        the value on a miss.
-
-  - invalidate_product(product_id)
-        Removes every key derived from this product (detail, listing
-        pages, search results that include it).
-
-  - prefetch_top_products(n=100)
-        Warmer used by tasks/notifications.py on a schedule so the cache
-        is hot before peak traffic.
-
-Cache key conventions (centralized to avoid drift across callers):
-
-  Pattern                                Owner
-  -----------------------------------------------------------------
-  product:{id}                           apps.products
-  product:list:{filter_hash}:p{page}     apps.products
-  cart:{user_id}                         apps.cart
-  inventory:level:{product_id}           apps.inventory  (short TTL!)
-  rate:{user_id}:{endpoint}              apps.users      (rate limiting)
+Redis stores shared cache entries for all Django instances. Hot catalogue reads
+use read-through caching with a soft-TTL and a short Redis single-flight lock so
+only one request rebuilds an expired key while the rest serve stale data or wait
+briefly for the refreshed value.
 """
-from typing import Any, Callable
+from __future__ import annotations
+
+import json
+import logging
 import time
+import uuid
+from typing import Any, Callable
+
 from django.core.cache import cache
 from django_redis import get_redis_connection
-from django.conf import settings
 
-# TTLs grouped here so they can be tuned in one place.
-TTL_PRODUCT_DETAIL = 60 * 10        # 10 minutes
-TTL_PRODUCT_LIST = 60 * 2           # 2 minutes
-TTL_INVENTORY_LEVEL = 5             # 5 seconds (must be small - hot data)
-TTL_CART = 60 * 60                  # 1 hour
+logger = logging.getLogger("core.cache")
+
+TTL_PRODUCT_DETAIL = 60 * 10
+TTL_PRODUCT_LIST = 60 * 2
+TTL_INVENTORY_LEVEL = 5
+TTL_CART = 60 * 60
+
+SOFT_TTL_LEAD_SECONDS = 30
+_REBUILD_LOCK_MS = 3_000
+_LOCK_WAIT_POLL_MS = 50
+_REBUILD_LOCK_PREFIX = "sflock:"
+_WARMER_TOP_N = 100
+_WARMER_LOCK_KEY = "lock:cache_warmer:product"
+_WARMER_LOCK_MS = 60_000
+
+
+def _wrap(value: Any, ttl: int) -> str:
+    """Serialise a value with soft-expiry metadata."""
+    return json.dumps({
+        "value": value,
+        "expires_at": time.time() + ttl - SOFT_TTL_LEAD_SECONDS,
+    })
+
+
+def _unwrap(raw: str | None) -> tuple[Any | None, bool]:
+    if raw is None:
+        return None, False
+    try:
+        obj = json.loads(raw)
+        return obj["value"], time.time() >= obj["expires_at"]
+    except (TypeError, json.JSONDecodeError, KeyError):
+        logger.warning("cache.corrupted_entry", extra={"raw_prefix": str(raw)[:64]})
+        return None, False
+
+
+def _acquire_rebuild_lock(key: str) -> str | None:
+    conn = get_redis_connection("default")
+    token = uuid.uuid4().hex
+    acquired = conn.set(f"{_REBUILD_LOCK_PREFIX}{key}", token, nx=True, px=_REBUILD_LOCK_MS)
+    return token if acquired else None
+
+
+def _release_rebuild_lock(key: str, token: str) -> None:
+    lua_release = """
+if redis.call('get', KEYS[1]) == ARGV[1] then
+    return redis.call('del', KEYS[1])
+else
+    return 0
+end
+"""
+    try:
+        conn = get_redis_connection("default")
+        conn.eval(lua_release, 1, f"{_REBUILD_LOCK_PREFIX}{key}", token)
+    except Exception:
+        logger.exception("cache.rebuild_lock_release_failed", extra={"key": key})
 
 
 def cache_get_or_set(key: str, builder: Callable[[], Any], ttl: int) -> Any:
-    """Read-through cache helper.
+    """Read-through cache helper with soft-TTL single-flight rebuild."""
+    raw = cache.get(key)
+    value, soft_expired = _unwrap(raw)
 
-    NFR6 owner: implement using django.core.cache.cache, with a guard
-    against the thundering-herd problem (consider a short-lived lock or
-    `cache.add()` semantics).
-    """
-    # Simple read-through with a short-lived lock to avoid thundering-herd.
-    # Behavior:
-    # 1. Try cache.get()
-    # 2. If miss, attempt to acquire a lightweight lock using cache.add(lock_key).
-    #    - If acquired: run builder(), set cache, release lock
-    #    - If not acquired: poll until value appears or timeout
+    if value is not None and not soft_expired:
+        logger.debug("cache.hit", extra={"key": key})
+        return value
 
-    val = cache.get(key)
-    if val is not None:
-        return val
+    rebuild_token: str | None = None
 
-    lock_key = f"lock:{key}"
-    # How long to wait for the builder to populate the cache (seconds)
-    wait_timeout = float(getattr(settings, "CACHE_BUILDER_WAIT_SECONDS", 5))
-    wait_until = time.monotonic() + wait_timeout
-
-    # Try to become the builder
-    acquired = cache.add(lock_key, "1", timeout=5)
-    if acquired:
-        try:
-            # Double-check after acquiring lock
-            val = cache.get(key)
-            if val is not None:
-                return val
-            result = builder()
-            # Allow None values to be cached explicitly; use cache.set
-            cache.set(key, result, ttl)
-            return result
-        finally:
-            try:
-                cache.delete(lock_key)
-            except Exception:
-                # Never fail the request because a lock cleanup failed
-                pass
+    if value is not None and soft_expired:
+        rebuild_token = _acquire_rebuild_lock(key)
+        if rebuild_token is None:
+            logger.debug("cache.stale_serve", extra={"key": key})
+            return value
+        logger.debug("cache.soft_expired_rebuilding", extra={"key": key})
     else:
-        # Wait for the builder to populate the cache (polling)
-        while time.monotonic() < wait_until:
-            val = cache.get(key)
-            if val is not None:
-                return val
-            time.sleep(0.05)
-        # Last-resort: become a builder to avoid endless staleness
-        acquired = cache.add(lock_key, "1", timeout=5)
-        if acquired:
-            try:
-                result = builder()
-                cache.set(key, result, ttl)
-                return result
-            finally:
-                try:
-                    cache.delete(lock_key)
-                except Exception:
-                    pass
-        # As fallback, call builder without caching
-        return builder()
+        rebuild_token = _acquire_rebuild_lock(key)
+        if rebuild_token is None:
+            deadline = time.monotonic() + (_REBUILD_LOCK_MS / 1000.0)
+            while time.monotonic() < deadline:
+                time.sleep(_LOCK_WAIT_POLL_MS / 1000.0)
+                raw = cache.get(key)
+                value, soft_expired = _unwrap(raw)
+                if value is not None and not soft_expired:
+                    logger.debug("cache.hit_after_wait", extra={"key": key})
+                    return value
+            rebuild_token = _acquire_rebuild_lock(key)
+        logger.debug("cache.miss", extra={"key": key})
+
+    try:
+        fresh_value = builder()
+        cache.set(key, _wrap(fresh_value, ttl), timeout=ttl)
+        logger.debug("cache.populated", extra={"key": key, "ttl": ttl})
+        return fresh_value
+    finally:
+        if rebuild_token is not None:
+            _release_rebuild_lock(key, rebuild_token)
 
 
 def invalidate_product(product_id: int) -> None:
-    """Remove every cache key that depends on this product."""
-    # Use Django's cache API so key prefixes/versioning match cache.set/get.
-    try:
-        cache.delete(f"product:{product_id}")
-        cache.delete(f"inventory:level:{product_id}")
+    """Remove product detail, product list, and inventory-level cache entries."""
+    detail_key = f"product:{product_id}"
+    list_pattern = "product:list:*"
+    inventory_key = f"inventory:level:{product_id}"
 
+    try:
+        cache.delete(detail_key)
         delete_pattern = getattr(cache, "delete_pattern", None)
         if delete_pattern is not None:
-            delete_pattern("product:list:*")
+            delete_pattern(list_pattern)
         else:
             conn = get_redis_connection("default")
-            keys = list(conn.scan_iter(match="*product:list:*", count=1000))
+            keys = list(conn.scan_iter(match=f"*{list_pattern}", count=1000))
             if keys:
                 conn.delete(*keys)
+        cache.delete(inventory_key)
+        logger.info(
+            "cache.invalidated",
+            extra={"product_id": product_id, "patterns": [detail_key, list_pattern, inventory_key]},
+        )
     except Exception:
-        # Swallow to avoid bringing down writers; log is left to caller's logger
-        pass
+        logger.exception("cache.invalidation_failed", extra={"product_id": product_id})
 
 
-def prefetch_top_products(n: int = 100) -> None:
-    """Warm the cache for the top-N products. Called by a scheduled task."""
-    # Query the top-N products (by a heuristic) and populate their detail
-    # cache entries. This function performs best-effort warmup and must be
-    # idempotent and inexpensive relative to peak traffic.
+def invalidate_cart(user_id: int) -> None:
+    """Remove the cached cart representation for a customer."""
     try:
-        from apps.products.models import Product
-
-        qs = Product.objects.order_by("-popularity")[:n]
-        for p in qs:
-            key = f"product:{p.id}"
-
-            def _build(p=p):
-                # A compact serializable representation expected by callers
-                return {
-                    "id": p.id,
-                    "title": getattr(p, "title", None),
-                    "price": getattr(p, "price", None),
-                }
-
-            # Use a short TTL for detail warm cache
-            try:
-                cache_get_or_set(key, _build, TTL_PRODUCT_DETAIL)
-            except Exception:
-                # Best-effort: ignore failures
-                continue
+        cache.delete(f"cart:{user_id}")
+        logger.debug("cache.cart_invalidated", extra={"user_id": user_id})
     except Exception:
-        # If Product model is not present or DB inaccessible, silently skip
-        pass
+        logger.exception("cache.cart_invalidation_failed", extra={"user_id": user_id})
+
+
+def invalidate_inventory(product_id: int) -> None:
+    """Remove the inventory-level cache entry for a product."""
+    try:
+        cache.delete(f"inventory:level:{product_id}")
+        logger.debug("cache.inventory_invalidated", extra={"product_id": product_id})
+    except Exception:
+        logger.exception("cache.inventory_invalidation_failed", extra={"product_id": product_id})
+
+
+def prefetch_top_products(n: int = _WARMER_TOP_N) -> int:
+    """Warm popular product detail entries, with one worker elected by Redis."""
+    from core.concurrency.locks import LockNotAcquired, distributed_lock
+
+    try:
+        with distributed_lock(_WARMER_LOCK_KEY, timeout_ms=_WARMER_LOCK_MS, blocking=False):
+            return _do_prefetch_top_products(n)
+    except LockNotAcquired:
+        logger.info("cache.warmer_skipped_lock_held")
+        return 0
+
+
+def _do_prefetch_top_products(n: int) -> int:
+    from apps.orders.models import Order, OrderItem
+    from apps.products.models import Product
+
+    top_ids = list(
+        OrderItem.objects
+        .filter(order__status__in=[Order.PAID, Order.SHIPPED, Order.DELIVERED])
+        .values_list("product_id", flat=True)
+        .order_by()
+        .distinct()[:n]
+    )
+
+    if len(top_ids) < n:
+        extra_ids = list(
+            Product.objects
+            .filter(status=Product.ACTIVE)
+            .exclude(pk__in=top_ids)
+            .order_by("-created_at")
+            .values_list("pk", flat=True)[: n - len(top_ids)]
+        )
+        top_ids += extra_ids
+
+    warmed = 0
+    for product_id in top_ids:
+        try:
+            cache_get_or_set(
+                key=f"product:{product_id}",
+                builder=lambda pid=product_id: _build_product_detail(pid),
+                ttl=TTL_PRODUCT_DETAIL,
+            )
+            warmed += 1
+        except Exception:
+            logger.exception("cache.warmer_product_failed", extra={"product_id": product_id})
+
+    logger.info("cache.warmer_done", extra={"warmed": warmed})
+    return warmed
+
+
+def _build_product_detail(product_id: int) -> dict:
+    from apps.products.models import Product
+    from apps.products.serializers import ProductDetailSerializer
+
+    product = (
+        Product.objects
+        .select_related("category")
+        .prefetch_related("images")
+        .get(pk=product_id)
+    )
+    return dict(ProductDetailSerializer(product).data)
+
+
+def get_or_build_product_list(
+    *,
+    filter_hash: str,
+    page: int,
+    builder: Callable[[], list[dict]],
+) -> list[dict]:
+    """Read-through helper for cached product list pages."""
+    key = f"product:list:{filter_hash}:p{page}"
+    return cache_get_or_set(key=key, builder=builder, ttl=TTL_PRODUCT_LIST)
